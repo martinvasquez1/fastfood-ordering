@@ -11,15 +11,14 @@ import { AuthModule } from 'src/auth/auth.module';
 import { DataSource } from 'typeorm';
 import cleanDatabase from './util/clean-database';
 
-const adminDto = {
-  username: 'admin',
-  email: 'admin@admin.com',
+const dto = {
+  username: 'user',
+  email: 'user@user.com',
   password: '123',
-  role: UserRole.ADMIN,
 };
 
-let admin: User;
-let adminToken: string;
+let user: User;
+let userToken: string;
 
 describe('/users', () => {
   let app: INestApplication;
@@ -28,15 +27,14 @@ describe('/users', () => {
 
   async function populateDatabase() {
     const { body } = await request(app.getHttpServer())
-      .post('/auth/sign-up/admin')
-      .set('create-admin-password', process.env.CREATE_ADMIN_PASSWORD!)
-      .send(adminDto);
-    adminToken = body.accessToken;
+      .post('/auth/sign-up')
+      .send(dto);
+    userToken = body.accessToken;
 
     const { body: getBody } = await request(app.getHttpServer())
       .get(`/users/1`)
-      .set('Authorization', `Bearer ${adminToken}`);
-    admin = getBody;
+      .set('Authorization', `Bearer ${userToken}`);
+    user = getBody;
   }
 
   beforeAll(async () => {
@@ -65,28 +63,28 @@ describe('/users', () => {
   describe('GET /users/:id', () => {
     it('should return a user by id', async () => {
       const { body } = await request(app.getHttpServer())
-        .get(`/users/${admin.id}`)
-        .set('Authorization', `Bearer ${adminToken}`)
+        .get(`/users/${user.id}`)
+        .set('Authorization', `Bearer ${userToken}`)
         .expect(200);
 
-      expect(body).toEqual(admin);
+      expect(body).toEqual(user);
     });
 
     it('should return 404 for non-existent user', async () => {
       await request(app.getHttpServer())
         .get(`/users/777`)
-        .set('Authorization', `Bearer ${adminToken}`)
+        .set('Authorization', `Bearer ${userToken}`)
         .expect(404);
     });
   });
 
   describe('PATCH /users/:id', () => {
     it('should update a user', async () => {
-      const expectedUser = { ...admin, username: 'newName' };
+      const expectedUser = { ...user, username: 'newName' };
 
       const { body } = await request(app.getHttpServer())
-        .patch(`/users/${admin.id}`)
-        .set('Authorization', `Bearer ${adminToken}`)
+        .patch(`/users/${user.id}`)
+        .set('Authorization', `Bearer ${userToken}`)
         .send({ username: expectedUser.username })
         .expect(200);
 
@@ -96,7 +94,7 @@ describe('/users', () => {
     it('should return 404 for non-existent user', async () => {
       await request(app.getHttpServer())
         .patch(`/users/777`)
-        .set('Authorization', `Bearer ${adminToken}`)
+        .set('Authorization', `Bearer ${userToken}`)
         .send({ username: 'something' })
         .expect(404);
     });
@@ -105,29 +103,29 @@ describe('/users', () => {
   describe('DELETE /users/:id', () => {
     it('should delete a user', async () => {
       await request(app.getHttpServer())
-        .delete(`/users/${admin.id}`)
-        .set('Authorization', `Bearer ${adminToken}`)
+        .delete(`/users/${user.id}`)
+        .set('Authorization', `Bearer ${userToken}`)
         .expect(200);
 
       await request(app.getHttpServer())
-        .delete(`/users/${admin.id}`)
-        .set('Authorization', `Bearer ${adminToken}`)
+        .delete(`/users/${user.id}`)
+        .set('Authorization', `Bearer ${userToken}`)
         .expect(404);
     });
 
     it('should return deleted user', async () => {
       const { body } = await request(app.getHttpServer())
-        .delete(`/users/${admin.id}`)
-        .set('Authorization', `Bearer ${adminToken}`)
+        .delete(`/users/${user.id}`)
+        .set('Authorization', `Bearer ${userToken}`)
         .expect(200);
 
-      expect(body).toEqual(admin);
+      expect(body).toEqual(user);
     });
 
     it('should return 404 for non-existent user', async () => {
       await request(app.getHttpServer())
         .delete(`/users/777`)
-        .set('Authorization', `Bearer ${adminToken}`)
+        .set('Authorization', `Bearer ${userToken}`)
         .expect(404);
     });
   });
