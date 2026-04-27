@@ -3,6 +3,10 @@
   "compilerOptions": {
     "outDir": "./dist",
     "strictNullChecks": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+
+    "paths": {
+      "src/*": ["./src/*"]
+    }
   }
 }
