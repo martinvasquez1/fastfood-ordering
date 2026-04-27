@@ -4,14 +4,10 @@ import {
   HttpCode,
   HttpStatus,
   Post,
-  Headers,
-  HttpException,
 } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
 import { Public } from './decorators/public.decorator';
-
-import { UserRole } from 'src/users/entities/user.entity';
 
 import { SignInDto } from './dto/signIn.dto';
 import { SignUpDto } from './dto/signUp.dto';
@@ -32,23 +28,6 @@ export class AuthController {
   @ApiOperation({ operationId: 'signUp' })
   signUp(@Body() signUpDto: SignUpDto): Promise<SignUpResponseDto> {
     return this.authService.signUp(signUpDto);
-  }
-
-  @Public()
-  @HttpCode(HttpStatus.CREATED)
-  @Post('sign-up/admin')
-  @ApiOperation({ operationId: 'signUpAdmin' })
-  signUpAdmin(
-    @Body() signUpDto: SignUpDto,
-    @Headers() headers: any,
-  ): Promise<SignUpResponseDto> {
-    const createAdminPassword = Number(headers['create-admin-password']);
-    const expectedAdminPassword = Number(process.env.CREATE_ADMIN_PASSWORD);
-
-    if (createAdminPassword !== expectedAdminPassword)
-      throw new HttpException('Invalid admin password', HttpStatus.FORBIDDEN);
-
-    return this.authService.signUp(signUpDto, UserRole.ADMIN);
   }
 
   @Public()
