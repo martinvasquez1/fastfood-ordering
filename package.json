@@ -11,6 +11,8 @@
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.5.2",
+    "@commitlint/config-conventional": "^20.5.0",
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
     "prettier": "^3.7.4",
