@@ -1,5 +1,4 @@
 import { Button } from "@repo/ui/button";
-import { Card } from "@repo/ui/card";
 
 import { Heart } from 'lucide-react';
 
