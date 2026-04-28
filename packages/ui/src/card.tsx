@@ -1,27 +1,18 @@
-import { type JSX } from "react";
+"use client";
 
-export function Card({
-  className,
-  title,
-  children,
-  href,
-}: {
-  className?: string;
+import { ReactNode } from "react";
+import styles from "./card.module.css"
+
+interface CardProps {
   title: string;
-  children: React.ReactNode;
-  href: string;
-}): JSX.Element {
+  children: ReactNode;
+}
+
+export const Card = ({ title, children }: CardProps ) => {
   return (
-    <a
-      className={className}
-      href={`${href}?utm_source=create-turbo&utm_medium=basic&utm_campaign=create-turbo"`}
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <h2>
-        {title} <span>-&gt;</span>
-      </h2>
+    <div className={styles.card}>
+      <h2>{title}</h2>
       <p>{children}</p>
-    </a>
+    </div>
   );
 }
