@@ -5,7 +5,7 @@ import { Heart } from 'lucide-react';
 export default function Home() {
   return (
     <div>
-      <h1>This is apps/web</h1>
+      <h1>This is apps/delivery</h1>
 
       <Button>Button from UI package</Button>
       <Button disabled>Button from UI package</Button>
