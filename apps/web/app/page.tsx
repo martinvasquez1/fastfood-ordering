@@ -15,8 +15,6 @@ export default function Home() {
       <Button variant="destructive">Button from UI package</Button>
 
       <Button variant="icon"><Heart size={24} color="red" /></Button>
-
-      <Card title="Title">Lorem</Card>
     </div>
   );
 }
