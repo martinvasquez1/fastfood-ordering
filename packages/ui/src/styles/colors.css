@@ -210,7 +210,8 @@
     --primary-hover: var(--blue-500);
     --primary-content: var(--slate-50);
 
-    --secondary: var(--orange-500);
+    --secondary: var(--amber-500);
+    --secondary-hover: var(--amber-400);
     --secondary-content: var(--slate-50);
 
     --base-100: var(--white);
@@ -240,7 +241,8 @@
     --warning-content: var(--yellow-600);
     --warning-border: var(--yellow-400);
 
-    --error: var(--red-100);
-    --error-content: var(--red-400);
+    --error: var(--red-600);
+    --error-hover: var(--red-500);
+    --error-content: var(--red-50);
     --error-border: var(--red-300);
 }
