@@ -6,15 +6,11 @@ import styles from "./button.module.css"
 interface ButtonProps {
   children: ReactNode;
   className?: string;
-  appName: string;
 }
 
-export const Button = ({ children, className, appName }: ButtonProps) => {
+export const Button = ({ children, className }: ButtonProps) => {
   return (
-    <button
-      className={styles.button}
-      onClick={() => alert(`Hello from your ${appName} app!`)}
-    >
+    <button className={styles.button}>
       {children}
     </button>
   );
