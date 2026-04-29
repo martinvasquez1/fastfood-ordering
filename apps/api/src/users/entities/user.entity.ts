@@ -9,7 +9,7 @@ export enum UserRole {
   BASIC = 'basic',
 }
 
-@Entity()
+@Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
@@ -22,9 +22,6 @@ export class User {
 
   @Column()
   password: string;
-
-  @Column({ type: 'text', nullable: true })
-  profilePicture: string | null;
 
   @Column({ type: 'enum', enum: UserRole, default: UserRole.BASIC })
   role: UserRole;
