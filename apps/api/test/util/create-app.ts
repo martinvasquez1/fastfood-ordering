@@ -1,8 +1,6 @@
 import { Test } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
-import { User } from 'src/users/entities/user.entity';
 import { ConfigModule } from '@nestjs/config';
 
 export async function createApp(
@@ -16,7 +14,7 @@ export async function createApp(
       TypeOrmModule.forRoot({
         type: 'postgres',
         url: dbURL,
-        entities: [User],
+        autoLoadEntities: true,
         synchronize: true,
       }),
     ],
