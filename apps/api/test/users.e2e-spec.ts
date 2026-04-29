@@ -88,7 +88,8 @@ describe('/users', () => {
         .send({ username: expectedUser.username })
         .expect(200);
 
-      expect(body).toEqual(expectedUser);
+      const expected = { ...expectedUser, updatedAt: expect.any(String)}
+      expect(body).toEqual(expected);
     });
 
     it('should return 404 for non-existent user', async () => {
