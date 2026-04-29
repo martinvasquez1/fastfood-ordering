@@ -3,11 +3,13 @@ import {
   CreateDateColumn,
   Entity,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 import { UserRole } from 'src/roles/user-role.entity';
+import { Driver } from 'src/driver/driver.entity';
 
 @Entity('users')
 export class User {
@@ -23,12 +25,15 @@ export class User {
   @Column()
   password: string;
 
+  @OneToMany(() => UserRole, (userRole) => userRole.user)
+  userRoles: UserRole[];
+
+  @OneToOne(() => Driver, driver => driver.user)
+  driver?: Driver;
+
   @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;
-
-  @OneToMany(() => UserRole, (userRole) => userRole.user)
-  userRoles: UserRole[];
 }
