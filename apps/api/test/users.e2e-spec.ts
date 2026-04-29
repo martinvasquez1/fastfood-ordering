@@ -6,7 +6,7 @@ import { createPostgresContainer } from './util/create-postgres-container';
 import { createApp } from './util/create-app';
 
 import { UsersModule } from 'src/users/users.module';
-import { User, UserRole } from 'src/users/entities/user.entity';
+import { User } from 'src/users/entities/user.entity';
 import { AuthModule } from 'src/auth/auth.module';
 import { DataSource } from 'typeorm';
 import cleanDatabase from './util/clean-database';

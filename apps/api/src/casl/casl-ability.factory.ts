@@ -30,11 +30,6 @@ export class CaslAbilityFactory {
       // eslint-disable-next-line prettier/prettier
     >(Ability as AbilityClass<AppAbility>);
 
-    if (user.role === 'admin') {
-      // Read-write access to everything
-      can(Action.Manage, 'all');
-    }
-
     can(Action.Create, User);
     can(Action.Read, User, { id: user.id });
     can(Action.Update, User, { id: user.id });

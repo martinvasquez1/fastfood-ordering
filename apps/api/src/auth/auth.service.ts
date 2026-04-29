@@ -5,7 +5,7 @@ import { SignUpDto } from './dto/signUp.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
-import { User, UserRole } from 'src/users/entities/user.entity';
+import { User } from 'src/users/entities/user.entity';
 
 type Response = {
   accessToken: string;
@@ -20,14 +20,14 @@ export class AuthService {
   ) {}
 
   async generateToken(user: User) {
-    const { username, id, role } = user;
-    const payload = { sub: user.id, username, id, role };
+    const { username, id } = user;
+    const payload = { sub: user.id, username, id };
     const accessToken = await this.jwtService.signAsync(payload);
     return accessToken;
   }
 
-  async signUp(signUpDto: SignUpDto, role?: UserRole): Promise<Response> {
-    const newUser = await this.usersService.create(signUpDto, role);
+  async signUp(signUpDto: SignUpDto): Promise<Response> {
+    const newUser = await this.usersService.create(signUpDto);
     const accessToken = await this.generateToken(newUser);
     return { accessToken, userId: newUser.id };
   }

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User, UserRole } from './entities/user.entity';
+import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -12,9 +12,8 @@ export class UsersRepository {
     username?: string,
     email?: string,
     password?: string,
-    role?: UserRole,
   ): Promise<User> {
-    const user = this.ORM.create({ username, email, password, role });
+    const user = this.ORM.create({ username, email, password });
     const savedUser = this.ORM.save(user);
     return savedUser;
   }

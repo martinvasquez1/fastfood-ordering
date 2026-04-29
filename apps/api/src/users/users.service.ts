@@ -6,7 +6,7 @@ import {
 import * as bcrypt from 'bcrypt';
 
 import { UsersRepository } from './users.repository';
-import { User, UserRole } from './entities/user.entity';
+import { User } from './entities/user.entity';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDtoWithPaths } from './dto/update-user.dto';
@@ -15,7 +15,7 @@ import { UpdateUserDtoWithPaths } from './dto/update-user.dto';
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) { }
 
-  async create(createUserDto: CreateUserDto, role?: UserRole): Promise<User> {
+  async create(createUserDto: CreateUserDto): Promise<User> {
     const { username, email } = createUserDto;
 
     const existingEmail = await this.usersRepository.findByEmail(email);
@@ -29,7 +29,6 @@ export class UsersService {
       username,
       email,
       hashedPassword,
-      role,
     );
 
     return user;

@@ -1,5 +1,4 @@
 import { Exclude, Transform } from "class-transformer";
-import { UserRole } from "../entities/user.entity";
 
 function buildFileUrl(filename: string): string {
   if (filename.startsWith('http://') || filename.startsWith('https://')) {
@@ -27,6 +26,4 @@ export class UserResponseDto {
 
   @Exclude()
   password: string;
-
-  role: UserRole;
 }
