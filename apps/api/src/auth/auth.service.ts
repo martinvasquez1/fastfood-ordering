@@ -3,6 +3,7 @@ import * as bcrypt from 'bcrypt';
 
 import { UsersService } from '../users/users.service';
 import { RolesRepository } from 'src/roles/roles.repository';
+import { DriverRepository } from 'src/drivers/driver.repository';
 
 import { SignInDto } from './dto/signIn.dto';
 import { SignUpDto } from './dto/signUp.dto';
@@ -21,8 +22,9 @@ type Response = {
 export class AuthService {
   constructor(
     private readonly usersService: UsersService,
-    private readonly jwtService: JwtService,
     private readonly rolesRepository: RolesRepository,
+    private readonly driversRepository: DriverRepository,
+    private readonly jwtService: JwtService,
   ) {}
 
   async generateToken(user: User) {
@@ -39,13 +41,14 @@ export class AuthService {
   }
 
   async signUpDriver(dto: SignUpDriverDtoWithPaths): Promise<Response> {
-    const newUser = await this.usersService.create(dto);
-
     const driverRole = await this.rolesRepository.findByName(RoleType.DRIVER);
     if (!driverRole) throw new Error('DRIVER role not found');
 
-    const userRole = this.rolesRepository.createUserRole(newUser, driverRole);
-    // const driver = this.driverRepository.create(dto)
+    const newUser = await this.usersService.create(dto);
+    this.rolesRepository.createUserRole(newUser, driverRole);
+
+    const driverData = { ...dto, user: newUser  }
+    this.driversRepository.create(driverData)
 
     const accessToken = await this.generateToken(newUser);
     return { accessToken, userId: newUser.id };
