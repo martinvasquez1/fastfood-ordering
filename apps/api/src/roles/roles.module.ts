@@ -11,4 +11,4 @@ import { RolesRepository } from './roles.repository';
   providers: [RolesRepository],
   exports: [RolesRepository],
 })
-export class UsersModule {}
+export class RolesModule {}
