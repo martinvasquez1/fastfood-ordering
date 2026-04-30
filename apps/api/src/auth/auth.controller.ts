@@ -1,9 +1,13 @@
 import {
   Body,
   Controller,
+  FileTypeValidator,
   HttpCode,
   HttpStatus,
+  MaxFileSizeValidator,
   Post,
+  UploadedFiles,
+  UseInterceptors,
 } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
@@ -11,11 +15,17 @@ import { Public } from './decorators/public.decorator';
 
 import { SignInDto } from './dto/signIn.dto';
 import { SignUpDto } from './dto/signUp.dto';
+import { SignUpDriverDto, SignUpDriverDtoWithPaths } from './dto/sign-up-driver';
 import { SignUpResponseDto } from './dto/sign-up-response.dto';
 import { SignInResponseDto } from './dto/sign-in-response.dto';
 
 import { ApiGenericBadRequestResponse } from 'src/common/decorators/bad-request-response';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiConsumes, ApiOperation } from '@nestjs/swagger';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
+import { MultiFileValidationPipe } from 'src/common/pipes/multi-file-validation-pipe';
+import { UpdateUserDtoWithPaths } from 'src/users/dto/update-user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -29,6 +39,53 @@ export class AuthController {
   signUp(@Body() signUpDto: SignUpDto): Promise<SignUpResponseDto> {
     return this.authService.signUp(signUpDto);
   }
+
+
+  @Public()
+  @HttpCode(HttpStatus.CREATED)
+  @Post('sign-up-admin')
+  @ApiGenericBadRequestResponse()
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        { name: 'identityDocument', maxCount: 1 },
+        { name: 'drivingLicense', maxCount: 1 },
+      ],
+      {
+        storage: diskStorage({
+          destination: './uploads/users',
+          filename: (req, file, cb) => {
+            const unique = Date.now();
+            const name = `${file.fieldname}-${unique}${extname(file.originalname)}`;
+            cb(null, name);
+          },
+        }),
+      },
+    ),
+  )
+  @ApiConsumes('multipart/form-data')
+  @ApiOperation({ operationId: 'signUpDriver' })
+  signUpAdmin(
+    @Body() signUpDto: SignUpDriverDto,
+    @UploadedFiles(
+      new MultiFileValidationPipe([
+        new FileTypeValidator({ fileType: /^image\/(png|jpeg)$/ }),
+        new MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }),
+      ]),
+    ) files?: { identityDocument: Express.Multer.File[], drivingLicense: Express.Multer.File[] }
+  ) {
+
+    const dto: SignUpDriverDtoWithPaths = {
+      ...signUpDto,
+      identityDocumentPath: files?.drivingLicense?.[0]?.path,
+      drivingLicensePath: files?.identityDocument?.[0]?.path,
+    }
+
+    return 123
+
+    //return this.authService.signUpAdmin(signUpDto);
+  }
+
 
   @Public()
   @HttpCode(HttpStatus.OK)
