@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   FileTypeValidator,
@@ -43,7 +44,7 @@ export class AuthController {
 
   @Public()
   @HttpCode(HttpStatus.CREATED)
-  @Post('sign-up-admin')
+  @Post('sign-up-driver')
   @ApiGenericBadRequestResponse()
   @UseInterceptors(
     FileFieldsInterceptor(
@@ -72,12 +73,19 @@ export class AuthController {
         new FileTypeValidator({ fileType: /^image\/(png|jpeg)$/ }),
         new MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }),
       ]),
-    ) files?: { identityDocument: Express.Multer.File[], drivingLicense: Express.Multer.File[] }
+    ) files: { identityDocument: Express.Multer.File[], drivingLicense: Express.Multer.File[] }
   ) {
+    if (!files?.identityDocument?.length || !files?.drivingLicense?.length) {
+      throw new BadRequestException('identityDocument and drivingLicense are required');
+    }
+
+    const identityDocument = files.identityDocument[0]!;
+    const drivingLicense = files.drivingLicense[0]!;
+
     const dto: SignUpDriverDtoWithPaths = {
       ...signUpDto,
-      identityDocumentPath: files?.drivingLicense?.[0]?.path,
-      drivingLicensePath: files?.identityDocument?.[0]?.path,
+      identityDocument: identityDocument.path,
+      drivingLicense: drivingLicense.path,
     }
 
     return this.authService.signUpDriver(dto);

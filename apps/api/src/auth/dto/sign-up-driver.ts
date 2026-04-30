@@ -1,6 +1,5 @@
-import { ApiPropertyOptional, PartialType } from '@nestjs/swagger';
-import { SignUpDto } from './signUp.dto';
-import { IsEnum, IsNotEmpty, IsString, Length } from 'class-validator';
+import { ApiPropertyOptional } from '@nestjs/swagger';
+import { IsEnum, IsString, Length } from 'class-validator';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 
 enum VehicleType {
@@ -12,7 +11,7 @@ enum VehicleType {
 export class SignUpDriverDto extends CreateUserDto {
     @IsString()
     @Length(12, 12)
-    rut: number;
+    RUT: string;
 
     @IsEnum(VehicleType)
     vehicleType: VehicleType;
@@ -22,13 +21,13 @@ export class SignUpDriverDto extends CreateUserDto {
     plateNumber: string;
 
     @ApiPropertyOptional({ type: 'string', format: 'binary' })
-    identityDocument?: any;
+    identityDocument: any;
 
     @ApiPropertyOptional({ type: 'string', format: 'binary' })
-    drivingLicense?: any;
+    drivingLicense: any;
 }
 
 export class SignUpDriverDtoWithPaths extends SignUpDriverDto {
-    identityDocumentPath?: string; 
-    drivingLicensePath?: string; 
+    declare identityDocument: string; 
+    declare drivingLicense: string; 
 }
