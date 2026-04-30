@@ -8,6 +8,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { RolesModule } from './roles/roles.module';
+import { DriversModule } from './drivers/drivers.module';
 
 import typeOrmConfig from './config/type-orm.config';
 
@@ -17,6 +19,8 @@ import typeOrmConfig from './config/type-orm.config';
     TypeOrmModule.forRoot(typeOrmConfig()),
     UsersModule,
     AuthModule,
+    RolesModule,
+    DriversModule,
   ],
   controllers: [AppController],
   providers: [AppService],
