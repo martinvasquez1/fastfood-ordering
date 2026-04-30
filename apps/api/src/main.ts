@@ -4,9 +4,15 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 
+import { seed } from './seed';
+import { DataSource } from 'typeorm';
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
+
+  const dataSource = app.get(DataSource);
+  await seed(dataSource);
 
   app.useGlobalPipes(
     new ValidationPipe({
