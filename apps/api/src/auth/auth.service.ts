@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConsoleLogger, Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { SignInDto } from './dto/signIn.dto';
 import { SignUpDto } from './dto/signUp.dto';
@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
 import { User } from 'src/users/entities/user.entity';
+import { SignUpDriverDtoWithPaths } from './dto/sign-up-driver';
 
 type Response = {
   accessToken: string;
@@ -28,6 +29,19 @@ export class AuthService {
 
   async signUp(signUpDto: SignUpDto): Promise<Response> {
     const newUser = await this.usersService.create(signUpDto);
+    const accessToken = await this.generateToken(newUser);
+    return { accessToken, userId: newUser.id };
+  }
+
+  async signUpDriver(dto: SignUpDriverDtoWithPaths): Promise<Response> {
+    const newUser = await this.usersService.create(dto);
+
+    // const driverRole = await this.roleRepository.findOne({ where: { name: RoleType.DRIVER }});
+    // if (!driverRole) throw new Error('DRIVER role not found');
+
+    // const userRole = this.userRoleRepository.create({ user, role: driverRole });
+    // const driver = this.driverRepository.create(dto)
+
     const accessToken = await this.generateToken(newUser);
     return { accessToken, userId: newUser.id };
   }

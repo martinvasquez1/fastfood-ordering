@@ -1,6 +1,7 @@
 import { ApiPropertyOptional, PartialType } from '@nestjs/swagger';
 import { SignUpDto } from './signUp.dto';
 import { IsEnum, IsNotEmpty, IsString, Length } from 'class-validator';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 
 enum VehicleType {
     CAR = 'car',
@@ -8,7 +9,7 @@ enum VehicleType {
     BICYCLE = 'bicycle',
 }
 
-export class SignUpDriverDto extends PartialType(SignUpDto) {
+export class SignUpDriverDto extends CreateUserDto {
     @IsString()
     @Length(12, 12)
     rut: number;

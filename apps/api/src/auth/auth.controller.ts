@@ -74,18 +74,14 @@ export class AuthController {
       ]),
     ) files?: { identityDocument: Express.Multer.File[], drivingLicense: Express.Multer.File[] }
   ) {
-
     const dto: SignUpDriverDtoWithPaths = {
       ...signUpDto,
       identityDocumentPath: files?.drivingLicense?.[0]?.path,
       drivingLicensePath: files?.identityDocument?.[0]?.path,
     }
 
-    return 123
-
-    //return this.authService.signUpAdmin(signUpDto);
+    return this.authService.signUpDriver(dto);
   }
-
 
   @Public()
   @HttpCode(HttpStatus.OK)
