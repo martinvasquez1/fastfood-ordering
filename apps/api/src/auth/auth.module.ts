@@ -8,6 +8,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth.guard';
 import { CreateUserPolicy } from 'src/users/policies/create-user-policy';
 import { CaslModule } from 'src/casl/casl.module';
+import { RolesModule } from 'src/roles/roles.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { CaslModule } from 'src/casl/casl.module';
     }),
     CaslModule,
     UsersModule,
+    RolesModule,
   ],
   controllers: [AuthController],
   providers: [
