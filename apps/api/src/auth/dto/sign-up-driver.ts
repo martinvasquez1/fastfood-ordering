@@ -1,12 +1,8 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsEnum, IsString, Length } from 'class-validator';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
 
-enum VehicleType {
-    CAR = 'car',
-    MOTORCYCLE = 'motorcycle',
-    BICYCLE = 'bicycle',
-}
+import { VehicleType } from 'src/drivers/driver.entity';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 
 export class SignUpDriverDto extends CreateUserDto {
     @IsString()

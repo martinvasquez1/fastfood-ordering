@@ -11,6 +11,7 @@ import { User } from 'src/users/entities/user.entity';
 export enum VehicleType {
   CAR = 'car',
   MOTORCYCLE = 'motorcycle',
+  BICYCLE = 'bicycle',
 }
 
 export enum DriverStatus {
