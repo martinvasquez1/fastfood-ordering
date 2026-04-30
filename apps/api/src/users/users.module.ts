@@ -6,7 +6,7 @@ import { CaslModule } from 'src/casl/casl.module';
 import { User } from './entities/user.entity';
 import { Role } from 'src/roles/role.entity';
 import { UserRole } from 'src/roles/user-role.entity';
-import { Driver } from 'src/driver/driver.entity';
+import { Driver } from 'src/drivers/driver.entity';
 
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';

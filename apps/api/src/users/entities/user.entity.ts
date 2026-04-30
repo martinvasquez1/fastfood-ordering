@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 
 import { UserRole } from 'src/roles/user-role.entity';
-import { Driver } from 'src/driver/driver.entity';
+import { Driver } from 'src/drivers/driver.entity';
 
 @Entity('users')
 export class User {
