@@ -9,7 +9,7 @@ import { AuthGuard } from './auth.guard';
 import { CreateUserPolicy } from 'src/users/policies/create-user-policy';
 import { CaslModule } from 'src/casl/casl.module';
 import { RolesModule } from 'src/roles/roles.module';
-import { DriversModule } from 'src/drivers/roles.module';
+import { DriversModule } from 'src/drivers/drivers.module';
 
 @Module({
   imports: [
