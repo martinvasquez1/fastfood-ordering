@@ -16,6 +16,4 @@ export async function seed(dataSource) {
       console.log(`Role already exists: ${roleName}`);
     }
   }
-
-  await dataSource.destroy();
 }
