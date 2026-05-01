@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { Role, RoleType } from './roles/role.entity.js';
+import { Role, RoleType } from './roles/role.entity';
 
 export async function seed(dataSource) {
   const repo = dataSource.getRepository(Role);
