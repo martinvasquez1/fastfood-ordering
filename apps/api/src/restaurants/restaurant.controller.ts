@@ -13,7 +13,7 @@ export class RestaurantsController {
 
   @Get()
   @ApiOperation({ operationId: 'getRestaurants' })
-  findAll(): Promise<FindAllRestaurantsResponse> {
+  findAll() {
     return this.restaurantsService.findAll();
   }
 }
