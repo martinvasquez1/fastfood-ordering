@@ -45,10 +45,10 @@ export class AuthService {
     if (!driverRole) throw new Error('DRIVER role not found');
 
     const newUser = await this.usersService.create(dto);
-    this.rolesRepository.createUserRole(newUser, driverRole);
+    await this.rolesRepository.createUserRole(newUser, driverRole);
 
     const driverData = { ...dto, user: newUser  }
-    this.driversRepository.create(driverData)
+    await this.driversRepository.create(driverData)
 
     const accessToken = await this.generateToken(newUser);
     return { accessToken, userId: newUser.id };
