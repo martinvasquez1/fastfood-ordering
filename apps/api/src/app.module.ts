@@ -10,6 +10,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { RolesModule } from './roles/roles.module';
 import { DriversModule } from './drivers/drivers.module';
+import { RestaurantsModule } from './restaurants/restaurant.module';
 
 import typeOrmConfig from './config/type-orm.config';
 
@@ -21,6 +22,7 @@ import typeOrmConfig from './config/type-orm.config';
     AuthModule,
     RolesModule,
     DriversModule,
+    RestaurantsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
