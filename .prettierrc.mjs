@@ -3,4 +3,8 @@ export default {
   semi: true,
   printWidth: 100,
   trailingComma: 'all',
+  tabWidth: 2,
+  useTabs: false,
+  bracketSpacing: true,
+  endOfLine: 'lf',
 };
