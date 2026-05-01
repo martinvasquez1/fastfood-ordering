@@ -79,14 +79,6 @@ describe('/auth', () => {
 
   describe('POST /auth/sign-up-driver', () => {
     const fakeImage = path.join(__dirname, './fixtures/small.jpg'); 
-    const driverDto = {
-      username: 'driver',
-      email: 'driver@driver.com',
-      password: '1',
-      RUT: '11.111.111-1',
-      vehicleType: 'car',
-      plateNumber: '123456',
-    }
 
     it(`should return access token and user id`, async () => {
       const httpServer = app.getHttpServer();
