@@ -1,0 +1,39 @@
+import { INestApplication } from '@nestjs/common';
+import {
+  DocumentBuilder,
+  OpenAPIObject,
+  SwaggerDocumentOptions,
+  SwaggerModule,
+} from '@nestjs/swagger';
+import { writeFileSync } from 'fs';
+
+import { InternalServerErrorDto } from 'src/common/decorators/internal-server-error.dto';
+
+async function generateAndExit(document: OpenAPIObject, app: INestApplication) {
+    const filePath = './open-api.json';
+    writeFileSync(filePath, JSON.stringify(document, null, 2));
+
+    await app.close();
+    process.exit(0);
+}
+
+export async function setupSwagger(app: INestApplication): Promise<void> {
+  const config = new DocumentBuilder()
+    .setTitle('Papapapita REST API')
+    .setDescription('The REST API for Papapapita.')
+    .setVersion('1.0')
+    .addGlobalResponse({
+      status: 500,
+      description: 'Internal server error',
+      type: InternalServerErrorDto,
+    })
+    .build();
+
+  const options: SwaggerDocumentOptions = {};
+
+  const document = SwaggerModule.createDocument(app, config, options);
+
+  if (process.env.GENERATE_OPENAPI === 'true') await generateAndExit(document, app);
+
+  SwaggerModule.setup('api', app, document);
+}

@@ -15,7 +15,8 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
     "migration:generate": "npm run build && typeorm migration:generate -d src/database/data-source.ts",
     "migration:run": "npm run build && npx typeorm -- migration:run -d src/database/data-source.ts",
-    "migration:revert": "npm run build  && npx typeorm -- migration:revert -d src/database/data-source.ts"
+    "migration:revert": "npm run build  && npx typeorm -- migration:revert -d src/database/data-source.ts",
+    "generate:openapi": "GENERATE_OPENAPI=true npm run start"
   },
   "dependencies": {
     "@casl/ability": "^6.8.1",
