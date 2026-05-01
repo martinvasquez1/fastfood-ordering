@@ -11,6 +11,7 @@ import { DataSource } from 'typeorm';
 
 import { seed } from './../src/seed';
 import cleanDatabase from './util/clean-database';
+import { buildDriverSignupRequest } from './factories/driver.factory';
 
 const user1Dto = {
   username: 'user1',
@@ -88,16 +89,8 @@ describe('/auth', () => {
     }
 
     it(`should return access token and user id`, async () => {
-      const { body } = await request(app.getHttpServer())
-        .post('/auth/sign-up-driver')
-        .field('username', driverDto.username)
-        .field('email', driverDto.email)
-        .field('password', driverDto.password)
-        .field('RUT', driverDto.RUT)
-        .field('vehicleType', driverDto.vehicleType)
-        .field('plateNumber', driverDto.plateNumber)
-        .attach('identityDocument', fakeImage, { filename: 'id.jpg', contentType: 'image/jpeg' })
-        .attach('drivingLicense', fakeImage, { filename: 'license.jpg', contentType: 'image/jpeg' })
+      const httpServer = app.getHttpServer();
+      const { body } = await buildDriverSignupRequest({ httpServer, fakeImage }).expect(201);
 
       expect(body).toEqual({
         accessToken: expect.any(String),
@@ -105,7 +98,11 @@ describe('/auth', () => {
       });
     });
 
-    // it('should return 409 for duplicate email', async () => {});
+    it('should return 409 for duplicate email', async () => {
+      const httpServer = app.getHttpServer();
+      await buildDriverSignupRequest({ httpServer, fakeImage }).expect(201);
+      await buildDriverSignupRequest({ httpServer, fakeImage }).expect(409);
+    });
   });
 
   describe('POST /auth/sign-in', () => {
