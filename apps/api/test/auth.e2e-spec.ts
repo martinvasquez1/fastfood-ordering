@@ -1,12 +1,15 @@
 import { StartedTestContainer } from 'testcontainers';
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
+import path from 'path';
 
 import { createPostgresContainer } from './util/create-postgres-container';
 import { createApp } from './util/create-app';
 
 import { AuthModule } from 'src/auth/auth.module';
 import { DataSource } from 'typeorm';
+
+import { seed } from './../src/seed';
 import cleanDatabase from './util/clean-database';
 
 const user1Dto = {
@@ -30,7 +33,13 @@ describe('/auth', () => {
     await app.init();
   }, 100000);
 
-  afterEach(async () => await cleanDatabase(dataSource));
+  beforeEach(async () => {
+    await seed(dataSource)
+  })
+
+  afterEach(async () => {
+    await cleanDatabase(dataSource);
+  }),
 
   afterAll(async () => {
     await dataSource.destroy();
@@ -65,6 +74,38 @@ describe('/auth', () => {
         .send(user1Dto)
         .expect(409);
     });
+  });
+
+  describe('POST /auth/sign-up-driver', () => {
+    const fakeImage = path.join(__dirname, './fixtures/small.jpg'); 
+    const driverDto = {
+      username: 'driver',
+      email: 'driver@driver.com',
+      password: '1',
+      RUT: '11.111.111-1',
+      vehicleType: 'car',
+      plateNumber: '123456',
+    }
+
+    it(`should return access token and user id`, async () => {
+      const { body } = await request(app.getHttpServer())
+        .post('/auth/sign-up-driver')
+        .field('username', driverDto.username)
+        .field('email', driverDto.email)
+        .field('password', driverDto.password)
+        .field('RUT', driverDto.RUT)
+        .field('vehicleType', driverDto.vehicleType)
+        .field('plateNumber', driverDto.plateNumber)
+        .attach('identityDocument', fakeImage, { filename: 'id.jpg', contentType: 'image/jpeg' })
+        .attach('drivingLicense', fakeImage, { filename: 'license.jpg', contentType: 'image/jpeg' })
+
+      expect(body).toEqual({
+        accessToken: expect.any(String),
+        userId: 1,
+      });
+    });
+
+    // it('should return 409 for duplicate email', async () => {});
   });
 
   describe('POST /auth/sign-in', () => {
