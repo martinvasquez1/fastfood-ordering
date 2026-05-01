@@ -160,4 +160,36 @@ describe('/restaurants', () => {
       expect(body.data).toHaveLength(1);
     });
   });
+
+  describe('GET /restaurants/:id', () => {
+    it('should return a restaurant by id', async () => {
+      const repo = dataSource.getRepository(Restaurant);
+      const saved = await repo.save({
+        name: 'R1',
+        address: '...',
+      });
+
+      const response = await request(app.getHttpServer())
+        .get(`/restaurants/${saved.id}`)
+        .expect(200);
+
+      expect(response.body).toEqual({
+        id: saved.id,
+        name: 'R1',
+        address: '...',
+      });
+    });
+
+    it('should return 404 if restaurant not found', async () => {
+      await request(app.getHttpServer())
+        .get('/restaurants/777')
+        .expect(404);
+    });
+
+    it('should return 400 for invalid id', async () => {
+      await request(app.getHttpServer())
+        .get('/restaurants/invalid-id')
+        .expect(400);
+    });
+  });
 });

@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 
 import { RestaurantsService } from './restaurant.service';
@@ -22,7 +22,7 @@ export class RestaurantsController {
 
   @Get(':id')
   @ApiOperation({ operationId: 'getRestaurant' })
-  async findOne(@Param('id') id: string): Promise<Restaurant> {
+  async findOne(@Param('id', ParseIntPipe) id: string): Promise<Restaurant> {
     return this.restaurantsService.findOne(+id);
   }
 }
