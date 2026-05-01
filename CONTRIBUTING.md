@@ -13,6 +13,7 @@ type(scope): message
 - `message`: A short, concise description of the change.
 
 ### Some types of commit messages
+
 - `feat`: A new feature
 - `fix`: A bug fix
 - `docs`: Documentation only changes
@@ -22,6 +23,7 @@ type(scope): message
 - `chore`: Routine changes (e.g., dependencies, build tasks)
 
 Example Commit Messages:
+
 - `feat(ui): add button component`
 - `fix(api): resolve user login bug`
 - `docs: update README with new setup instructions`

@@ -28,7 +28,7 @@ export class User {
   @OneToMany(() => UserRole, (userRole) => userRole.user)
   userRoles: UserRole[];
 
-  @OneToOne(() => Driver, driver => driver.user)
+  @OneToOne(() => Driver, (driver) => driver.user)
   driver?: Driver;
 
   @CreateDateColumn()

@@ -25,10 +25,6 @@ import { DriversModule } from 'src/drivers/drivers.module';
     DriversModule,
   ],
   controllers: [AuthController],
-  providers: [
-    CreateUserPolicy,
-    AuthService,
-    { provide: APP_GUARD, useClass: AuthGuard },
-  ],
+  providers: [CreateUserPolicy, AuthService, { provide: APP_GUARD, useClass: AuthGuard }],
 })
 export class AuthModule {}

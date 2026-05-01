@@ -6,13 +6,9 @@ import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersRepository {
-  constructor(@InjectRepository(User) private ORM: Repository<User>) { }
+  constructor(@InjectRepository(User) private ORM: Repository<User>) {}
 
-  async create(
-    username?: string,
-    email?: string,
-    password?: string,
-  ): Promise<User> {
+  async create(username?: string, email?: string, password?: string): Promise<User> {
     const user = this.ORM.create({ username, email, password });
     const savedUser = this.ORM.save(user);
     return savedUser;
@@ -33,9 +29,7 @@ export class UsersRepository {
   private removeUndefinedFields<T extends object>(input: T): Partial<T> {
     const entries = Object.entries(input);
 
-    const filteredEntries = entries.filter(
-      ([_, value]) => value !== undefined
-    );
+    const filteredEntries = entries.filter(([_, value]) => value !== undefined);
 
     return Object.fromEntries(filteredEntries) as Partial<T>;
   }

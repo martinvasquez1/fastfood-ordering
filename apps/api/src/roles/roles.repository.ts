@@ -10,12 +10,12 @@ import { User } from 'src/users/entities/user.entity';
 export class RolesRepository {
   constructor(
     @InjectRepository(Role) private roleORM: Repository<Role>,
-    @InjectRepository(UserRole) private userRoleORM: Repository<UserRole>
-  ) { }
+    @InjectRepository(UserRole) private userRoleORM: Repository<UserRole>,
+  ) {}
 
   async findByName(name: RoleType): Promise<Role | null> {
     return this.roleORM.findOne({ where: { name } });
-  };
+  }
 
   async createUserRole(user: User, role: Role): Promise<UserRole> {
     const userRole = this.userRoleORM.create({ user, role });

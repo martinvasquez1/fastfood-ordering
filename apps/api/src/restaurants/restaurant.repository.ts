@@ -7,12 +7,9 @@ import { PageOptions } from 'src/common/pagination/page-options.dto';
 
 @Injectable()
 export class RestaurantsRepository {
-  constructor(@InjectRepository(Restaurant) private ORM: Repository<Restaurant>) { }
+  constructor(@InjectRepository(Restaurant) private ORM: Repository<Restaurant>) {}
 
-  async findAll(
-    pageOptions: PageOptions,
-    address?: string,
-  ): Promise<[Restaurant[], number]> {
+  async findAll(pageOptions: PageOptions, address?: string): Promise<[Restaurant[], number]> {
     const { page, take } = pageOptions;
 
     const where = address ? { address: ILike(`%${address}%`) } : {};

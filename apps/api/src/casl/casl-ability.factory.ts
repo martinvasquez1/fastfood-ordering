@@ -1,10 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import {
-  Ability,
-  AbilityBuilder,
-  AbilityClass,
-  ExtractSubjectType,
-} from '@casl/ability';
+import { Ability, AbilityBuilder, AbilityClass, ExtractSubjectType } from '@casl/ability';
 
 import { InferSubjects } from '@casl/ability';
 import { User } from 'src/users/entities/user.entity';
@@ -36,8 +31,7 @@ export class CaslAbilityFactory {
     can(Action.Delete, User, { id: user.id });
 
     return build({
-      detectSubjectType: (item) =>
-        item.constructor as ExtractSubjectType<Subjects>,
+      detectSubjectType: (item) => item.constructor as ExtractSubjectType<Subjects>,
     });
   }
 }

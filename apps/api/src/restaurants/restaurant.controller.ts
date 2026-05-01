@@ -9,11 +9,14 @@ import { PageOptions } from 'src/common/pagination/page-options.dto';
 
 @Controller('restaurants')
 export class RestaurantsController {
-  constructor(private readonly restaurantsService: RestaurantsService) { }
+  constructor(private readonly restaurantsService: RestaurantsService) {}
 
   @Get()
   @ApiOperation({ operationId: 'getRestaurants' })
-  async findAll(@Query() pageOptions: PageOptions, @Query('address') address?: string,): Promise<PageDto<Restaurant>> {
+  async findAll(
+    @Query() pageOptions: PageOptions,
+    @Query('address') address?: string,
+  ): Promise<PageDto<Restaurant>> {
     return this.restaurantsService.findAll(pageOptions, address);
   }
 }

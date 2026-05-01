@@ -47,8 +47,8 @@ export class AuthService {
     const newUser = await this.usersService.create(dto);
     await this.rolesRepository.createUserRole(newUser, driverRole);
 
-    const driverData = { ...dto, user: newUser  }
-    await this.driversRepository.create(driverData)
+    const driverData = { ...dto, user: newUser };
+    await this.driversRepository.create(driverData);
 
     const accessToken = await this.generateToken(newUser);
     return { accessToken, userId: newUser.id };
@@ -57,10 +57,7 @@ export class AuthService {
   async signIn(signInDto: SignInDto): Promise<Response> {
     const user = await this.usersService.findByEmail(signInDto.email);
 
-    const isWrongPassword = !(await bcrypt.compare(
-      signInDto.password,
-      user.password,
-    ));
+    const isWrongPassword = !(await bcrypt.compare(signInDto.password, user.password));
     if (isWrongPassword) {
       throw new UnauthorizedException();
     }

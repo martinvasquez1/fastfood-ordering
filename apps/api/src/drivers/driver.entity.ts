@@ -1,10 +1,4 @@
-import {
-  Entity,
-  Column,
-  OneToOne,
-  JoinColumn, 
-  PrimaryColumn}
-from 'typeorm';
+import { Entity, Column, OneToOne, JoinColumn, PrimaryColumn } from 'typeorm';
 
 import { User } from 'src/users/entities/user.entity';
 
@@ -25,7 +19,7 @@ export class Driver {
   @PrimaryColumn()
   id: number;
 
-  @OneToOne(() => User, user => user.driver, { onDelete: 'CASCADE' })
+  @OneToOne(() => User, (user) => user.driver, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'id' })
   user: User;
 

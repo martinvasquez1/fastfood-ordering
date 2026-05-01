@@ -41,7 +41,6 @@ export class AuthController {
     return this.authService.signUp(signUpDto);
   }
 
-
   @Public()
   @HttpCode(HttpStatus.CREATED)
   @Post('sign-up-driver')
@@ -73,7 +72,8 @@ export class AuthController {
         new FileTypeValidator({ fileType: /^image\/(png|jpeg)$/ }),
         new MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }),
       ]),
-    ) files: { identityDocument: Express.Multer.File[], drivingLicense: Express.Multer.File[] }
+    )
+    files: { identityDocument: Express.Multer.File[]; drivingLicense: Express.Multer.File[] },
   ) {
     if (!files?.identityDocument?.length || !files?.drivingLicense?.length) {
       throw new BadRequestException('identityDocument and drivingLicense are required');
@@ -86,7 +86,7 @@ export class AuthController {
       ...signUpDto,
       identityDocument: identityDocument.path,
       drivingLicense: drivingLicense.path,
-    }
+    };
 
     return this.authService.signUpDriver(dto);
   }

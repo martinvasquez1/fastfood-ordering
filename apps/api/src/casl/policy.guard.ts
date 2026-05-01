@@ -1,9 +1,4 @@
-import {
-  CanActivate,
-  ExecutionContext,
-  Injectable,
-  Type,
-} from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable, Type } from '@nestjs/common';
 import { AppAbility, CaslAbilityFactory } from './casl-ability.factory';
 import { ModuleRef, Reflector } from '@nestjs/core';
 import { CHECK_POLICIES_KEY } from './check-policies.decorator';

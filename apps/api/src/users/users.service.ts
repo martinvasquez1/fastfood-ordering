@@ -1,8 +1,4 @@
-import {
-  ConflictException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 
 import { UsersRepository } from './users.repository';
@@ -13,7 +9,7 @@ import { UpdateUserDtoWithPaths } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly usersRepository: UsersRepository) { }
+  constructor(private readonly usersRepository: UsersRepository) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     const { username, email } = createUserDto;
@@ -25,11 +21,7 @@ export class UsersService {
     if (existingName) throw new ConflictException('Username already exists');
 
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-    const user = this.usersRepository.create(
-      username,
-      email,
-      hashedPassword,
-    );
+    const user = this.usersRepository.create(username, email, hashedPassword);
 
     return user;
   }

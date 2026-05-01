@@ -7,7 +7,7 @@ import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class DriverRepository {
-  constructor(@InjectRepository(Driver) private readonly ORM: Repository<Driver>) { }
+  constructor(@InjectRepository(Driver) private readonly ORM: Repository<Driver>) {}
 
   async create(data: {
     user: User;

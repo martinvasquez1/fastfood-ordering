@@ -36,18 +36,17 @@ describe('/auth', () => {
   }, 100000);
 
   beforeEach(async () => {
-    await seed(dataSource)
-  })
+    await seed(dataSource);
+  });
 
-  afterEach(async () => {
+  (afterEach(async () => {
     await cleanDatabase(dataSource);
   }),
-
-  afterAll(async () => {
-    await dataSource.destroy();
-    await app.close();
-    await startedContainer.stop();
-  }, 100000);
+    afterAll(async () => {
+      await dataSource.destroy();
+      await app.close();
+      await startedContainer.stop();
+    }, 100000));
 
   it('should compile the module', async () => {
     expect(module).toBeDefined();
@@ -67,19 +66,13 @@ describe('/auth', () => {
     });
 
     it('should return 409 for duplicate email', async () => {
-      await request(app.getHttpServer())
-        .post('/auth/sign-up')
-        .send(user1Dto)
-        .expect(201);
-      await request(app.getHttpServer())
-        .post('/auth/sign-up')
-        .send(user1Dto)
-        .expect(409);
+      await request(app.getHttpServer()).post('/auth/sign-up').send(user1Dto).expect(201);
+      await request(app.getHttpServer()).post('/auth/sign-up').send(user1Dto).expect(409);
     });
   });
 
   describe('POST /auth/sign-up-driver', () => {
-    const fakeImage = path.join(__dirname, './fixtures/small.jpg'); 
+    const fakeImage = path.join(__dirname, './fixtures/small.jpg');
 
     it(`should return access token and user id`, async () => {
       const httpServer = app.getHttpServer();
@@ -113,10 +106,7 @@ describe('/auth', () => {
     });
 
     it(`should return 404 for non-existent user`, async () => {
-      await request(app.getHttpServer())
-        .post('/auth/sign-in')
-        .send(user1Dto)
-        .expect(404);
+      await request(app.getHttpServer()).post('/auth/sign-in').send(user1Dto).expect(404);
     });
 
     it(`should return 401 for invalid password`, async () => {

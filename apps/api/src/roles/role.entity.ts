@@ -1,14 +1,9 @@
-import {
-  Column,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { UserRole } from './user-role.entity';
 
 export enum RoleType {
-    DRIVER = "driver"
+  DRIVER = 'driver',
 }
 
 @Entity('roles')

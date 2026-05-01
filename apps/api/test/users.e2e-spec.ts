@@ -26,9 +26,7 @@ describe('/users', () => {
   let dataSource: DataSource;
 
   async function populateDatabase() {
-    const { body } = await request(app.getHttpServer())
-      .post('/auth/sign-up')
-      .send(dto);
+    const { body } = await request(app.getHttpServer()).post('/auth/sign-up').send(dto);
     userToken = body.accessToken;
 
     const { body: getBody } = await request(app.getHttpServer())
@@ -88,7 +86,7 @@ describe('/users', () => {
         .send({ username: expectedUser.username })
         .expect(200);
 
-      const expected = { ...expectedUser, updatedAt: expect.any(String)}
+      const expected = { ...expectedUser, updatedAt: expect.any(String) };
       expect(body).toEqual(expected);
     });
 

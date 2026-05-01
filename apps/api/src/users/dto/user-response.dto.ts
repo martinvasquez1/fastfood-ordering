@@ -1,4 +1,4 @@
-import { Exclude, Transform } from "class-transformer";
+import { Exclude, Transform } from 'class-transformer';
 
 function buildFileUrl(filename: string): string {
   if (filename.startsWith('http://') || filename.startsWith('https://')) {
@@ -16,10 +16,10 @@ export class UserResponseDto {
 
   bio: string;
 
-  @Transform(({ value }) => value != null ? buildFileUrl(value) : null)
+  @Transform(({ value }) => (value != null ? buildFileUrl(value) : null))
   profilePicture: string | null;
 
-  @Transform(({ value }) => value != null ? buildFileUrl(value) : null)
+  @Transform(({ value }) => (value != null ? buildFileUrl(value) : null))
   coverPhoto: string | null;
 
   email: string;

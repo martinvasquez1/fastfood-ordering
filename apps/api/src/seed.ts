@@ -45,6 +45,6 @@ async function createRestaurants(dataSource) {
 }
 
 export async function seed(dataSource) {
-  await createRoles(dataSource)
-  await createRestaurants(dataSource)
+  await createRoles(dataSource);
+  await createRestaurants(dataSource);
 }

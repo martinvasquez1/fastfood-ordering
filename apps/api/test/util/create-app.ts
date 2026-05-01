@@ -3,10 +3,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 
-export async function createApp(
-  modules: any[],
-  dbURL: string,
-): Promise<INestApplication<any>> {
+export async function createApp(modules: any[], dbURL: string): Promise<INestApplication<any>> {
   const moduleRef = await Test.createTestingModule({
     imports: [
       ...modules,
