@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { RestaurantsRepository } from './restaurant.repository';
 import { Restaurant } from './restaurant.entity';
 import { PageDto } from 'src/common/pagination/page.dto';
@@ -12,5 +12,11 @@ export class RestaurantsService {
     const [data, itemCount] = await this.restaurantsRepository.findAll(pageOptions, address);
     const paginatedRestaurants = new PageDto(data, pageOptions, itemCount);
     return paginatedRestaurants;
+  }
+
+  async findOne(id: number): Promise<Restaurant> {
+    const restaurant = await this.restaurantsRepository.findById(id);
+    if (!restaurant) throw new NotFoundException(`Restaurant with ID ${id} not found`);
+    return restaurant;
   }
 }
