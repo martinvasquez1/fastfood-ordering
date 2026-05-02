@@ -8,6 +8,8 @@ import { createApp } from './util/create-app';
 
 import { AuthModule } from 'src/auth/auth.module';
 import { RestaurantsModule } from 'src/restaurants/restaurant.module';
+import { MenuModule } from 'src/menu/menu.module';
+
 import { DataSource } from 'typeorm';
 
 import { seed } from './../src/seed';
@@ -29,7 +31,7 @@ describe('/auth', () => {
     const { container, dbURL } = await createPostgresContainer();
     startedContainer = container;
 
-    app = await createApp([AuthModule, RestaurantsModule], dbURL);
+    app = await createApp([AuthModule, RestaurantsModule, MenuModule], dbURL);
     dataSource = app.get(DataSource);
 
     await app.init();
