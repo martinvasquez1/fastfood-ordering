@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { RolesModule } from './roles/roles.module';
 import { DriversModule } from './drivers/drivers.module';
 import { RestaurantsModule } from './restaurants/restaurant.module';
+import { MenuModule } from './menu/menu.module';
 
 import typeOrmConfig from './config/type-orm.config';
 
@@ -23,6 +24,7 @@ import typeOrmConfig from './config/type-orm.config';
     RolesModule,
     DriversModule,
     RestaurantsModule,
+    MenuModule,
   ],
   controllers: [AppController],
   providers: [AppService],
