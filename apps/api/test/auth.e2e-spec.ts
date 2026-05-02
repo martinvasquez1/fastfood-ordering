@@ -7,12 +7,9 @@ import { createPostgresContainer } from './util/create-postgres-container';
 import { createApp } from './util/create-app';
 
 import { AuthModule } from 'src/auth/auth.module';
-import { RestaurantsModule } from 'src/restaurants/restaurant.module';
-import { MenuModule } from 'src/menu/menu.module';
-
 import { DataSource } from 'typeorm';
+import { createRoles } from 'src/seed/roles';
 
-import { seed } from '../src/seed/seed';
 import cleanDatabase from './util/clean-database';
 import { buildDriverSignupRequest } from './factories/driver.factory';
 
@@ -31,24 +28,25 @@ describe('/auth', () => {
     const { container, dbURL } = await createPostgresContainer();
     startedContainer = container;
 
-    app = await createApp([AuthModule, RestaurantsModule, MenuModule], dbURL);
+    app = await createApp([AuthModule], dbURL);
     dataSource = app.get(DataSource);
 
     await app.init();
   }, 100000);
 
   beforeEach(async () => {
-    await seed(dataSource);
+    await createRoles(dataSource);
   });
 
-  (afterEach(async () => {
+  afterEach(async () => {
     await cleanDatabase(dataSource);
   }),
-    afterAll(async () => {
-      await dataSource.destroy();
-      await app.close();
-      await startedContainer.stop();
-    }, 100000));
+
+  afterAll(async () => {
+    await dataSource.destroy();
+    await app.close();
+    await startedContainer.stop();
+  }, 100000);
 
   it('should compile the module', async () => {
     expect(module).toBeDefined();
