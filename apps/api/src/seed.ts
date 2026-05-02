@@ -89,7 +89,7 @@ function generateMenuItems(categoryMap: Record<string, any>) {
       categoryName: 'Burgers',
     },
     {
-      name: 'Coca Cola',
+      name: 'Drink',
       description: '500ml drink',
       price: 1990,
       categoryName: 'Drinks',
@@ -110,7 +110,6 @@ async function createMenuItems(dataSource) {
   const repo = dataSource.getRepository(MenuItem);
   const categoryRepo = dataSource.getRepository(require('./menu/menu-category.entity').MenuCategory);
 
-  // Load categories once
   const categories = await categoryRepo.find();
   const categoryMap = Object.fromEntries(
     categories.map(c => [c.name, c])
