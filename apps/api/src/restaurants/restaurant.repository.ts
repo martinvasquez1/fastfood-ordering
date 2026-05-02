@@ -1,13 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { ILike, Repository } from 'typeorm';
 import { Restaurant } from './restaurant.entity';
+import { RestaurantStock } from './restaurant-stock.entity';
+
+import { ILike, Repository } from 'typeorm';
 import { PageOptions } from 'src/common/pagination/page-options.dto';
 
 @Injectable()
 export class RestaurantsRepository {
-  constructor(@InjectRepository(Restaurant) private ORM: Repository<Restaurant>) { }
+  constructor(
+    @InjectRepository(Restaurant) private ORM: Repository<Restaurant>,
+    @InjectRepository(RestaurantStock) private ORMStockRepo: Repository<RestaurantStock>,
+  ) { }
 
   async findAll(pageOptions: PageOptions, address?: string): Promise<[Restaurant[], number]> {
     const { page, take } = pageOptions;
@@ -25,5 +30,16 @@ export class RestaurantsRepository {
 
   async findById(id: number): Promise<Restaurant | null> {
     return this.ORM.findOne({ where: { id } });
+  }
+
+  async getRestaurantMenu(restaurantId: number) {
+    return this.ORMStockRepo.find({
+      where: { restaurantId },
+      relations: {
+        menuItem: {
+          menuCategory: true,
+        },
+      },
+    });
   }
 }
