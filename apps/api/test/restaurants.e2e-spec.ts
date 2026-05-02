@@ -7,7 +7,10 @@ import { createApp } from './util/create-app';
 
 import { DataSource } from 'typeorm';
 import cleanDatabase from './util/clean-database';
+
 import { RestaurantsModule } from 'src/restaurants/restaurant.module';
+import { MenuModule } from 'src/menu/menu.module';
+
 import { Restaurant } from 'src/restaurants/restaurant.entity';
 
 describe('/restaurants', () => {
@@ -19,7 +22,7 @@ describe('/restaurants', () => {
     const { container, dbURL } = await createPostgresContainer();
     startedContainer = container;
 
-    app = await createApp([RestaurantsModule], dbURL);
+    app = await createApp([RestaurantsModule, MenuModule], dbURL);
     dataSource = app.get(DataSource);
 
     await app.init();
