@@ -12,7 +12,7 @@ import { MenuModule } from 'src/menu/menu.module';
 
 import { DataSource } from 'typeorm';
 
-import { seed } from './../src/seed';
+import { seed } from '../src/seed/seed';
 import cleanDatabase from './util/clean-database';
 import { buildDriverSignupRequest } from './factories/driver.factory';
 
