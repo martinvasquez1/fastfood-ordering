@@ -226,7 +226,7 @@ describe('/restaurants', () => {
       let restStock1;
       let restStock2;
 
-      beforeAll(async () => {
+      beforeEach(async () => {
         const repo = dataSource.getRepository(Restaurant);
         restaurant1 = await repo.save({ name: 'R1', address: '...' });
 
@@ -265,7 +265,7 @@ describe('/restaurants', () => {
 
       it('should get menu with two items', async () => {
         const res = await request(app.getHttpServer())
-          .get(`/restaurants/1/menu`)
+          .get(`/restaurants/${restaurant1.id}/menu`)
           .expect(200);
 
         expect(res.body).toHaveLength(2);
@@ -279,6 +279,25 @@ describe('/restaurants', () => {
               }),
             ]),
           }),
+          expect.objectContaining({
+            category: menuCategory2.name,
+            items: expect.arrayContaining([
+              expect.objectContaining({
+                name: menuItem2.name,
+                quantity: restStock2.quantity,
+              }),
+            ]),
+          }),
+        ]);
+      });
+
+      it('should get filtered menu', async () => {
+        const res = await request(app.getHttpServer())
+          .get(`/restaurants/${restaurant1.id}/menu?category=drinks`)
+          .expect(200);
+
+        expect(res.body).toHaveLength(1);
+        expect(res.body).toEqual([
           expect.objectContaining({
             category: menuCategory2.name,
             items: expect.arrayContaining([

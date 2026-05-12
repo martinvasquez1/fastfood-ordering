@@ -32,7 +32,7 @@ export class RestaurantsController {
   @Public()
   @Get(':id/menu')
   @ApiOperation({ operationId: 'getRestaurantMenu' })
-  async getMenu(@Param('id', ParseIntPipe) id: number) {
-    return this.restaurantsService.getRestaurantMenu(id);
+  async getMenu(@Param('id', ParseIntPipe) id: number, @Query('category') category?: string ) {
+    return this.restaurantsService.getRestaurantMenu(id, category);
   }
 }

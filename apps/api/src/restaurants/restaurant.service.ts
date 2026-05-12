@@ -20,7 +20,7 @@ export class RestaurantsService {
     return restaurant;
   }
 
-  async getRestaurantMenu(id: number) {
+  async getRestaurantMenu(id: number, category?: string) {
     await this.findOne(id)
 
     const stockItems = await this.restaurantsRepository.getRestaurantMenu(id);
@@ -29,6 +29,10 @@ export class RestaurantsService {
 
     for (const stock of stockItems) {
       const categoryName = stock.menuItem.menuCategory.name;
+
+      if (category && categoryName.toLowerCase() !== category.toLowerCase()) {
+        continue;
+      }
 
       if (!grouped.has(categoryName)) {
         grouped.set(categoryName, []);
