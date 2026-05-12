@@ -12,6 +12,9 @@ import { RestaurantsModule } from 'src/restaurants/restaurant.module';
 import { MenuModule } from 'src/menu/menu.module';
 
 import { Restaurant } from 'src/restaurants/restaurant.entity';
+import { MenuCategory } from 'src/menu/menu-category.entity';
+import { MenuItem } from 'src/menu/menu-item.entity';
+import { RestaurantStock } from 'src/restaurants/restaurant-stock.entity';
 
 describe('/restaurants', () => {
   let app: INestApplication;
@@ -193,6 +196,100 @@ describe('/restaurants', () => {
       await request(app.getHttpServer())
         .get('/restaurants/invalid-id')
         .expect(400);
+    });
+  });
+
+  describe('GET /restaurants/:id/menu', () => {
+    it('should return 404 if restaurant not found', async () => {
+      await request(app.getHttpServer())
+        .get(`/restaurants/1/menu`)
+        .expect(404);
+    });
+
+    it('should get empty result if no menu items', async () => {
+      const repo = dataSource.getRepository(Restaurant);
+      const restaurant = await repo.save({ name: 'R1', address: '...' });
+
+      const res = await request(app.getHttpServer())
+        .get(`/restaurants/${restaurant.id}/menu`)
+        .expect(200);
+
+      expect(res.body).toStrictEqual([]);
+    });
+
+    describe('get items', () => {
+      let restaurant1;
+      let menuCategory1;
+      let menuCategory2;
+      let menuItem1;
+      let menuItem2;
+      let restStock1;
+      let restStock2;
+
+      beforeAll(async () => {
+        const repo = dataSource.getRepository(Restaurant);
+        restaurant1 = await repo.save({ name: 'R1', address: '...' });
+
+        const repoCategory = dataSource.getRepository(MenuCategory);
+        menuCategory1 = await repoCategory.save({ name: 'Burgers' });
+        menuCategory2 = await repoCategory.save({ name: 'Drinks' });
+
+        const repoMenuItem = dataSource.getRepository(MenuItem);
+        menuItem1 = await repoMenuItem.save({
+          name: 'Classic Burger',
+          description: 'Beef burger with lettuce and tomato',
+          price: 8990,
+          categoryName: menuCategory1.name,
+          menuCategoryId: menuCategory1.id,
+        })
+        menuItem2 = await repoMenuItem.save({
+          name: 'Energy drink',
+          description: '500ml',
+          price: 1990,
+          categoryName: menuCategory2.name,
+          menuCategoryId: menuCategory2.id,
+        })
+
+        const repoRestStock = dataSource.getRepository(RestaurantStock);
+        restStock1 = await repoRestStock.save({
+          restaurantId: restaurant1.id,
+          menuItemId: menuItem1.id,
+          quantity: 10
+        })
+        restStock2 = await repoRestStock.save({
+          restaurantId: restaurant1.id,
+          menuItemId: menuItem2.id,
+          quantity: 8
+        })
+      })
+
+      it('should get menu with two items', async () => {
+        const res = await request(app.getHttpServer())
+          .get(`/restaurants/1/menu`)
+          .expect(200);
+
+        expect(res.body).toHaveLength(2);
+        expect(res.body).toEqual([
+          expect.objectContaining({
+            category: menuCategory1.name,
+            items: expect.arrayContaining([
+              expect.objectContaining({
+                name: menuItem1.name,
+                quantity: restStock1.quantity,
+              }),
+            ]),
+          }),
+          expect.objectContaining({
+            category: menuCategory2.name,
+            items: expect.arrayContaining([
+              expect.objectContaining({
+                name: menuItem2.name,
+                quantity: restStock2.quantity,
+              }),
+            ]),
+          }),
+        ]);
+      });
     });
   });
 });
