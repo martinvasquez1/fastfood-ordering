@@ -1,0 +1,13 @@
+:root {
+  /* This ensures the variable is globally recognized */
+  --font-plus-jakarta: 'Plus Jakarta Sans', sans-serif;
+}
+
+html, body {
+  font-family: var(--font-plus-jakarta) !important;
+}
+
+/* Form elements are stubborn, so we force them here */
+button, input, select, textarea {
+  font-family: var(--font-plus-jakarta);
+}
