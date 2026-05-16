@@ -42,4 +42,18 @@ export class RestaurantsRepository {
       },
     });
   }
+
+  async getRestaurantMenuItem({ restaurantId,  menuItemId }: { restaurantId: number, menuItemId: number }) {
+    return this.ORMStockRepo.findOne({
+      where: {
+        restaurantId,
+        menuItemId,
+      },
+      relations: {
+        menuItem: {
+          menuCategory: true,
+        },
+      },
+    });
+  }
 }

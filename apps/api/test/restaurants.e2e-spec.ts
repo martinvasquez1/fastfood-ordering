@@ -316,6 +316,33 @@ describe('/restaurants', () => {
           },
         ]);
       });
+
+      it('should get menu item', async () => {
+        const res = await request(app.getHttpServer())
+          .get(`/restaurants/${restaurant1.id}/menu/${menuItem1.id}`)
+          .expect(200);
+
+        expect(res.body).toEqual({
+          id: menuItem1.id,
+          name: menuItem1.name,
+          description: menuItem1.description,
+          price: menuItem1.price,
+          quantity: restStock1.quantity,
+          category: menuCategory1.name,
+        })
+      });
+
+      it('should return 404 if menu item not found', async () => {
+        await request(app.getHttpServer())
+          .get(`/restaurants/${restaurant1.id}/menu/${999}`)
+          .expect(404);
+      });
+
+      it('should return 400 for invalid menu item id', async () => {
+        await request(app.getHttpServer())
+          .get(`/restaurants/${restaurant1.id}/menu/invalid-id`)
+          .expect(400);
+      });
     });
   });
 });

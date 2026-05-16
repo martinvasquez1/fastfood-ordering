@@ -52,4 +52,23 @@ export class RestaurantsService {
       items,
     }));
   }
+
+  async getRestaurantMenuItem(
+    restaurantId: number,
+    menuItemId: number,
+  ) {
+    await this.findOne(restaurantId)
+
+    const stock = await this.restaurantsRepository.getRestaurantMenuItem({ restaurantId, menuItemId });
+    if (!stock) throw new NotFoundException(`MenuItem with ID ${menuItemId} not found`);
+
+    return {
+      id: stock.menuItem.id,
+      name: stock.menuItem.name,
+      description: stock.menuItem.description,
+      price: stock.menuItem.price,
+      quantity: stock.quantity,
+      category: stock.menuItem.menuCategory.name,
+    };
+  }
 }
