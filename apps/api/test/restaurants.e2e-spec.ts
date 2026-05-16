@@ -268,26 +268,31 @@ describe('/restaurants', () => {
           .get(`/restaurants/${restaurant1.id}/menu`)
           .expect(200);
 
-        expect(res.body).toHaveLength(2);
         expect(res.body).toEqual([
-          expect.objectContaining({
+          {
             category: menuCategory1.name,
-            items: expect.arrayContaining([
-              expect.objectContaining({
+            items: [
+              {
+                id: menuItem1.id,
                 name: menuItem1.name,
+                description: menuItem1.description,
+                price: menuItem1.price,
                 quantity: restStock1.quantity,
-              }),
-            ]),
-          }),
-          expect.objectContaining({
+              },
+            ],
+          },
+          {
             category: menuCategory2.name,
-            items: expect.arrayContaining([
-              expect.objectContaining({
+            items: [
+              {
+                id: menuItem2.id,
                 name: menuItem2.name,
+                description: menuItem2.description,
+                price: menuItem2.price,
                 quantity: restStock2.quantity,
-              }),
-            ]),
-          }),
+              },
+            ],
+          },
         ]);
       });
 
@@ -296,17 +301,19 @@ describe('/restaurants', () => {
           .get(`/restaurants/${restaurant1.id}/menu?category=drinks`)
           .expect(200);
 
-        expect(res.body).toHaveLength(1);
         expect(res.body).toEqual([
-          expect.objectContaining({
+          {
             category: menuCategory2.name,
-            items: expect.arrayContaining([
-              expect.objectContaining({
+            items: [
+              {
+                id: menuItem2.id,
                 name: menuItem2.name,
+                description: menuItem2.description,
+                price: menuItem2.price,
                 quantity: restStock2.quantity,
-              }),
-            ]),
-          }),
+              },
+            ],
+          },
         ]);
       });
     });
