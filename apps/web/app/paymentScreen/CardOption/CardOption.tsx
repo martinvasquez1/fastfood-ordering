@@ -1,0 +1,43 @@
+import React from 'react';
+import styles from './CardOption.module.css';
+
+interface CardOptionProps {
+  title: string;
+  subtitle: string;
+  icon?: React.ReactNode;
+  isActive: boolean;
+  onClick: () => void;
+}
+
+const CardOption = ({ title, subtitle, icon, isActive, onClick }: CardOptionProps) => {
+  return (
+    <div 
+      className={`${styles.cardWrapper} ${isActive ? styles.activeCard : ''}`} 
+      onClick={onClick}
+      role="radio"
+      aria-checked={isActive}
+      tabIndex={0}
+    >
+      {/* Left Icon */}
+      {icon && <div className={styles.iconLeft}>{icon}</div>}
+
+      {/* Middle Content Stack */}
+      <div className={styles.textContainer}>
+        <div className={styles.title}>{title}</div>
+        <div className={styles.subtitle}>{subtitle}</div>
+      </div>
+
+      {/* Right Selection Circle/Icon - Only shows when active */}
+      {isActive ? (
+        <div className={styles.iconRight} aria-hidden="true">
+          {/* You can drop a constant checkmark SVG here later if you want */}
+        </div>
+      ) : (
+        /* Hidden placeholder box to keep spacing consistent when inactive */
+        <div className={styles.iconRightPlaceholder} />
+      )}
+    </div>
+  );
+};
+
+export default CardOption;
