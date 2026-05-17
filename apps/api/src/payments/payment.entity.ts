@@ -28,7 +28,7 @@ export class Payment {
   holderName: string;
 
   // "MM/YY"
-  @Column({ length: 7 })
+  @Column({ length: 5 })
   expires: string;
 
   @CreateDateColumn()
