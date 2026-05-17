@@ -26,6 +26,9 @@ export class User {
   @Column()
   password: string;
 
+  @Column({ type: "text", nullable: true })
+  address?: string;
+
   @OneToMany(() => UserRole, (userRole) => userRole.user)
   userRoles: UserRole[];
 
