@@ -85,5 +85,64 @@ describe('/payments', () => {
         });
     });
 
+    describe("GET /payments", () => {
+        it("should return all user payment methods", async () => {
+            const dto1 = {
+                cardNumber: "1234123412341234",
+                holderName: "A",
+                expires: "12/01",
+            };
+
+            const dto2 = {
+                cardNumber: "5678567856785678",
+                holderName: "B",
+                expires: "12/02",
+            };
+
+            await request(app.getHttpServer())
+                .get("/payments")
+                .send(dto1)
+                .set('Authorization', `Bearer ${userToken}`)
+                .expect(201);
+
+            await request(app.getHttpServer())
+                .get("/payments")
+                .send(dto2)
+                .set('Authorization', `Bearer ${userToken}`)
+                .expect(201);
+
+            const response = await request(app.getHttpServer())
+                .get("/payments")
+                .expect(200);
+
+            expect(response.body).toStrictEqual([
+                {
+                    id: 1,
+                    userId: user.id,
+                    cardNumber: "1234",
+                    holderName: "A",
+                    expires: "12/01",
+                    createdAt: expect.any(String),
+                    updatedAt: expect.any(String),
+                },
+                {
+                    id: 2,
+                    userId: user.id,
+                    cardNumber: "5678",
+                    holderName: "B",
+                    expires: "12/02",
+                    createdAt: expect.any(String),
+                    updatedAt: expect.any(String),
+                },
+            ]);
+        });
+
+        it("should return empty if no payment methods", async () => {
+             await request(app.getHttpServer())
+                .get("/payments")
+                .set('Authorization', `Bearer ${userToken}`)
+                .expect(201);           
+        });
+    });
 });
 
