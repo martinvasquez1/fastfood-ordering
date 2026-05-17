@@ -72,6 +72,7 @@ describe('/payments', () => {
             const response = await request(app.getHttpServer())
                 .post("/payments")
                 .send(dto)
+                .set('Authorization', `Bearer ${userToken}`)
                 .expect(201);
 
             expect(response.body).toStrictEqual({
