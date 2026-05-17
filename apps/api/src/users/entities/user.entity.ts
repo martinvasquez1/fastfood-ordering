@@ -11,6 +11,7 @@ import {
 import { UserRole } from 'src/roles/user-role.entity';
 import { Driver } from 'src/drivers/driver.entity';
 import { Payment } from 'src/payments/payment.entity';
+import { Order } from 'src/orders/order.entity';
 
 @Entity('users')
 export class User {
@@ -37,6 +38,9 @@ export class User {
 
   @OneToMany(() => Payment, (payment) => payment.user)
   payments: Payment[];
+
+  @OneToMany(() => Order, (order) => order.user)
+  orders: Order[];
 
   @CreateDateColumn()
   createdAt: Date;
