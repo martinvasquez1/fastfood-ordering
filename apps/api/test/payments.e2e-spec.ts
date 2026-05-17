@@ -78,7 +78,7 @@ describe('/payments', () => {
             expect(response.body).toStrictEqual({
                 id: user.id,
                 userId: dto.userId,
-                cardNumber: dto.cardNumber,
+                cardNumber: dto.cardNumber.slice(-4),
                 holderName: dto.holderName,
                 expires: dto.expires,
                 createdAt: expect.any(String),

@@ -13,6 +13,6 @@ export class PaymentsController {
   @Post()
   @ApiOperation({ operationId: 'postPayments' })
   async create(@User('id') userId: number, @Body() body: Partial<Payment>): Promise<Payment> {
-    return this.paymentsService.create(userId, body);
+    return this.paymentsService.create(userId, {...body, cardNumber: body.cardNumber?.slice(-4)})
   }
 }
