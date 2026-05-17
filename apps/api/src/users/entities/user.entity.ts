@@ -10,6 +10,7 @@ import {
 
 import { UserRole } from 'src/roles/user-role.entity';
 import { Driver } from 'src/drivers/driver.entity';
+import { Payment } from 'src/payments/payment.entity';
 
 @Entity('users')
 export class User {
@@ -30,6 +31,9 @@ export class User {
 
   @OneToOne(() => Driver, (driver) => driver.user)
   driver?: Driver;
+
+  @OneToMany(() => Payment, (payment) => payment.user)
+  payments: Payment[];
 
   @CreateDateColumn()
   createdAt: Date;
