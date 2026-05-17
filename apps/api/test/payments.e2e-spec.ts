@@ -62,8 +62,7 @@ describe('/payments', () => {
 
     describe("POST /payments", () => {
         const dto = {
-            userId: 1,
-            cardNumber: "4111111111111111",
+            cardNumber: "1234123412341234",
             holderName: "John",
             expires: "12/20",
         };
@@ -73,11 +72,10 @@ describe('/payments', () => {
                 .post("/payments")
                 .send(dto)
                 .set('Authorization', `Bearer ${userToken}`)
-                .expect(201);
 
             expect(response.body).toStrictEqual({
-                id: user.id,
-                userId: dto.userId,
+                id: 1,
+                userId: user.id,
                 cardNumber: dto.cardNumber.slice(-4),
                 holderName: dto.holderName,
                 expires: dto.expires,

@@ -4,6 +4,8 @@ import { PaymentsRepository } from './payments.repository';
 import { Payment } from './payment.entity';
 import { UsersService } from 'src/users/users.service';
 
+import { CreatePaymentDto } from './dto/create-payment.dto';
+
 @Injectable()
 export class PaymentsService {
   constructor(
@@ -11,9 +13,8 @@ export class PaymentsService {
     private readonly usersService: UsersService,
   ) { }
 
-  async create(userId: number, data: Partial<Payment>): Promise<Payment> {
+  async create(userId: number, dto: CreatePaymentDto): Promise<Payment> {
     await this.usersService.findOne(userId);
-    return this.paymentsRepository.create(data);
+    return this.paymentsRepository.create(userId, dto);
   }
 }
-
