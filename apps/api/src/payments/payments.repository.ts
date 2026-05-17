@@ -13,13 +13,21 @@ export class PaymentsRepository {
   ) { }
 
   async create(userId, dto: CreatePaymentDto): Promise<Payment> {
-    const payment = this.ORM.create({...dto, userId});
+    const payment = this.ORM.create({ ...dto, userId });
     const savedPayment = this.ORM.save(payment);
     return savedPayment;
   }
 
   async findAll(): Promise<Payment[]> {
     return this.ORM.find({ order: { id: "ASC" } });
+  }
+
+  async findOneById(id: number): Promise<Payment | null> {
+    return this.ORM.findOne({ where: { id } });
+  }
+
+  async delete(payment: Payment): Promise<void> {
+    await this.ORM.remove(payment);
   }
 }
 

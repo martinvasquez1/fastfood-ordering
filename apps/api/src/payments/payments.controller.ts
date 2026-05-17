@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 
 import { User } from 'src/common/decorators/user.decorator';
@@ -23,5 +23,11 @@ export class PaymentsController {
   @ApiOperation({ operationId: 'getPayments' })
   async findAll(): Promise<Payment[]> {
     return this.paymentsService.findAll();
+  }
+
+  @Delete(":id")
+  @ApiOperation({ operationId: 'deletePayments' })
+  async delete(@Param("id", ParseIntPipe) id: number): Promise<void> {
+    return this.paymentsService.delete(id);
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PaymentsRepository } from './payments.repository';
 
 import { Payment } from './payment.entity';
@@ -20,5 +20,11 @@ export class PaymentsService {
 
   async findAll(): Promise<Payment[]> {
     return this.paymentsRepository.findAll();
+  }
+
+  async delete(paymentId: number): Promise<void> {
+    const payment = await this.paymentsRepository.findOneById(paymentId);
+    if (!payment) throw new NotFoundException("Payment not found");
+    await this.paymentsRepository.delete(payment);
   }
 }

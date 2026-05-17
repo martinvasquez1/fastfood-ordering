@@ -140,10 +140,39 @@ describe('/payments', () => {
         });
 
         it("should return empty if no payment methods", async () => {
-             await request(app.getHttpServer())
+            await request(app.getHttpServer())
                 .get("/payments")
                 .set('Authorization', `Bearer ${userToken}`)
-                .expect(200);           
+                .expect(200);
+        });
+    });
+
+    describe("DELETE /payments/:id", () => {
+        it("should delete a payment method", async () => {
+            const dto = {
+                cardNumber: "1234123412341234",
+                holderName: "A",
+                expires: "12/01",
+            };
+
+            const createResponse = await request(app.getHttpServer())
+                .post("/payments")
+                .send(dto)
+                .set('Authorization', `Bearer ${userToken}`)
+                .expect(201);
+
+            const paymentId = createResponse.body.id;
+            await request(app.getHttpServer())
+                .delete(`/payments/${paymentId}`)
+                .set('Authorization', `Bearer ${userToken}`)
+                .expect(200);
+        });
+
+        it('should return 404 for non-existent payment', async () => {
+            await request(app.getHttpServer())
+                .delete(`/payments/999`)
+                .set('Authorization', `Bearer ${userToken}`)
+                .expect(404);
         });
     });
 });
