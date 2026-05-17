@@ -11,10 +11,15 @@ import cleanDatabase from './util/clean-database';
 import { OrdersModule } from 'src/orders/orders.module';
 import { MenuModule } from 'src/menu/menu.module';
 import { RestaurantsModule } from 'src/restaurants/restaurant.module';
+import { AuthModule } from 'src/auth/auth.module';
+import { UsersModule } from 'src/users/users.module';
 
 import { User } from 'src/users/entities/user.entity';
-import { UsersModule } from 'src/users/users.module';
-import { AuthModule } from 'src/auth/auth.module';
+import { OrderStatus } from 'src/orders/order.entity';
+import { Restaurant } from 'src/restaurants/restaurant.entity';
+import { MenuCategory } from 'src/menu/menu-category.entity';
+import { MenuItem } from 'src/menu/menu-item.entity';
+import { RestaurantStock } from 'src/restaurants/restaurant-stock.entity';
 
 const dto = {
     username: 'user',
@@ -24,6 +29,13 @@ const dto = {
 
 let user: User;
 let userToken: string;
+let restaurant1;
+let menuCategory1;
+let menuCategory2;
+let menuItem1;
+let menuItem2;
+let restStock1;
+let restStock2;
 
 describe('/orders', () => {
     let app: INestApplication;
@@ -38,6 +50,41 @@ describe('/orders', () => {
             .get(`/users/1`)
             .set('Authorization', `Bearer ${userToken}`);
         user = getBody;
+
+        const repo = dataSource.getRepository(Restaurant);
+        restaurant1 = await repo.save({ name: 'R1', address: '...' });
+
+        const repoCategory = dataSource.getRepository(MenuCategory);
+        menuCategory1 = await repoCategory.save({ name: 'Burgers' });
+        menuCategory2 = await repoCategory.save({ name: 'Drinks' });
+
+        const repoMenuItem = dataSource.getRepository(MenuItem);
+        menuItem1 = await repoMenuItem.save({
+            name: 'Classic Burger',
+            description: 'Beef burger with lettuce and tomato',
+            price: 8990,
+            categoryName: menuCategory1.name,
+            menuCategoryId: menuCategory1.id,
+        })
+        menuItem2 = await repoMenuItem.save({
+            name: 'Energy drink',
+            description: '500ml',
+            price: 1990,
+            categoryName: menuCategory2.name,
+            menuCategoryId: menuCategory2.id,
+        })
+
+        const repoRestStock = dataSource.getRepository(RestaurantStock);
+        restStock1 = await repoRestStock.save({
+            restaurantId: restaurant1.id,
+            menuItemId: menuItem1.id,
+            quantity: 10
+        })
+        restStock2 = await repoRestStock.save({
+            restaurantId: restaurant1.id,
+            menuItemId: menuItem2.id,
+            quantity: 8
+        })
     }
 
     beforeAll(async () => {
@@ -61,5 +108,54 @@ describe('/orders', () => {
 
     it('should compile the module', async () => {
         expect(module).toBeDefined();
+    });
+
+    describe('POST /orders', () => {
+        it('should create an order without assigning a driver', async () => {
+            const dto = {
+                restaurantId: 1,
+                shippingAddress: 'ABC',
+                items: [
+                    {
+                        menuItemId: menuItem1.id,
+                        quantity: restStock1.quantity,
+                    },
+                ],
+            };
+
+            const response = await request(app.getHttpServer())
+                .post('/orders')
+                .set('Authorization', `Bearer ${userToken}`)
+                .send(dto)
+                .expect(201);
+
+            const unitPrice = menuItem1.price;
+            const quantity = restStock1.quantity;
+            const subtotal = unitPrice * quantity;
+            const totalPrice = subtotal;
+
+            expect(response.body).toStrictEqual({
+                id: 1,
+                userId: user.id,
+                driverId: null,
+                restaurantId: dto.restaurantId,
+                status: OrderStatus.PENDING,
+                shippingAddress: dto.shippingAddress,
+                notes: null,
+                totalPrice,
+                items: [
+                    {
+                        id: expect.any(Number),
+                        orderId: expect.any(Number),
+                        menuItemId: menuItem1.id,
+                        quantity,
+                        unitPrice,
+                        subtotal,
+                    },
+                ],
+                createdAt: expect.any(String),
+                updatedAt: expect.any(String),
+            });
+        });
     });
 });
