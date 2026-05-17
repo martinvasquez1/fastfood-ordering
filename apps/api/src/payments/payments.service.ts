@@ -17,4 +17,8 @@ export class PaymentsService {
     await this.usersService.findOne(userId);
     return this.paymentsRepository.create(userId, dto);
   }
+
+  async findAll(): Promise<Payment[]> {
+    return this.paymentsRepository.findAll();
+  }
 }

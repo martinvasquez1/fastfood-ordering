@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 
 import { User } from 'src/common/decorators/user.decorator';
@@ -15,7 +15,13 @@ export class PaymentsController {
   @Post()
   @ApiOperation({ operationId: 'postPayments' })
   async create(@User('id') userId: number, @Body() createHabitDto: CreatePaymentDto): Promise<Payment> {
-    const newDto = {...createHabitDto, cardNumber: createHabitDto.cardNumber?.slice(-4)};
+    const newDto = { ...createHabitDto, cardNumber: createHabitDto.cardNumber?.slice(-4) };
     return this.paymentsService.create(userId, newDto);
+  }
+
+  @Get()
+  @ApiOperation({ operationId: 'getPayments' })
+  async findAll(): Promise<Payment[]> {
+    return this.paymentsService.findAll();
   }
 }

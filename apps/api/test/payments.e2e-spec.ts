@@ -72,6 +72,7 @@ describe('/payments', () => {
                 .post("/payments")
                 .send(dto)
                 .set('Authorization', `Bearer ${userToken}`)
+                .expect(201);
 
             expect(response.body).toStrictEqual({
                 id: 1,
@@ -100,19 +101,20 @@ describe('/payments', () => {
             };
 
             await request(app.getHttpServer())
-                .get("/payments")
+                .post("/payments")
                 .send(dto1)
                 .set('Authorization', `Bearer ${userToken}`)
                 .expect(201);
 
             await request(app.getHttpServer())
-                .get("/payments")
+                .post("/payments")
                 .send(dto2)
                 .set('Authorization', `Bearer ${userToken}`)
                 .expect(201);
 
             const response = await request(app.getHttpServer())
                 .get("/payments")
+                .set('Authorization', `Bearer ${userToken}`)
                 .expect(200);
 
             expect(response.body).toStrictEqual([
@@ -141,7 +143,7 @@ describe('/payments', () => {
              await request(app.getHttpServer())
                 .get("/payments")
                 .set('Authorization', `Bearer ${userToken}`)
-                .expect(201);           
+                .expect(200);           
         });
     });
 });

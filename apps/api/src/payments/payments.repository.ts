@@ -17,5 +17,9 @@ export class PaymentsRepository {
     const savedPayment = this.ORM.save(payment);
     return savedPayment;
   }
+
+  async findAll(): Promise<Payment[]> {
+    return this.ORM.find({ order: { id: "ASC" } });
+  }
 }
 
