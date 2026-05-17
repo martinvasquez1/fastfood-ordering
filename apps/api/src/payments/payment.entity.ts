@@ -21,7 +21,7 @@ export class Payment {
   @JoinColumn({ name: "userId" })
   user: User;
 
-  @Column({ length: 4 })
+  @Column({ length: 20 })
   cardNumber: string;
 
   @Column({ length: 50 })

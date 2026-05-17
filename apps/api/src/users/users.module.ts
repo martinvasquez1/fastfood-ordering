@@ -7,6 +7,7 @@ import { User } from './entities/user.entity';
 import { Role } from 'src/roles/role.entity';
 import { UserRole } from 'src/roles/user-role.entity';
 import { Driver } from 'src/drivers/driver.entity';
+import { Payment } from 'src/payments/payment.entity';
 
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
@@ -19,7 +20,7 @@ import { UpdateUserPolicy } from './policies/update-user-policy';
 import { DeleteUserPolicy } from './policies/delete-user-policy';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Role, UserRole, Driver]), CaslModule],
+  imports: [TypeOrmModule.forFeature([User, Role, UserRole, Driver, Payment]), CaslModule],
   controllers: [UsersController],
   providers: [
     UsersService,
