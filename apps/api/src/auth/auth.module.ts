@@ -10,6 +10,9 @@ import { CreateUserPolicy } from 'src/users/policies/create-user-policy';
 import { CaslModule } from 'src/casl/casl.module';
 import { RolesModule } from 'src/roles/roles.module';
 import { DriversModule } from 'src/drivers/drivers.module';
+import { OrdersModule } from 'src/orders/orders.module';
+import { MenuModule } from 'src/menu/menu.module';
+import { RestaurantsModule } from 'src/restaurants/restaurant.module';
 
 @Module({
   imports: [
@@ -23,6 +26,9 @@ import { DriversModule } from 'src/drivers/drivers.module';
     UsersModule,
     RolesModule,
     DriversModule,
+    OrdersModule,
+    MenuModule,
+    RestaurantsModule,
   ],
   controllers: [AuthController],
   providers: [CreateUserPolicy, AuthService, { provide: APP_GUARD, useClass: AuthGuard }],

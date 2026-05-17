@@ -13,6 +13,7 @@ import { DriversModule } from './drivers/drivers.module';
 import { RestaurantsModule } from './restaurants/restaurant.module';
 import { MenuModule } from './menu/menu.module';
 import { PaymentsModule } from './payments/payments.module';
+import { OrdersModule } from './orders/orders.module';
 
 import typeOrmConfig from './config/type-orm.config';
 
@@ -27,6 +28,7 @@ import typeOrmConfig from './config/type-orm.config';
     RestaurantsModule,
     MenuModule,
     PaymentsModule,
+    OrdersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
