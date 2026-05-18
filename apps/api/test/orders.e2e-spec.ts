@@ -142,6 +142,7 @@ describe('/orders', () => {
                 status: OrderStatus.PENDING,
                 shippingAddress: dto.shippingAddress,
                 notes: null,
+                proofOfDelivery: null,
                 totalPrice,
                 items: [
                     {

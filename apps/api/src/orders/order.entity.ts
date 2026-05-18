@@ -69,6 +69,9 @@ export class Order {
   @OneToMany(() => OrderItem, (item) => item.order, { cascade: true })
   items: OrderItem[];
 
+  @Column({ type: 'text', nullable: true })
+  proofOfDelivery: string | null;
+
   @CreateDateColumn()
   createdAt: Date;
 
