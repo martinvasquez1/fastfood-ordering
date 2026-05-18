@@ -183,22 +183,52 @@ describe('/orders', () => {
             order1 = res.body;
         });
 
-        it('should update an order', async () => {
-            const updateDto = {
-                status: OrderStatus.PREPARING,
-                notes: 'Leave at the door',
-            };
-
+        it('should allow transition from PENDING to PREPARING', async () => {
             const response = await request(app.getHttpServer())
                 .patch(`/orders/${order1.id}`)
                 .set('Authorization', `Bearer ${userToken}`)
-                .send(updateDto)
+                .send({ status: OrderStatus.PREPARING })
                 .expect(200);
 
             expect(response.body).toMatchObject({
                 id: order1.id,
                 status: OrderStatus.PREPARING,
             });
+        });
+
+        it('should require proof of delivery image when updating status from ON_THE_WAY to DELIVERED', async () => {
+            await request(app.getHttpServer())
+                .patch(`/orders/${order1.id}`)
+                .set('Authorization', `Bearer ${userToken}`)
+                .send({ status: OrderStatus.PREPARING })
+                .expect(200);
+
+            await request(app.getHttpServer())
+                .patch(`/orders/${order1.id}`)
+                .set('Authorization', `Bearer ${userToken}`)
+                .send({ status: OrderStatus.AWAITING_PICKUP })
+                .expect(200);
+
+            await request(app.getHttpServer())
+                .patch(`/orders/${order1.id}`)
+                .set('Authorization', `Bearer ${userToken}`)
+                .send({ status: OrderStatus.ON_THE_WAY })
+                .expect(200);
+
+            await request(app.getHttpServer())
+                .patch(`/orders/${order1.id}`)
+                .set('Authorization', `Bearer ${userToken}`)
+                .send({ status: OrderStatus.DELIVERED })
+                .expect(400);
+        });
+
+        it('should return 404 when updating non-existing order', async () => {
+            const updateDto = { status: OrderStatus.PREPARING };
+            await request(app.getHttpServer())
+                .patch('/orders/999999')
+                .set('Authorization', `Bearer ${userToken}`)
+                .send(updateDto)
+                .expect(404);
         });
     });
 });
