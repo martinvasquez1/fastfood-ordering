@@ -1,12 +1,18 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { Body, Controller, FileTypeValidator, MaxFileSizeValidator, Param, ParseIntPipe, Patch, Post, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { ApiConsumes, ApiOperation } from '@nestjs/swagger';
 
-import { Order } from './order.entity';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
+import { MultiFileValidationPipe } from 'src/common/pipes/multi-file-validation-pipe';
 
 import { OrdersService } from './order.service';
 
-import { CreateOrderDto } from './dto/create-order.dto';
+import { Order } from './order.entity';
 import { User } from 'src/common/decorators/user.decorator';
+
+import { CreateOrderDto } from './dto/create-order.dto';
+import { UpdateOrderDto } from './dto/update-order.dto';
 
 @Controller('orders')
 export class OrdersController {
@@ -16,5 +22,40 @@ export class OrdersController {
     @ApiOperation({ operationId: 'postOrder' })
     async create(@User('id') userId: number, @Body() dto: CreateOrderDto): Promise<Order> {
         return this.ordersService.createOrder(userId, dto);
+    }
+
+    @Patch(':id')
+    @UseInterceptors(
+        FileFieldsInterceptor(
+            [
+                { name: 'proofOfDelivery', maxCount: 1 },
+            ],
+            {
+                storage: diskStorage({
+                    destination: './uploads/orders',
+                    filename: (req, file, cb) => {
+                        const unique = Date.now();
+                        const name = `${file.fieldname}-${unique}${extname(file.originalname)}`;
+                        cb(null, name);
+                    },
+                }),
+            },
+        ),
+    )
+    @ApiConsumes('multipart/form-data')
+    @ApiOperation({ operationId: 'updateOrder' })
+    async update(
+        @Param('id', ParseIntPipe) id: number,
+        @Body() dto: UpdateOrderDto,
+        @UploadedFiles(
+            new MultiFileValidationPipe([
+                new FileTypeValidator({ fileType: /^image\/(png|jpeg)$/ }),
+                new MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }),
+            ]),
+        )
+        files?: { proofOfDelivery?: Express.Multer.File[] },
+    ) {
+        const proofOfDelivery = files?.proofOfDelivery?.[0]?.path ?? null;
+        return this.ordersService.update(+id, dto, proofOfDelivery);
     }
 }

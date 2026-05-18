@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 
 import { OrdersRepository } from './orders.repository';
 import { MenuItemsRepository } from 'src/menu/menu-item.repository';
@@ -6,6 +6,7 @@ import { MenuItemsRepository } from 'src/menu/menu-item.repository';
 import { Order, OrderStatus } from './order.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { DeepPartial } from 'typeorm';
+import { UpdateOrderDto } from './dto/update-order.dto';
 
 @Injectable()
 export class OrdersService {
@@ -52,5 +53,27 @@ export class OrdersService {
     };
 
     return this.ordersRepository.createOrder(order);
+  }
+
+  async update(id: number, dto: UpdateOrderDto, imagePath?: string | null) {
+    const order = await this.ordersRepository.findOneById(id);
+
+    if (!order) throw new NotFoundException(`Order with ID ${id} not found`);
+
+    Object.assign(order, dto);
+
+    const updateToDelivered = dto.status == OrderStatus.DELIVERED;
+    if (updateToDelivered && !imagePath) {
+        throw new BadRequestException('Proof of delivery image is required when marking order as delivered');
+    }
+
+    const isThereProofOfDelivery = imagePath !== undefined;
+    if (isThereProofOfDelivery) {
+      order.proofOfDelivery = imagePath;
+    }
+
+    const updatedOrder = await this.ordersRepository.save(order);
+
+    return updatedOrder;
   }
 }

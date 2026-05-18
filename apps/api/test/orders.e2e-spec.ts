@@ -159,4 +159,46 @@ describe('/orders', () => {
             });
         });
     });
+
+    describe('PATCH /orders/:id', () => {
+        let order1;
+
+        beforeEach(async () => {
+            const createDto = {
+                restaurantId: 1,
+                shippingAddress: 'ABC',
+                items: [
+                    {
+                        menuItemId: menuItem1.id,
+                        quantity: restStock1.quantity,
+                    },
+                ],
+            };
+
+            const res = await request(app.getHttpServer())
+                .post('/orders')
+                .set('Authorization', `Bearer ${userToken}`)
+                .send(createDto)
+                .expect(201);
+            order1 = res.body;
+        });
+
+        it('should update an order', async () => {
+            const updateDto = {
+                status: OrderStatus.PREPARING,
+                notes: 'Leave at the door',
+            };
+
+            const response = await request(app.getHttpServer())
+                .patch(`/orders/${order1.id}`)
+                .set('Authorization', `Bearer ${userToken}`)
+                .send(updateDto)
+                .expect(200);
+
+            expect(response.body).toMatchObject({
+                id: order1.id,
+                status: OrderStatus.PREPARING,
+            });
+        });
+    });
 });
