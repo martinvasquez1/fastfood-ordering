@@ -56,6 +56,10 @@ export class OrdersService {
     return this.ordersRepository.createOrder(order);
   }
 
+  async getOrders(userId?: number, driverId?: number, status?: OrderStatus): Promise<Order[]> {
+    return this.ordersRepository.findAll(userId, driverId, status)
+  }
+
   async update(id: number, dto: UpdateOrderDto, imagePath?: string | null) {
     const order = await this.ordersRepository.findOneById(id);
     if (!order) throw new NotFoundException(`Order with ID ${id} not found`);

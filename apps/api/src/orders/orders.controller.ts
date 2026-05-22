@@ -1,4 +1,4 @@
-import { Body, Controller, FileTypeValidator, MaxFileSizeValidator, Param, ParseIntPipe, Patch, Post, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, FileTypeValidator, Get, MaxFileSizeValidator, Param, ParseIntPipe, Patch, Post, Query, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { ApiConsumes, ApiOperation } from '@nestjs/swagger';
 
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
@@ -8,11 +8,12 @@ import { MultiFileValidationPipe } from 'src/common/pipes/multi-file-validation-
 
 import { OrdersService } from './order.service';
 
-import { Order } from './order.entity';
+import { Order, OrderStatus } from './order.entity';
 import { User } from 'src/common/decorators/user.decorator';
 
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { FindOrdersDto } from './dto/find-orders.dto';
 
 @Controller('orders')
 export class OrdersController {
@@ -22,6 +23,12 @@ export class OrdersController {
     @ApiOperation({ operationId: 'postOrder' })
     async create(@User('id') userId: number, @Body() dto: CreateOrderDto): Promise<Order> {
         return this.ordersService.createOrder(userId, dto);
+    }
+
+    @Get()
+    @ApiOperation({ operationId: 'getOrders' })
+    async findAll(@Query() query: FindOrdersDto): Promise<Order[]> {
+        return this.ordersService.getOrders(query.userId, query.driverId, query.status);
     }
 
     @Patch(':id')

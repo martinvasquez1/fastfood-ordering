@@ -3,8 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { DeepPartial, Repository } from 'typeorm';
 
-import { Order } from './order.entity';
-import { UpdateOrderDto } from './dto/update-order.dto';
+import { Order, OrderStatus } from './order.entity';
 
 @Injectable()
 export class OrdersRepository {
@@ -16,6 +15,24 @@ export class OrdersRepository {
     const order = this.ORM.create(dto);
     const savedOrder = this.ORM.save(order);
     return savedOrder;
+  }
+
+  async findAll(
+    userId?: number,
+    driverId?: number,
+    status?: OrderStatus,
+  ): Promise<Order[]> {
+    const where: any = {};
+
+    if (userId !== undefined) where.userId = userId;
+    if (driverId !== undefined) where.driverId = driverId;
+    if (status !== undefined) where.status = status;
+
+    return this.ORM.find({
+      where,
+      relations: ['items'],
+      order: { createdAt: 'DESC' },
+    });
   }
 
   async findOneById(id: number): Promise<Order | null> {
