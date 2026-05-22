@@ -24,6 +24,7 @@ export class OrdersService {
       dto.items.map((i) => i.menuItemId),
     );
 
+    // Check stock
     for (const [index, menuItem] of menuItems.entries()) {
       const item = await this.restaurantRepository.getRestaruantStock(dto.restaurantId, menuItem.id);
       if (!item) throw new NotFoundException(`Item with ID ${menuItem.id} not found`);
@@ -64,6 +65,15 @@ export class OrdersService {
       totalPrice,
       items: orderItems,
     };
+
+    // Update stock
+    for (const item of dto.items) {
+      await this.restaurantRepository.updateRestaurantStock(
+        dto.restaurantId,
+        item.menuItemId,
+        item.quantity,
+      );
+    }
 
     return this.ordersRepository.createOrder(order);
   }

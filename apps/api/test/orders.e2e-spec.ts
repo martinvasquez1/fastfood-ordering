@@ -161,6 +161,42 @@ describe('/orders', () => {
                 updatedAt: expect.any(String),
             });
         });
+
+        it.only('should reduce stock', async () => {
+            const dto = {
+                restaurantId: 1,
+                shippingAddress: 'ABC',
+                items: [
+                    {
+                        menuItemId: menuItem1.id,
+                        quantity: restStock1.quantity,
+                    },
+                ],
+            };
+
+            const repoRestStock = dataSource.getRepository(RestaurantStock);
+            const before = await repoRestStock.findOne({
+                where: {
+                    restaurantId: 1,
+                    menuItemId: menuItem1.id,
+                },
+            });
+
+            await request(app.getHttpServer())
+                .post('/orders')
+                .set('Authorization', `Bearer ${userToken}`)
+                .send(dto)
+                .expect(201);
+
+            const after = await repoRestStock.findOne({
+                where: {
+                    restaurantId: 1,
+                    menuItemId: menuItem1.id,
+                },
+            });
+
+            expect(after!.quantity).toBe(before!.quantity - dto.items[0]!.quantity);
+        });
     });
 
     describe('PATCH /orders/:id', () => {
@@ -208,7 +244,7 @@ describe('/orders', () => {
                 .expect(404);
         });
 
-        describe('Order status transitions (fully generated)', () => {
+        describe('Order status transitions', () => {
             /**
             * Move order into a given state using valid forward transitions
             */
