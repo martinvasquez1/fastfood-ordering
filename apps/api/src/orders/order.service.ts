@@ -57,7 +57,11 @@ export class OrdersService {
   }
 
   async getOrders(userId?: number, driverId?: number, status?: OrderStatus): Promise<Order[]> {
-    return this.ordersRepository.findAll(userId, driverId, status)
+    return await this.ordersRepository.findAll(userId, driverId, status)
+  }
+
+  async getOrder(orderId): Promise<Order | null> {
+    return await this.ordersRepository.findOneById(orderId)
   }
 
   async update(id: number, dto: UpdateOrderDto, imagePath?: string | null) {

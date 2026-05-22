@@ -31,6 +31,12 @@ export class OrdersController {
         return this.ordersService.getOrders(query.userId, query.driverId, query.status);
     }
 
+    @Get(':id')
+    @ApiOperation({ operationId: 'getOrder' })
+    async findOne(@Param('id', ParseIntPipe) id: number): Promise<Order | null> {
+        return this.ordersService.getOrder(id);
+    }
+
     @Patch(':id')
     @UseInterceptors(
         FileFieldsInterceptor(

@@ -38,6 +38,7 @@ export class OrdersRepository {
   async findOneById(id: number): Promise<Order | null> {
     return this.ORM.findOne({
       where: { id },
+      relations: ['items'],
     });
   }
 
