@@ -2,6 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 
 import { OrdersRepository } from './orders.repository';
 import { MenuItemsRepository } from 'src/menu/menu-item.repository';
+import { RestaurantsRepository } from 'src/restaurants/restaurant.repository';
 
 import { Order, OrderStatus } from './order.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -14,6 +15,7 @@ export class OrdersService {
   constructor(
     private readonly ordersRepository: OrdersRepository,
     private readonly menuItemsRepository: MenuItemsRepository,
+    private readonly restaurantRepository: RestaurantsRepository,
   ) { }
 
   async createOrder(userId: number, dto: CreateOrderDto): Promise<Order> {
@@ -21,6 +23,16 @@ export class OrdersService {
     const menuItems = await this.menuItemsRepository.findByIds(
       dto.items.map((i) => i.menuItemId),
     );
+
+    for (const [index, menuItem] of menuItems.entries()) {
+      const item = await this.restaurantRepository.getRestaruantStock(dto.restaurantId, menuItem.id);
+      if (!item) throw new NotFoundException(`Item with ID ${menuItem.id} not found`);
+
+      const availableStock = item.quantity;
+      const isThereEnoughStock = availableStock >= dto.items[index]!.quantity;
+
+      if (!isThereEnoughStock) throw new BadRequestException(`Insufficient stock for menu item ${item.id}. Only ${availableStock} items are available.`);
+    }
 
     const someItemsDoNotExist = menuItems.length !== dto.items.length;
     if (someItemsDoNotExist) throw new BadRequestException('Some menu items do not exist');

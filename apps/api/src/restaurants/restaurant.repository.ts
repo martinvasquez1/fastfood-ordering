@@ -56,4 +56,10 @@ export class RestaurantsRepository {
       },
     });
   }
+
+  async getRestaruantStock(restaurantId: number , menuItemId: number): Promise<RestaurantStock | null> {
+    return this.ORMStockRepo.findOne({
+      where: { restaurantId, menuItemId }
+    })
+  }
 }
