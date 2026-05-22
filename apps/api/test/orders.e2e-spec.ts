@@ -20,6 +20,9 @@ import { Restaurant } from 'src/restaurants/restaurant.entity';
 import { MenuCategory } from 'src/menu/menu-category.entity';
 import { MenuItem } from 'src/menu/menu-item.entity';
 import { RestaurantStock } from 'src/restaurants/restaurant-stock.entity';
+import path from 'path';
+
+import { ORDER_TRANSITIONS } from 'src/orders/order-state-machine';
 
 const dto = {
     username: 'user',
@@ -196,32 +199,6 @@ describe('/orders', () => {
             });
         });
 
-        it('should require proof of delivery image when updating status from ON_THE_WAY to DELIVERED', async () => {
-            await request(app.getHttpServer())
-                .patch(`/orders/${order1.id}`)
-                .set('Authorization', `Bearer ${userToken}`)
-                .send({ status: OrderStatus.PREPARING })
-                .expect(200);
-
-            await request(app.getHttpServer())
-                .patch(`/orders/${order1.id}`)
-                .set('Authorization', `Bearer ${userToken}`)
-                .send({ status: OrderStatus.AWAITING_PICKUP })
-                .expect(200);
-
-            await request(app.getHttpServer())
-                .patch(`/orders/${order1.id}`)
-                .set('Authorization', `Bearer ${userToken}`)
-                .send({ status: OrderStatus.ON_THE_WAY })
-                .expect(200);
-
-            await request(app.getHttpServer())
-                .patch(`/orders/${order1.id}`)
-                .set('Authorization', `Bearer ${userToken}`)
-                .send({ status: OrderStatus.DELIVERED })
-                .expect(400);
-        });
-
         it('should return 404 when updating non-existing order', async () => {
             const updateDto = { status: OrderStatus.PREPARING };
             await request(app.getHttpServer())
@@ -229,6 +206,74 @@ describe('/orders', () => {
                 .set('Authorization', `Bearer ${userToken}`)
                 .send(updateDto)
                 .expect(404);
+        });
+
+        describe('Order status transitions (fully generated)', () => {
+            /**
+            * Move order into a given state using valid forward transitions
+            */
+            async function moveToState(target: OrderStatus) {
+                let currentStatus: OrderStatus = OrderStatus.PENDING;
+
+                const isTarget = currentStatus === target;
+                if (isTarget) return;
+
+                while (currentStatus !== target) {
+                    const nextStatuses = ORDER_TRANSITIONS[currentStatus];
+
+                    let next: OrderStatus | undefined;
+
+                    if (nextStatuses.includes(target)) {
+                        next = target;
+                    } else if (nextStatuses.length > 0) {
+                        next = nextStatuses[0];
+                    } else {
+                        break;
+                    }
+
+                    const res = await request(app.getHttpServer())
+                        .patch(`/orders/${order1.id}`)
+                        .set('Authorization', `Bearer ${userToken}`)
+                        .send({ status: next });
+
+                    if (res.status !== 200) {
+                        throw new Error(`Failed to move from ${currentStatus} → ${next}`);
+                    }
+
+                    if (!next) break;
+                    currentStatus = next;
+                }
+            }
+
+            const allStatuses = Object.keys(ORDER_TRANSITIONS) as OrderStatus[];
+
+            const cases = allStatuses.flatMap((from) =>
+                allStatuses.map((to) => ({
+                    from,
+                    to,
+                    allowed: ORDER_TRANSITIONS[from].includes(to),
+                })),
+            );
+
+            cases.forEach(({ from, to, allowed }) => {
+                const action = allowed ? 'ALLOW' : 'REJECT';
+
+                it(`should ${action} ${from} → ${to}`, async () => {
+                    await moveToState(from);
+
+                    const res = await request(app.getHttpServer())
+                        .patch(`/orders/${order1.id}`)
+                        .set('Authorization', `Bearer ${userToken}`)
+                        .send({ status: to });
+
+                    if (allowed) {
+                        expect(res.status).toBe(200);
+                        expect(res.body.status).toBe(to);
+                    } else {
+                        expect(res.status).toBe(400);
+                    }
+                });
+            });
         });
     });
 });

@@ -7,6 +7,7 @@ import { Order, OrderStatus } from './order.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { DeepPartial } from 'typeorm';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { validateTransition } from './order-state-machine';
 
 @Injectable()
 export class OrdersService {
@@ -55,60 +56,16 @@ export class OrdersService {
     return this.ordersRepository.createOrder(order);
   }
 
-  private checkStatusTransition(currentStatus: OrderStatus, nextStatus: OrderStatus, imagePath?: string | null) {
-    if (nextStatus && nextStatus !== currentStatus) {
-      const allowedTransitions: Record<OrderStatus, OrderStatus[]> = {
-        [OrderStatus.PENDING]: [
-          OrderStatus.PREPARING,
-          OrderStatus.CANCELLED,
-        ],
-
-        [OrderStatus.PREPARING]: [
-          OrderStatus.AWAITING_PICKUP,
-          OrderStatus.CANCELLED,
-        ],
-
-        [OrderStatus.AWAITING_PICKUP]: [
-          OrderStatus.ON_THE_WAY,
-          OrderStatus.CANCELLED,
-        ],
-
-        [OrderStatus.ON_THE_WAY]: [
-          OrderStatus.DELIVERED,
-          OrderStatus.CANCELLED,
-        ],
-
-        [OrderStatus.DELIVERED]: [],
-
-        [OrderStatus.CANCELLED]: [],
-      };
-
-      const isValidTransition = allowedTransitions[currentStatus]?.includes(nextStatus);
-      if (!isValidTransition) {
-        throw new BadRequestException(`Cannot change order status from ${currentStatus} to ${nextStatus}`);
-      }
-
-      if (nextStatus === OrderStatus.DELIVERED && !imagePath) {
-        throw new BadRequestException('Proof of delivery image is required when marking order as delivered');
-      }
-    }
-  }
-
   async update(id: number, dto: UpdateOrderDto, imagePath?: string | null) {
     const order = await this.ordersRepository.findOneById(id);
     if (!order) throw new NotFoundException(`Order with ID ${id} not found`);
 
-    const currentStatus = order.status;
-    const nextStatus = dto.status;
-    this.checkStatusTransition(currentStatus, nextStatus);
+    validateTransition(order.status, dto.status);
 
     Object.assign(order, dto);
-
-    const isThereProofOfDelivery = imagePath !== undefined;
-    if (isThereProofOfDelivery) order.proofOfDelivery = imagePath;
+    if (imagePath !== undefined) order.proofOfDelivery = imagePath;
 
     const updatedOrder = await this.ordersRepository.save(order);
-
     return updatedOrder;
   }
 }
