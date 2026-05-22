@@ -8,9 +8,10 @@ import { OrdersService } from './order.service';
 import { OrdersRepository } from './orders.repository';
 
 import { MenuModule } from 'src/menu/menu.module';
+import { RestaurantsModule } from 'src/restaurants/restaurant.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Order, OrderItem]), MenuModule],
+  imports: [TypeOrmModule.forFeature([Order, OrderItem]), MenuModule, RestaurantsModule],
   controllers: [OrdersController],
   providers: [OrdersService, OrdersRepository],
 })

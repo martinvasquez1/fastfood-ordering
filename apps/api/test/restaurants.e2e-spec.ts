@@ -15,6 +15,7 @@ import { Restaurant } from 'src/restaurants/restaurant.entity';
 import { MenuCategory } from 'src/menu/menu-category.entity';
 import { MenuItem } from 'src/menu/menu-item.entity';
 import { RestaurantStock } from 'src/restaurants/restaurant-stock.entity';
+import { OrdersModule } from 'src/orders/orders.module';
 
 describe('/restaurants', () => {
   let app: INestApplication;
@@ -25,7 +26,7 @@ describe('/restaurants', () => {
     const { container, dbURL } = await createPostgresContainer();
     startedContainer = container;
 
-    app = await createApp([RestaurantsModule, MenuModule], dbURL);
+    app = await createApp([RestaurantsModule, MenuModule, OrdersModule], dbURL);
     dataSource = app.get(DataSource);
 
     await app.init();

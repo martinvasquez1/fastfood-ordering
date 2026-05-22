@@ -11,8 +11,9 @@ import { OrdersModule } from 'src/orders/orders.module';
 import { UsersModule } from 'src/users/users.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Restaurant, RestaurantStock]), OrdersModule, UsersModule],
+  imports: [TypeOrmModule.forFeature([Restaurant, RestaurantStock]), UsersModule],
   controllers: [RestaurantsController],
   providers: [RestaurantsService, RestaurantsRepository],
+  exports: [RestaurantsRepository]
 })
 export class RestaurantsModule {}
