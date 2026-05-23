@@ -1,26 +1,37 @@
-# With-NestJs | API
+# API
 
-## Getting Started
+RESTful API for Papapita built with NestJS.
 
-First, run the development server:
+## Environment Variables
+
+The project includes a .env.example file where all required environment variables are defined to run the project correctly.
+
+It is recommended to copy it as .env and adjust the values according to your local environment.
 
 ```bash
-pnpm run dev
-# Also works with NPM, YARN, BUN, ...
+cp .env.example .env
 ```
 
-By default, your server will run at [localhost:3000](http://localhost:3000). You can use your favorite API platform like [Insomnia](https://insomnia.rest/) or [Postman](https://www.postman.com/) to test your APIs
+## API Documentation
 
-You can start editing the demo **APIs** by modifying [linksService](./src/links/links.service.ts) provider.
+Once the project is running, the interactive API documentation can be accessed at:
 
-### Important Note 🚧
+http://localhost:3002/api
 
-If you plan to `build` or `test` the app. Please make sure to build the `packages/*` first.
+To generate the API specification file (open-api.json), run:
 
-## Learn More
+```bash
+npm run generate:openapi
+```
 
-Learn more about `NestJs` with following resources:
+## Available Commands
 
-- [Official Documentation](https://docs.nestjs.com) - A progressive Node.js framework for building efficient, reliable and scalable server-side applications.
-- [Official NestJS Courses](https://courses.nestjs.com) - Learn everything you need to master NestJS and tackle modern backend applications at any scale.
-- [GitHub Repo](https://github.com/nestjs/nest)
+| Name                         | Description                                   |
+| ---------------------------- | --------------------------------------------- |
+| `npm run dev`                | Starts the development server with watch mode |
+| `npm run build`              | Builds the project                            |
+| `npm run start`              | Starts the application                        |
+| `npm run start:prod`         | Runs the compiled production build            |
+| `npm run test`               | Runs unit tests                               |
+| `npm run test:e2e`           | Runs end-to-end tests                         |
+| `npm run generate:openapi`   | Generates OpenAPI spec during app startup     |
