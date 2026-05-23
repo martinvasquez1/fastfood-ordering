@@ -162,7 +162,7 @@ describe('/orders', () => {
             });
         });
 
-        it.only('should reduce stock', async () => {
+        it('should reduce stock', async () => {
             const dto = {
                 restaurantId: 1,
                 shippingAddress: 'ABC',

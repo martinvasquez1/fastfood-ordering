@@ -91,6 +91,11 @@ export class OrdersService {
     const order = await this.ordersRepository.findOneById(id);
     if (!order) throw new NotFoundException(`Order with ID ${id} not found`);
 
+    // If setting driver, then PREPARING
+    if (dto.driverId && !order.driverId) {
+      dto.status = OrderStatus.PREPARING;
+    }
+
     validateTransition(order.status, dto.status);
 
     Object.assign(order, dto);
@@ -100,7 +105,7 @@ export class OrdersService {
     return updatedOrder;
   }
 
-  @Interval(10000)
+  @Interval(30000)
   async handlePreparingToPickup() {
     await this.ordersRepository.markPreparingOrdersAsAwaitingPickup();
   }
