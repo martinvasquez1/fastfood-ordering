@@ -31,6 +31,6 @@ import { DeleteUserPolicy } from './policies/delete-user-policy';
     UpdateUserPolicy,
     DeleteUserPolicy,
   ],
-  exports: [UsersService],
+  exports: [UsersService, UsersRepository],
 })
 export class UsersModule {}

@@ -4,6 +4,10 @@ import { Interval } from '@nestjs/schedule';
 import { OrdersRepository } from './orders.repository';
 import { MenuItemsRepository } from 'src/menu/menu-item.repository';
 import { RestaurantsRepository } from 'src/restaurants/restaurant.repository';
+import { UsersRepository } from 'src/users/users.repository';
+
+import { MailerService } from '@nestjs-modules/mailer';
+import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
 
 import { Order, OrderStatus } from './order.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -14,9 +18,12 @@ import { validateTransition } from './order-state-machine';
 @Injectable()
 export class OrdersService {
   constructor(
+    private readonly usersRepository: UsersRepository,
     private readonly ordersRepository: OrdersRepository,
     private readonly menuItemsRepository: MenuItemsRepository,
     private readonly restaurantRepository: RestaurantsRepository,
+    private readonly mailerService: MailerService,
+    private readonly eventEmitter: EventEmitter2,
   ) { }
 
   async createOrder(userId: number, dto: CreateOrderDto): Promise<Order> {
@@ -76,6 +83,8 @@ export class OrdersService {
       );
     }
 
+    this.eventEmitter.emit('order.status.updated', order);
+
     return this.ordersRepository.createOrder(order);
   }
 
@@ -102,11 +111,41 @@ export class OrdersService {
     if (imagePath !== undefined) order.proofOfDelivery = imagePath;
 
     const updatedOrder = await this.ordersRepository.save(order);
+
+    if (dto.status) {
+      this.eventEmitter.emit('order.status.updated', order);
+    }
+
     return updatedOrder;
+  }
+
+  @OnEvent('order.status.updated')
+  async handleOrderStatusUpdated(order: Order): Promise<void> {
+    if (process.env.MAIL_ENABLED !== 'true' || process.env.NODE_ENV === 'test') return
+
+    const user = await this.usersRepository.findOne(order.userId);
+
+    const to = process.env.TEST_SUBJECT
+      ? process.env.TEST_SUBJECT
+      : user?.email;
+
+    await this.mailerService.sendMail({
+      to,
+      subject: 'Order Update',
+      template: 'update',
+      context: {
+        name: user?.username,
+        status: order.status,
+      },
+    });
   }
 
   @Interval(30000)
   async handlePreparingToPickup() {
-    await this.ordersRepository.markPreparingOrdersAsAwaitingPickup();
+    const orders = await this.ordersRepository.markPreparingOrdersAsAwaitingPickup();
+
+    for (const order of orders) {
+      this.eventEmitter.emit('order.status.updated', order);
+    }
   }
-}
+};

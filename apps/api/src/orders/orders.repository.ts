@@ -46,11 +46,21 @@ export class OrdersRepository {
     return this.ORM.save(order);
   }
 
-  async markPreparingOrdersAsAwaitingPickup(): Promise<void> {
-    await this.ORM.createQueryBuilder()
-      .update(Order)
-      .set({ status: OrderStatus.AWAITING_PICKUP })
-      .where('status = :status', { status: OrderStatus.PREPARING })
-      .execute();
+  async markPreparingOrdersAsAwaitingPickup(): Promise<Order[]> {
+    const orders = await this.ORM.find({
+      where: {
+        status: OrderStatus.PREPARING,
+      },
+    });
+
+    if (!orders.length) {
+      return [];
+    }
+
+    for (const order of orders) {
+      order.status = OrderStatus.AWAITING_PICKUP;
+    }
+
+    return this.ORM.save(orders);
   }
 }
