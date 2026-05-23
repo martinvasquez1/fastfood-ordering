@@ -15,16 +15,14 @@ npm install turbo --global
 
 Each service can be run individually:
 
-### Example
-
 ```bash
 cd api
-npm start
+npm run dev
 ```
 
 ```bash
 cd web
-npm start
+npm run dev
 ```
 
 Or use Turbo to run all services simultaneously:
