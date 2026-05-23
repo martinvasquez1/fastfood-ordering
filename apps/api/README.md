@@ -1,6 +1,6 @@
 # API
 
-RESTful API for Papapita built with NestJS.
+RESTful API for Papapita built with NestJS and PostgreSQL.
 
 ## Environment Variables
 
