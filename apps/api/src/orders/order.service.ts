@@ -1,4 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { Interval } from '@nestjs/schedule';
 
 import { OrdersRepository } from './orders.repository';
 import { MenuItemsRepository } from 'src/menu/menu-item.repository';
@@ -97,5 +98,10 @@ export class OrdersService {
 
     const updatedOrder = await this.ordersRepository.save(order);
     return updatedOrder;
+  }
+
+  @Interval(10000)
+  async handlePreparingToPickup() {
+    await this.ordersRepository.markPreparingOrdersAsAwaitingPickup();
   }
 }

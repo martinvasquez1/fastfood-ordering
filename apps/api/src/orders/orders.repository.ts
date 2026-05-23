@@ -45,4 +45,12 @@ export class OrdersRepository {
   async save(order: Order): Promise<Order> {
     return this.ORM.save(order);
   }
+
+  async markPreparingOrdersAsAwaitingPickup(): Promise<void> {
+    await this.ORM.createQueryBuilder()
+      .update(Order)
+      .set({ status: OrderStatus.AWAITING_PICKUP })
+      .where('status = :status', { status: OrderStatus.PREPARING })
+      .execute();
+  }
 }

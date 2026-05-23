@@ -14,6 +14,7 @@ import { RestaurantsModule } from './restaurants/restaurant.module';
 import { MenuModule } from './menu/menu.module';
 import { PaymentsModule } from './payments/payments.module';
 import { OrdersModule } from './orders/orders.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 import typeOrmConfig from './config/type-orm.config';
 
@@ -21,6 +22,7 @@ import typeOrmConfig from './config/type-orm.config';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot(typeOrmConfig()),
+    ScheduleModule.forRoot(),
     UsersModule,
     AuthModule,
     RolesModule,
