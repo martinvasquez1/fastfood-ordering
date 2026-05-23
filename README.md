@@ -1,16 +1,34 @@
 # Fastfood-ordering
 
-Monorepo for a fast food ordering service, including a user-facing website, a delivery app, and a REST API.
+Monorepo for a fast food ordering service, including a user-facing website, a delivery app, and a RESTfull API. It uses TurboRepo to manage multiple services in one repository, streamlining development and deployment.
 
-```
+## Installation
+
+```bash
 git clone URL
 npm install
 
 npm install turbo --global
 ```
 
-Para ejecutar el frontend:
+## Running the Project
 
+Each service can be run individually:
+
+### Example
+
+```bash
+cd api
+npm start
 ```
-turbo run dev --filter=./apps/web
+
+```bash
+cd web
+npm start
+```
+
+Or use Turbo to run all services simultaneously:
+
+```bash
+turbo run dev
 ```
