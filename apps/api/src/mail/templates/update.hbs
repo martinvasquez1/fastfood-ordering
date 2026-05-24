@@ -1,2 +1,32 @@
-<h1>Hello {{name}}</h1>
-<p>Order updated to {{status}}</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Update</title>
+</head>
+
+<body style="background-color:#fff; font-family:Arial, Helvetica, sans-serif;">
+    <div id="top" style="background-color: #fff; padding: 0.75rem 1rem">
+        <img src="https://res.cloudinary.com/dqbaubhfl/image/upload/v1779584534/papapita_pgjxsk.svg" alt="Icon" width="120" />
+    </div>
+
+    <div style="background-color: #fcf8f9; color: black; padding: 2rem 1rem;">
+        <h1 style="color: black; text-align: center;">Hello {{name}},</h1>
+
+        <p style="color: black; font-size: 14px; text-align: center;">We wanted to let you know that your order status has been updated.
+        </p>
+
+        <p style="font-size: 14px; margin-top: 0.4rem; text-align: center;">
+            <strong>Current Status:</strong>
+            <span style="color: #0047ff;">{{status}}</span>
+        </p>
+
+        <p style="font-size: 10px; color: #212121; text-align: center; margin-top: 2.5rem;">Thank you for shopping with us. If you have any questions, feel free to
+            contact our support team.</p>
+    </div>
+
+</body>
+
+</html>
