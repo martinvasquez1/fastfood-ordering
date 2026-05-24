@@ -12,6 +12,10 @@ It is recommended to copy it as .env and adjust the values according to your loc
 cp .env.example .env
 ```
 
+If `GOOGLE_APP_PASSWORD` and `GOOGLE_EMAIL` are not configured, set `MAIL_ENABLED=false` to disable email sending.
+
+The `TEST_SUBJECT` environment variable overrides the subject line for all outgoing emails.
+
 ## API Documentation
 
 Once the project is running, the interactive API documentation can be accessed at:
