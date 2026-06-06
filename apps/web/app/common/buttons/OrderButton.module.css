@@ -1,0 +1,48 @@
+.orderButton {
+  /* Layout from your spec */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 19px 0px 20.19px;
+
+  /* Exact Dimensions */
+  width: 449.67px;
+  height: 75.19px;
+
+  /* Colors & Borders */
+  background: #0047FF;
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px #FDD400;
+
+  /* Typography */
+  color: #FFFFFF;
+  font-family: var(--font-plus-jakarta), sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  
+  /* Interaction */
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  outline: none;
+}
+
+/* Hover State */
+.orderButton:hover {
+  background: #1a5aff; /* Slightly lighter blue */
+}
+
+/* Pressed State: Makes the button feel physical */
+.orderButton:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #FDD400;
+}
+
+/* Accessibility: Focus state for keyboard users */
+.orderButton:focus-visible {
+  outline: 3px solid #000000;
+  outline-offset: 4px;
+}

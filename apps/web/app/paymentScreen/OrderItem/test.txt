@@ -1,0 +1,36 @@
+// Example structure of your larger component's data array
+const checkoutCartData = [
+  {
+    id: "item-1",
+    productName: "Gourmet Burrito Box",
+    displayPrice: "$14.50",
+    variantLabel: "Regular Size",
+  },
+  {
+    id: "item-2",
+    productName: "Artisanal Soda",
+    displayPrice: "$3.75",
+    variantLabel: "Lime Flavored",
+  }
+];
+
+export const CartSummary = () => {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <h2 style={{ fontFamily: 'var(--font-plus-jakarta)', fontSize: '20px' }}>
+        Review Items
+      </h2>
+
+      {/* Mapping over the bigger component's data */}
+      {checkoutCartData.map((item) => (
+        <OrderItem
+          key={item.id}
+          name={item.productName}      {/* Feeding data down */}
+          price={item.displayPrice}    {/* Feeding data down */}
+          subtitle={item.variantLabel} {/* Feeding data down */}
+          icon={<FoodIcon />}         {/* Attaching the icon */}
+        />
+      ))}
+    </div>
+  );
+};
