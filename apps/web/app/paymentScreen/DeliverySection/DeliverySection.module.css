@@ -1,0 +1,107 @@
+/* DeliverySection.module.css */
+
+.deliveryContainer {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px;
+  gap: 24px;
+
+  width: 100%;
+  max-width: 710px; /* Responsive maximum width matching Figma */
+  min-width: 350px;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px #000000; /* Neo-Brutalism shadow block */
+  
+  font-family: var(--font-plus-jakarta), sans-serif;
+}
+
+/* Header Row: Title configuration left, Link on the right */
+.headerRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.titleGroup {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.headerIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headingText {
+  font-size: 24px;
+  line-height: 31px;
+  font-weight: 700;
+  color: #1B1B1C;
+  margin: 0;
+}
+
+.actionButton {
+  background: none;
+  border: none;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: #0035C5;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Flex slot carrying Address blocks side by side */
+.cardsGrid {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  width: 100%;
+}
+
+/* Dashed placeholder container layout */
+.editPlaceholderCard {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  gap: 8px;
+  
+  width: 100%;
+  max-width: 320px;
+  height: 116px; /* Matches AddressCard height constraints perfectly */
+  
+  border: 2px dashed #C4C5DA;
+  border-radius: 8px;
+  cursor: pointer;
+  background: transparent;
+  transition: background 0.15s ease;
+}
+
+.editPlaceholderCard:hover {
+  background: #FAFAFA;
+}
+
+.placeholderIcon {
+  width: 16px;
+  height: 20px;
+  background: #747688; /* Replace with a tiny pencil or edit SVG icon */
+}
+
+.placeholderText {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: #747688;
+}
