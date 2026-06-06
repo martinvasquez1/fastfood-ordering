@@ -8,6 +8,7 @@ import CreditCardIcon  from './common/svgs/CreditCardIcon';
 import OrderItem from './paymentScreen/OrderItem/OrderItem';
 import FoodIcon from './common/svgs/FoodIcon';
 import DeliverySection from './paymentScreen/DeliverySection/DeliverySection';
+import { PaymentSection } from './paymentScreen/PaymentSection/PaymentSection';
 
 function App() {
   const [activeMethod, setActiveMethod] = useState<string>('card');
@@ -23,7 +24,7 @@ function App() {
     }}>
       
       {/* Renders the whole delivery component with header, cards, and state */}
-      <DeliverySection />
+      <PaymentSection />
 
     </main>
   );

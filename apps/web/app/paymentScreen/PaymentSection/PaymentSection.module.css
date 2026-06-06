@@ -1,0 +1,51 @@
+/* PaymentSection.module.css */
+
+.paymentContainer {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px;
+  gap: 24px; /* Space between header and the options list */
+
+  width: 100%;
+  max-width: 710px; /* Responsive maximum width matching Figma */
+  min-height: 283.19px;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px #000000;
+  
+  font-family: var(--font-plus-jakarta), sans-serif;
+}
+
+/* Header row layout wrapper */
+.headerRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.headerIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.headingText {
+  font-size: 24px;
+  line-height: 31px;
+  font-weight: 700;
+  color: #1B1B1C;
+  margin: 0;
+}
+
+/* Stack container for all the dynamic payment options */
+.optionsStack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Spacing between payment rows */
+  width: 100%;
+}

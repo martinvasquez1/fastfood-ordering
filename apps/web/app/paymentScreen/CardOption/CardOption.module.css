@@ -60,7 +60,6 @@
 .iconRight {
   width: 20px;
   height: 20px;
-  background: #0035C5; /* Replace with your checkmark/radio SVG later */
   flex-shrink: 0;
   margin-left: auto;   /* Pushes it perfectly to the right edge */
 }
