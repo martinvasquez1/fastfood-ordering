@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       {/* 3. Update the body class to use the new variable */}
-      <body className={`${plusJakartaSans.variable} antialiased`}>
+      <body className={`${plusJakartaSans.variable} antialiased`} suppressHydrationWarning>
         {children}
       </body>
     </html>
