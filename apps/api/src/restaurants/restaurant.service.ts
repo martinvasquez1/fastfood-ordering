@@ -43,6 +43,7 @@ export class RestaurantsService {
         name: stock.menuItem.name,
         description: stock.menuItem.description,
         price: stock.menuItem.price,
+        image: stock.menuItem.image,
         quantity: stock.quantity,
       });
     }
@@ -68,6 +69,7 @@ export class RestaurantsService {
       description: stock.menuItem.description,
       price: stock.menuItem.price,
       quantity: stock.quantity,
+      image: stock.menuItem.image,
       category: stock.menuItem.menuCategory.name,
     };
   }
