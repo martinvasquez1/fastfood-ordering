@@ -53,13 +53,6 @@ function generateMenuItems(categoryMap: Record<string, any>) {
       categoryName: 'Pizzas',
     },
     {
-      name: 'Drink',
-      description: '500ml drink',
-      price: 1990,
-      image: '',
-      categoryName: 'Drinks',
-    },
-    {
       name: 'Bacon Cheeseburger Combo',
       description: 'Beef burger with bacon, melted cheese, lettuce, tomato, red onion; served with fries and a cola.',
       price: 15990,
