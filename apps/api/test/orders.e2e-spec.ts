@@ -66,12 +66,14 @@ describe('/orders', () => {
             name: 'Classic Burger',
             description: 'Beef burger with lettuce and tomato',
             price: 8990,
+            image: '',
             categoryName: menuCategory1.name,
             menuCategoryId: menuCategory1.id,
         })
         menuItem2 = await repoMenuItem.save({
             name: 'Energy drink',
             description: '500ml',
+            image: '',
             price: 1990,
             categoryName: menuCategory2.name,
             menuCategoryId: menuCategory2.id,

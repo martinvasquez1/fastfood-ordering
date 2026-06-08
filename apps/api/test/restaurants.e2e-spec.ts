@@ -240,6 +240,7 @@ describe('/restaurants', () => {
           name: 'Classic Burger',
           description: 'Beef burger with lettuce and tomato',
           price: 8990,
+          image: '',
           categoryName: menuCategory1.name,
           menuCategoryId: menuCategory1.id,
         })
@@ -247,6 +248,7 @@ describe('/restaurants', () => {
           name: 'Energy drink',
           description: '500ml',
           price: 1990,
+          image: '',
           categoryName: menuCategory2.name,
           menuCategoryId: menuCategory2.id,
         })
