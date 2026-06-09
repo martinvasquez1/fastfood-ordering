@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+
+import { Order } from 'src/orders/order.entity';
 
 @Entity('restaurants')
 export class Restaurant {
@@ -10,4 +12,7 @@ export class Restaurant {
 
   @Column({ type: 'varchar', length: 255 })
   address: string;
+
+  @OneToMany(() => Order, (order) => order.restaurant)
+  orders: Order[];
 }

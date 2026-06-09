@@ -30,4 +30,7 @@ export class MenuItem {
 
   @Column({ type: "int" })
   price: number;
+
+  @Column({ type: 'text' })
+  image: string;
 }

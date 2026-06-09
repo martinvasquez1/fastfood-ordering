@@ -15,6 +15,7 @@ import { Restaurant } from 'src/restaurants/restaurant.entity';
 import { MenuCategory } from 'src/menu/menu-category.entity';
 import { MenuItem } from 'src/menu/menu-item.entity';
 import { RestaurantStock } from 'src/restaurants/restaurant-stock.entity';
+import { OrdersModule } from 'src/orders/orders.module';
 
 describe('/restaurants', () => {
   let app: INestApplication;
@@ -25,7 +26,7 @@ describe('/restaurants', () => {
     const { container, dbURL } = await createPostgresContainer();
     startedContainer = container;
 
-    app = await createApp([RestaurantsModule, MenuModule], dbURL);
+    app = await createApp([RestaurantsModule, MenuModule, OrdersModule], dbURL);
     dataSource = app.get(DataSource);
 
     await app.init();
@@ -239,6 +240,7 @@ describe('/restaurants', () => {
           name: 'Classic Burger',
           description: 'Beef burger with lettuce and tomato',
           price: 8990,
+          image: '',
           categoryName: menuCategory1.name,
           menuCategoryId: menuCategory1.id,
         })
@@ -246,6 +248,7 @@ describe('/restaurants', () => {
           name: 'Energy drink',
           description: '500ml',
           price: 1990,
+          image: '',
           categoryName: menuCategory2.name,
           menuCategoryId: menuCategory2.id,
         })
@@ -268,26 +271,31 @@ describe('/restaurants', () => {
           .get(`/restaurants/${restaurant1.id}/menu`)
           .expect(200);
 
-        expect(res.body).toHaveLength(2);
         expect(res.body).toEqual([
-          expect.objectContaining({
+          {
             category: menuCategory1.name,
-            items: expect.arrayContaining([
-              expect.objectContaining({
+            items: [
+              {
+                id: menuItem1.id,
                 name: menuItem1.name,
+                description: menuItem1.description,
+                price: menuItem1.price,
                 quantity: restStock1.quantity,
-              }),
-            ]),
-          }),
-          expect.objectContaining({
+              },
+            ],
+          },
+          {
             category: menuCategory2.name,
-            items: expect.arrayContaining([
-              expect.objectContaining({
+            items: [
+              {
+                id: menuItem2.id,
                 name: menuItem2.name,
+                description: menuItem2.description,
+                price: menuItem2.price,
                 quantity: restStock2.quantity,
-              }),
-            ]),
-          }),
+              },
+            ],
+          },
         ]);
       });
 
@@ -296,18 +304,47 @@ describe('/restaurants', () => {
           .get(`/restaurants/${restaurant1.id}/menu?category=drinks`)
           .expect(200);
 
-        expect(res.body).toHaveLength(1);
         expect(res.body).toEqual([
-          expect.objectContaining({
+          {
             category: menuCategory2.name,
-            items: expect.arrayContaining([
-              expect.objectContaining({
+            items: [
+              {
+                id: menuItem2.id,
                 name: menuItem2.name,
+                description: menuItem2.description,
+                price: menuItem2.price,
                 quantity: restStock2.quantity,
-              }),
-            ]),
-          }),
+              },
+            ],
+          },
         ]);
+      });
+
+      it('should get menu item', async () => {
+        const res = await request(app.getHttpServer())
+          .get(`/restaurants/${restaurant1.id}/menu/${menuItem1.id}`)
+          .expect(200);
+
+        expect(res.body).toEqual({
+          id: menuItem1.id,
+          name: menuItem1.name,
+          description: menuItem1.description,
+          price: menuItem1.price,
+          quantity: restStock1.quantity,
+          category: menuCategory1.name,
+        })
+      });
+
+      it('should return 404 if menu item not found', async () => {
+        await request(app.getHttpServer())
+          .get(`/restaurants/${restaurant1.id}/menu/${999}`)
+          .expect(404);
+      });
+
+      it('should return 400 for invalid menu item id', async () => {
+        await request(app.getHttpServer())
+          .get(`/restaurants/${restaurant1.id}/menu/invalid-id`)
+          .expect(400);
       });
     });
   });

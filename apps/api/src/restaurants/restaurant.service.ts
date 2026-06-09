@@ -43,6 +43,7 @@ export class RestaurantsService {
         name: stock.menuItem.name,
         description: stock.menuItem.description,
         price: stock.menuItem.price,
+        image: stock.menuItem.image,
         quantity: stock.quantity,
       });
     }
@@ -51,5 +52,25 @@ export class RestaurantsService {
       category,
       items,
     }));
+  }
+
+  async getRestaurantMenuItem(
+    restaurantId: number,
+    menuItemId: number,
+  ) {
+    await this.findOne(restaurantId)
+
+    const stock = await this.restaurantsRepository.getRestaurantMenuItem({ restaurantId, menuItemId });
+    if (!stock) throw new NotFoundException(`MenuItem with ID ${menuItemId} not found`);
+
+    return {
+      id: stock.menuItem.id,
+      name: stock.menuItem.name,
+      description: stock.menuItem.description,
+      price: stock.menuItem.price,
+      quantity: stock.quantity,
+      image: stock.menuItem.image,
+      category: stock.menuItem.menuCategory.name,
+    };
   }
 }

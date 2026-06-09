@@ -35,4 +35,11 @@ export class RestaurantsController {
   async getMenu(@Param('id', ParseIntPipe) id: number, @Query('category') category?: string ) {
     return this.restaurantsService.getRestaurantMenu(id, category);
   }
+
+  @Public()
+  @Get(':id/menu/:itemId')
+  @ApiOperation({ operationId: 'getRestaurantMenuItem' })
+  async getMenuItem(@Param('id', ParseIntPipe) id: number, @Param('itemId', ParseIntPipe) itemId: number) {
+    return this.restaurantsService.getRestaurantMenuItem(id, itemId);
+  }
 }
