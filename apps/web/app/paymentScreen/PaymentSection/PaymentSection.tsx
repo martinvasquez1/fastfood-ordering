@@ -7,10 +7,20 @@ import CardOption from '../CardOption/CardOption';
 import CreditCardIcon from '../../common/svgs/CreditCardIcon';
 import CardStackIcon from '../../common/svgs/CardStackIcon';
 
-export const PaymentSection = () => {
+interface PaymentSectionProps {
+  onMethodChange?: (method: string) => void; // Added hook for payload capture
+}
+
+export const PaymentSection = ({ onMethodChange }: PaymentSectionProps) => {
   // Track which payment option is currently selected
   const [activeMethod, setActiveMethod] = useState<string | null>(null);
-
+  
+  const handleSelection = (method: string) => {
+    setActiveMethod(method);      // 1. Updates the UI locally
+    if (onMethodChange) {
+      onMethodChange(method);     // 2. Tells the master page for the payload
+    }
+  };
   return (
     <section className={styles.paymentContainer}>
       {/* Header Row Block */}
@@ -28,7 +38,7 @@ export const PaymentSection = () => {
           subtitle="Visa ending in 4421" 
           icon={<CreditCardIcon />}
           isActive={activeMethod === 'card'}
-          onClick={() => setActiveMethod('card')}
+          onClick={() => handleSelection('card')}
         />
 
         <CardOption 
@@ -38,7 +48,7 @@ export const PaymentSection = () => {
             <div style={{ width: 20, height: 16, background: '#003087', borderRadius: '2px' }} />
           }
           isActive={activeMethod === 'paypal'}
-          onClick={() => setActiveMethod('paypal')}
+          onClick={() => handleSelection('paypal')}
         />
       </div>
     </section>
