@@ -1,0 +1,100 @@
+/* OrderSummarySection.module.css */
+
+.summaryContainer {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 23px 24px 24px;
+  gap: 16px; /* Cleaned up from 15.5px */
+
+  width: 100%;
+  max-width: 502px; /* Responsive maximum matching Figma's 501.67px */
+  min-height: 679px;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  
+  /* Vibrant Neo-Brutalism Blue Shadow Spec */
+  box-shadow: 8px 8px 0px #0047FF; 
+  
+  font-family: var(--font-plus-jakarta), sans-serif;
+}
+
+.headingText {
+  font-size: 24px;
+  line-height: 31px;
+  font-weight: 700;
+  color: #1B1B1C;
+  margin: 0 0 8px 0;
+}
+
+/* Scrollable container for items if the order gets long */
+.itemsListStack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  flex-grow: 1; /* Pushes the breakdown calculations down to the bottom */
+}
+
+/* Thick divider line splitting items from the math pricing summary */
+.divider {
+  width: 100%;
+  height: 2px;
+  background-color: #000000;
+  margin: 16px 0;
+}
+
+/* Math breakdown block configuration */
+.breakdownStack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.calculationRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.label {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: #434657;
+}
+
+.value {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: #1B1B1C;
+}
+
+/* Total row stands out bolded */
+.totalRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 4px; /* Your unique addition for the total row */
+}
+
+.totalLabel {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+  color: #1B1B1C;
+}
+
+.totalValue {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+  color: #0047FF; /* Highlights total price in the accent blue shadow color */
+}

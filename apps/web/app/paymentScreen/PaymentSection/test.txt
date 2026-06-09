@@ -1,0 +1,47 @@
+import { DeliverySection } from '@/components/DeliverySection';
+import { PaymentSection } from '@/components/PaymentSection';
+import { OrderSummarySection } from '@/components/OrderSummarySection';
+
+// Mock active checkout items data array
+const currentOrderItems = [
+  { id: '1', name: 'Gourmet Meal Kit', price: '$14.50', subtitle: 'Regular Size' },
+  { id: '2', name: 'Artisanal Beverage', price: '$3.75', subtitle: 'Lime Flavor' }
+];
+
+export default function CheckoutPage() {
+  return (
+    <main style={{ 
+      padding: '40px 24px', 
+      background: '#FAFAFA', 
+      minHeight: '100vh',
+      display: 'flex',
+      justifyContent: 'center'
+    }}>
+      {/* Layout Master Split Grid Grid Wrapper */}
+      <div style={{ 
+        width: '100%', 
+        maxWidth: '1240px', 
+        display: 'flex', 
+        flexDirection: 'row', 
+        gap: '32px',
+        alignItems: 'flex-start'
+      }}>
+        
+        {/* Left Form Settings Column (Width: 710px) */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', flexGrow: 1 }}>
+          <DeliverySection />
+          <PaymentSection />
+        </div>
+
+        {/* Right Sidebar Reciept Summary Column (Width: 502px) */}
+        <OrderSummarySection 
+          items={currentOrderItems}
+          subtotal="$18.25"
+          deliveryFee="$2.50"
+          total="$20.75"
+        />
+
+      </div>
+    </main>
+  );
+}
