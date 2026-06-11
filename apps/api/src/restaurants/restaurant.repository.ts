@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Restaurant } from './restaurant.entity';
@@ -41,5 +41,41 @@ export class RestaurantsRepository {
         },
       },
     });
+  }
+
+  async getRestaurantMenuItem({ restaurantId, menuItemId }: { restaurantId: number, menuItemId: number }) {
+    return this.ORMStockRepo.findOne({
+      where: {
+        restaurantId,
+        menuItemId,
+      },
+      relations: {
+        menuItem: {
+          menuCategory: true,
+        },
+      },
+    });
+  }
+
+  async getRestaruantStock(restaurantId: number, menuItemId: number): Promise<RestaurantStock | null> {
+    return this.ORMStockRepo.findOne({
+      where: { restaurantId, menuItemId }
+    })
+  }
+
+  async updateRestaurantStock(
+    restaurantId: number,
+    menuItemId: number,
+    amount: number,
+  ): Promise<RestaurantStock> {
+    if (amount <= 0) throw new BadRequestException('Amount must be greater than 0');
+
+    const stock = await this.ORMStockRepo.findOne({ where: { restaurantId, menuItemId } });
+    if (!stock) throw new NotFoundException(`Stock for menu item ${menuItemId} not found`);
+
+    if (stock.quantity < amount) throw new BadRequestException(`Insufficient stock. Only ${stock.quantity} available.`);
+    stock.quantity -= amount;
+
+    return this.ORMStockRepo.save(stock);
   }
 }

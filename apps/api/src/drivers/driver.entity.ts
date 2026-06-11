@@ -1,6 +1,7 @@
-import { Entity, Column, OneToOne, JoinColumn, PrimaryColumn } from 'typeorm';
+import { Entity, Column, OneToOne, JoinColumn, PrimaryColumn, OneToMany } from 'typeorm';
 
 import { User } from 'src/users/entities/user.entity';
+import { Order } from 'src/orders/order.entity';
 
 export enum VehicleType {
   CAR = 'car',
@@ -43,4 +44,7 @@ export class Driver {
 
   @Column({ type: 'bool', default: false })
   isVerified: boolean;
+
+  @OneToMany(() => Order, (order) => order.driver)
+  orders: Order[];
 }

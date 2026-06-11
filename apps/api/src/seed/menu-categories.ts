@@ -6,6 +6,8 @@ function generateMenuCategories() {
     { name: 'Drinks' },
     { name: 'Desserts' },
     { name: 'Salads' },
+    { name: 'Pizzas' },
+    { name: 'Combo' },
   ];
 }
 
