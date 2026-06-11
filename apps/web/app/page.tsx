@@ -1,4 +1,4 @@
-import { CheckoutPage } from "./paymentScreen/CheckoutPage";
+import OrderTrackingPage from "./order-tracking/OrderTrackingPage"
 export default function Home() {
-  return <CheckoutPage />;
+  return <OrderTrackingPage/>;
 }

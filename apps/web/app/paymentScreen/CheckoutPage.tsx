@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import OrderButton from '../common/buttons/orderButton';
 import CardOption from './CardOption/CardOption';
 import AddressCard from './AddressCard/AddressCard';
@@ -35,6 +36,8 @@ const DELIVERY_FEE = 2.50;
 export function CheckoutPage() {
   // 1. Captured State for Payload tracking
   // 1. Reactive App States
+  const router = useRouter();
+
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loadingCart, setLoadingCart] = useState<boolean>(true);
   const [deliveryAddress, setDeliveryAddress] = useState<AddressData | null>(null);
@@ -99,11 +102,13 @@ export function CheckoutPage() {
         appliedDeliveryFee: DELIVERY_FEE,
         finalChargedTotal: total
       }
+      // Then Route to OrderTrackingPage
     };
 
     // Output payload straight to your tracking framework or controller API
     console.log('📦 Final Checkout Payload:', checkoutPayload);
     alert(`¡Pedido Confirmado! Procesando pago vía: ${selectedPaymentMethod.current.toUpperCase()}`);
+    router.push('/order-tracking');
   };
 
   return (
@@ -143,7 +148,7 @@ export function CheckoutPage() {
         ) : (
           <OrderSummarySection 
             items={cartItems} 
-            onPlaceOrder={handlePlaceOrder} 
+            onPlaceOrder={handlePlaceOrder} // Pressing a button here should route to a OrderTrackingPageafter sending a payload
           />
         )}
 
