@@ -278,6 +278,7 @@ describe('/restaurants', () => {
               {
                 id: menuItem1.id,
                 name: menuItem1.name,
+                image: menuItem1.image,
                 description: menuItem1.description,
                 price: menuItem1.price,
                 quantity: restStock1.quantity,
@@ -290,6 +291,7 @@ describe('/restaurants', () => {
               {
                 id: menuItem2.id,
                 name: menuItem2.name,
+                image: menuItem1.image,
                 description: menuItem2.description,
                 price: menuItem2.price,
                 quantity: restStock2.quantity,
@@ -311,6 +313,7 @@ describe('/restaurants', () => {
               {
                 id: menuItem2.id,
                 name: menuItem2.name,
+                image: menuItem2.image,
                 description: menuItem2.description,
                 price: menuItem2.price,
                 quantity: restStock2.quantity,
@@ -328,6 +331,7 @@ describe('/restaurants', () => {
         expect(res.body).toEqual({
           id: menuItem1.id,
           name: menuItem1.name,
+          image: menuItem1.image,
           description: menuItem1.description,
           price: menuItem1.price,
           quantity: restStock1.quantity,
