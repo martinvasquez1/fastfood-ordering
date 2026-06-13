@@ -40,7 +40,7 @@ export class OrdersRepository {
 
     return this.ORM.find({
       where,
-      relations: ['items'],
+      relations: { items: { menuItem: true } },
       order: { createdAt: 'DESC' },
     });
   }
@@ -48,7 +48,7 @@ export class OrdersRepository {
   async findOneById(id: number): Promise<Order | null> {
     return this.ORM.findOne({
       where: { id },
-      relations: ['items'],
+      relations: { items: { menuItem: true } },
     });
   }
 
