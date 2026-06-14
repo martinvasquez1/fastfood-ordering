@@ -1,21 +1,20 @@
 .trackerContainer {
   box-sizing: border-box;
 
-  /* Auto layout */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 24px;
   gap: 16px;
 
-  width: 848px; /* Your exact fixed size blueprint */
-  height: 240px;
+  width: 848px; 
+  /* FIX: Changed from height to min-height so the box can grow when the button mounts */
+  min-height: 240px; 
 
   background: #FFFFFF;
   border: 2px solid #000000;
   box-shadow: 8px 8px 0px #0047FF;
 
-  /* Inside auto layout */
   flex: none;
   order: 1;
   align-self: stretch;
@@ -29,15 +28,13 @@
   width: 100%;
   max-width: 796px; 
   margin: 0 auto;
-  
-  /* NEW STRUCTURAL FIX: Allows the child items to fill the parent container's 240px depth */
   height: 100%; 
 }
 
 .heading3 {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   padding: 0px;
 
   width: 100%;
@@ -49,8 +46,7 @@
   align-self: stretch;
   flex-grow: 0;
   
-  /* Pushes the progress bar away from the heading text title */
-  margin-bottom: 28px; 
+  margin-bottom: 24px; 
 }
 
 .titleText {
@@ -61,11 +57,23 @@
   font-size: 18px;
   line-height: 24px;
   text-transform: uppercase;
-  color: #1B1B1C;
+  color: #0035C5;
 }
 
-/* NEW: Pushes the labels container down to sit at the absolute base of the 240px layout box */
+.trackingGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .labelsSpacer {
   width: 100%;
-  margin-top: auto; 
+}
+
+/* Clean block layout container for the button */
+.buttonWrapper {
+  width: 50%;
+  margin-top: 24px; 
+  display: flex;
+  justify-content: center;
 }
