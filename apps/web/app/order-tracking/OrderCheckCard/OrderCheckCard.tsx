@@ -3,77 +3,66 @@ import React from 'react';
 import styles from './OrderCheckCard.module.css';
 import Checkpaper from '../../common/svgs/CheckPaper';
 
-interface CheckItem {
+interface OrderLineItem {
   id: string;
-  label: string;
-  value: string;
+  itemName: string;
+  itemCountAmount: number;
+  itemTotalCost: number;
 }
 
 interface OrderCheckCardProps {
-  title?: string;
-  checks?: CheckItem[];
-  subLabelLeft?: string;
-  subLabelRight?: string;
-  totalLabelLeft?: string;
-  totalLabelRight?: string;
-  imageUrl?: string;
+  items: OrderLineItem[];
+  orderTotalCost: number;
 }
 
-export const OrderCheckCard = ({
-  title = "Order Check",
-  checks = [
-    { id: '1', label: 'Verificación de cocina', value: 'OK' },
-    { id: '2', label: 'Asignación de Repartidor', value: 'Listo' }
-  ],
-  subLabelLeft = "Tiempo estimado",
-  subLabelRight = "15 min",
-  totalLabelLeft = "Estado",
-  totalLabelRight = "PROCESADO",
-}: OrderCheckCardProps) => {
+export const OrderCheckCard = ({ items, orderTotalCost }: OrderCheckCardProps) => {
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+  };
+
   return (
     <div className={styles.cardWrapper}>
-      {/* Upper Content Group */}
       <div className={styles.mainContentContainer}>
         
-        {/* Header Block Row */}
         <div className={styles.headerRow}>
           <div className={styles.titleIcon}>
             <Checkpaper />
           </div>
-          <h3 className={styles.headingText}>{title}</h3>
+          <h3 className={styles.headingText}>Resumen de Compra</h3>
         </div>
 
-        {/* Dynamic Dashed Parameters List */}
+        {/* Dynamic Pile Up loop remains cleanly unbothered */}
         <div className={styles.parametersStack}>
-          {checks.map((item) => (
-            <div key={item.id} className={styles.dashedLineItem}>
-              <span className={styles.paramLabel}>{item.label}</span>
-              <span className={styles.paramValue}>{item.value}</span>
+          {items.map((product) => (
+            <div key={product.id} className={styles.dashedLineItem}>
+              <div className={styles.productMetaGroup}>
+                <span className={styles.itemCountBadge}>{product.itemCountAmount}x</span>
+                <span className={styles.paramLabel}>{product.itemName}</span>
+              </div>
+              <span className={styles.paramValue}>
+                {formatCurrency(product.itemTotalCost)}
+              </span>
             </div>
           ))}
         </div>
 
-        {/* Lower Metric Info Breakdown Block */}
         <div className={styles.calculationStack}>
           <div className={styles.subRow}>
-            <span className={styles.subText}>{subLabelLeft}</span>
-            <span className={styles.subText}>{subLabelRight}</span>
-          </div>
-          <div className={styles.subRow} style={{ paddingTop: '4px' }}>
-            <span className={styles.accentTotalText}>{totalLabelLeft}</span>
-            <span className={styles.accentTotalText}>{totalLabelRight}</span>
+            <span className={styles.accentTotalText}>Total Pedido</span>
+            <span className={styles.accentTotalText}>
+              {formatCurrency(orderTotalCost)}
+            </span>
           </div>
         </div>
 
       </div>
-
-      {/* Product Card Showcase Image Block */}
-      {/* <div className={styles.imageMarginContainer}>
+      {/* 
+      <div className={styles.imageMarginContainer}>
         <div 
           className={styles.gourmetFriesImage} 
-          style={{ backgroundImage: `url(${imageUrl})` }}
+          style={{ backgroundImage: `url(${productImage || '/images/default-fries.png'})` }}
           role="img"
-          aria-label="Gourmet Fries Visual Asset representation"
+          aria-label="Summary invoice graphic marker"
         />
       </div>
       */}

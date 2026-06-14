@@ -4,17 +4,36 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* FIX: Stops throwing content elements away to extreme edges */
+  justify-content: flex-start; 
   align-items: flex-start;
   padding: 24px;
   
   width: 100%;
-  max-width: 410px; /* Adapts nicely based on your 362px child constraints + padding */
-  min-height: 424px;
+  max-width: 410px;
+  min-height: 424px; 
 
   background: #FFFFFF;
   border: 2px solid #000000;
-  box-shadow: 6px 6px 0px #000000; /* Neo-Brutalist flat offset */
+  box-shadow: 8px 8px 0px #0047FF;
+}
+/* Aligns the quantity count badge cleanly next to the item name text string */
+.productMetaGroup {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.itemCountBadge {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  color: #0035C5;
+  background: #EAF0FF;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid #0035C5;
 }
 
 .mainContentContainer {
