@@ -1,0 +1,132 @@
+/* app/order-tracking/components/FryStepLabels.module.css */
+
+.container {
+  display: flex;
+  flex-direction: row;
+  /* MODIFIED: Remved gap: 131px and added space-between */
+  justify-content: space-between; 
+  align-items: center;
+  padding: 0px; /* Reset padding to align perfectly with the bar edges */
+  width: 100%;
+  max-width: 796px;
+  height: 120px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+/* MODIFIED: All steps now share this exact same layout configuration */
+.stepWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 0px;
+  height: 120px;
+  /* MODIFIED: Remove flex: 1 so items don't stretch artificially */
+  max-width: 200px;
+  min-width: 180px; /* Fixed predictable bubble container footprint */
+  flex: none;
+}
+
+.iconMarginWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px 0px 8px;
+  width: 40px;
+  height: 48px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.iconCircle {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  width: 40px;
+  height: 40px;
+  background: #FDD400;
+  border: 2px solid #000000;
+  border-radius: 9999px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.iconCircleInactive {
+  background: #FFFFFF;
+  border: 2px dashed #A0A0A2;
+}
+
+.iconInnerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.innerIconCheck {
+  width: 9.51px;
+  height: 7.01px;
+  background: #6F5C00;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  clip-path: polygon(14% 44%, 0 58%, 38% 100%, 100% 16%, 83% 0%, 38% 68%);
+}
+
+.innerIconFlag {
+  width: 8.75px;
+  height: 11.67px;
+  background: #6F5C00;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  clip-path: polygon(0% 0%, 100% 0%, 75% 50%, 100% 100%, 0% 100%);
+}
+
+.innerIconInactive {
+  background: #A0A0A2;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  height: 48px;
+  width: 100%; /* Spans the full width of our uniform step columns */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.stepText {
+  height: 48px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center; /* Ensures text is perfectly centered within the step block */
+  text-transform: uppercase;
+  color: #1B1B1C;
+  width: 100%;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.stepTextActive {
+  font-weight: 700;
+}
