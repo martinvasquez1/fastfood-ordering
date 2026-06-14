@@ -70,7 +70,10 @@ export const OrderSummarySection = ({ items, onPlaceOrder }: OrderSummarySection
           <span className={styles.totalValue}>{formatCurrency(total)}</span>
         </div>
       </div>
-      <OrderButton onClick={onPlaceOrder} />
+      <OrderButton 
+        onClick={onPlaceOrder}
+        label='Pagar pedido'
+      />
     </section>
   );
 };
