@@ -6,6 +6,8 @@ import styles from './OrderTrackingPage.module.css';
 import { OrderCheckCard } from './OrderCheckCard/OrderCheckCard';
 import FryLevelTracker from './FryLevelTracker/FryLevelTracker';
 import { OrderDeliveryCard } from './OrderDeliveryCard/OrderDeliveryCard';
+import { TitleSection } from './TitleSection/TitleSection';
+import ConfettyConeIcon from '../common/svgs/ConfettyConeIcon';
 
 interface OrderTrackingPayload {
   currentStep: number;
@@ -93,7 +95,11 @@ export default function OrderTrackingPage() {
   return (
     <main className={styles.pageViewport}>
       <div className={styles.dashboardGrid}>
-        
+        <TitleSection 
+          title={trackingData!.trackingTitle}
+          subtitle="Tu orden está en camino a tu mesa"
+          IconComponent={ConfettyConeIcon} // Pass your pre-existing icon here
+        />
         {/* FIX: FryLevelTracker is now explicitly placed on TOP of the layout tree stack */}
         <FryLevelTracker
           title={trackingData.trackingTitle} // Added title back to your tracker
