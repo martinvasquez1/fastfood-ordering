@@ -1,0 +1,150 @@
+/* OrderCheckCard.module.css */
+
+.cardWrapper {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 24px;
+  
+  width: 100%;
+  max-width: 410px; /* Adapts nicely based on your 362px child constraints + padding */
+  min-height: 424px;
+
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  box-shadow: 6px 6px 0px #000000; /* Neo-Brutalist flat offset */
+}
+
+.mainContentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 24px;
+  width: 100%;
+}
+
+/* Header Title Block */
+.headerRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 8px;
+  width: 100%;
+  height: 24px;
+}
+
+.titleIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 20px;
+  color: #0035C5;
+}
+
+.headingText {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: #1B1B1C;
+}
+
+/* Stacked Parameter Check Rows */
+.parametersStack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 12px;
+  width: 100%;
+}
+
+.dashedLineItem {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 0px 8px;
+  width: 100%;
+  border-bottom: 2px dashed #C4C5DA;
+}
+
+.paramLabel {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #1B1B1C;
+}
+
+.paramValue {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #0035C5;
+}
+
+/* Calculation Breakdown Block */
+.calculationStack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 12px 0px 0px;
+  gap: 4px;
+  width: 100%;
+}
+
+.subRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.subText {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #434657;
+}
+
+.accentTotalText {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: #0035C5;
+}
+
+/* Base Image Block container */
+.imageMarginContainer {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 40px 0px 0px;
+  width: 100%;
+}
+
+.gourmetFriesImage {
+  box-sizing: border-box;
+  width: 100%;
+  height: 128px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 2px solid #000000;
+  border-radius: 8px;
+}
