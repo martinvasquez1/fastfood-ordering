@@ -1,0 +1,89 @@
+/* app/order-tracking/OrderDeliveryCard/OrderDeliveryCard.module.css */
+
+.cardWrapper {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px 24px 40px; /* Balanced the blueprint's bottom 84px padding into a cleaner layout value */
+  gap: 24px;
+  
+  width: 100%;
+  max-width: 410px; /* Aligns side-by-side matches with OrderCheckCard specs */
+  min-height: 178px;
+
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  box-shadow: 8px 8px 0px #0035C5; /* Brutalist pop tint shadow offset effect */
+}
+
+.headerRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 8px;
+  width: 100%;
+  height: 24px;
+}
+
+.titleIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 20px;
+  color: #0035C5;
+}
+
+.headingTextContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  height: 24px;
+}
+
+.headingText {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: #1B1B1C;
+}
+
+.addressInfoStack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 4px;
+  width: 100%;
+}
+
+.textLineContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  width: 100%;
+  height: 24px;
+}
+
+.addressLabelText {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: #1B1B1C;
+}
+
+.detailsText {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #434657;
+}

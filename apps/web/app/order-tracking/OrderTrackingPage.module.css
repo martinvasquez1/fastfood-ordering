@@ -7,7 +7,7 @@
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 }
 
 /* Central layout framework constraint matching your 1240px viewport blueprint */
@@ -17,6 +17,7 @@
   display: flex;
   flex-direction: column;
   gap: 32px;
+  align-items: center;
 }
 
 /* System loading viewport panel */
@@ -53,4 +54,14 @@
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 700;
   margin: 0;
+}
+
+.cardsRowLayout {
+  width: 100%;
+  display: flex;
+  flex-direction: row;      /* Arranges your two cards side-by-side */
+  justify-content: center;  /* Centers them down the page axis together */
+  align-items: flex-start;
+  gap: 32px;                /* Symmetrical gaps between the ticket frames */
+  flex-wrap: wrap;          /* Automatically stacks into a neat line on mobile viewport widths safely */
 }

@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './OrderTrackingPage.module.css';
 import { OrderCheckCard } from './OrderCheckCard/OrderCheckCard';
 import FryLevelTracker from './FryLevelTracker/FryLevelTracker';
+import { OrderDeliveryCard } from './OrderDeliveryCard/OrderDeliveryCard';
 
 interface OrderTrackingPayload {
   currentStep: number;
@@ -12,6 +13,11 @@ interface OrderTrackingPayload {
   invoice: {
     items: Array<{ id: string; itemName: string; itemCountAmount: number; itemTotalCost: number }>;
     orderTotalCost: number;
+  };
+  delivery: {
+    addressLabel: string;      // e.g., "Home", "Work"
+    streetAddress: string;     // e.g., "123 Fry Street, Gourmet Valley"
+    apartmentDetails: string;  // e.g., "Apartment 4B"
   };
 }
 
@@ -26,6 +32,11 @@ const PLACEHOLDER_TRACKING_DATA: OrderTrackingPayload = {
       { id: 'mock-3', itemName: 'Extra Garlic Dipping Sauce', itemCountAmount: 3, itemTotalCost: 1.50 }
     ],
     orderTotalCost: 17.75
+  },
+  delivery: {
+    addressLabel: "Casa",
+    streetAddress: "123 Fry Street, Gourmet Valley",
+    apartmentDetails: "Apartamento 4B"
   }
 };
 
@@ -89,12 +100,17 @@ export default function OrderTrackingPage() {
           currentStep={trackingData.currentStep} 
         />
 
-        {/* Dynamic Ticket Invoice takes content matrices and stacks underneath */}
-        <OrderCheckCard 
-          items={trackingData.invoice.items} 
-          orderTotalCost={trackingData.invoice.orderTotalCost}
-        />
-
+        <div className={styles.cardsRowLayout}>
+          <OrderCheckCard 
+            items={trackingData.invoice.items} 
+            orderTotalCost={trackingData.invoice.orderTotalCost}
+          />
+          <OrderDeliveryCard 
+            addressLabel={trackingData!.delivery.addressLabel}
+            streetAddress={trackingData!.delivery.streetAddress}
+            apartmentDetails={trackingData!.delivery.apartmentDetails}
+          />
+        </div>
       </div>
     </main>
   );
