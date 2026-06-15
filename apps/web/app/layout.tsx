@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
-import { Plus_Jakarta_Sans } from 'next/font/google'; // 1. Change this
+import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 
-// 2. Replace the geistSans and geistMono blocks with this:
+// 1. IMPORT YOUR CART PROVIDER
+import { CartProvider } from './context/CartContext'; // Adjust path if your context folder is structured differently
+
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   variable: '--font-plus-jakarta',
-  weight: ['400', '500', '600', '700', '800'], // 800 is what your button needs
+  weight: ['400', '500', '600', '700', '800'],
 });
 
 export const metadata: Metadata = {
@@ -21,9 +23,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* 3. Update the body class to use the new variable */}
       <body className={`${plusJakartaSans.variable} antialiased`} suppressHydrationWarning>
-        {children}
+        
+        {/* 2. WRAP CHILDREN IN THE PROVIDER */}
+        <CartProvider>
+          {children}
+        </CartProvider>
+        
       </body>
     </html>
   );

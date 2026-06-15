@@ -1,4 +1,4 @@
-import OrderTrackingPage from "./order-tracking/OrderTrackingPage"
+import ShopPrototypePage from "./shopPrototype/page";
 export default function Home() {
-  return <OrderTrackingPage/>;
+  return <ShopPrototypePage/>;
 }
