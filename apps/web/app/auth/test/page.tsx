@@ -5,13 +5,6 @@ import { useAuth } from '../../context/AuthContext';
 export default function AuthTestPage() {
   const { user, isAuthenticated, logout } = useAuth();
 
-  console.log('AUTH TEST');
-
-    console.log({
-    user,
-    isAuthenticated,
-  });
-
   return (
     <div
       style={{

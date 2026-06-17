@@ -15,8 +15,6 @@ export default function SignInPage() {
       email,
     });
 
-    console.log('Usuario autenticado');
-
     router.push('/');
   };
 

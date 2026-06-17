@@ -34,9 +34,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  console.log('AUTH PROVIDER RENDER');
-  console.log(user);
-
   const login = (userData: User) => {
     localStorage.setItem(
       'user',
