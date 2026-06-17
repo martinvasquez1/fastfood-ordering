@@ -2,11 +2,22 @@
 
 import { useRouter } from 'next/navigation';
 import LoginForm from '../../common/forms/LoginForm';
+import { useAuth } from '../../context/AuthContext';
 
 export default function SignInPage() {
   const router = useRouter();
+  const { login } = useAuth();
   const handleLogin = (email: string, password: string) => {
-    console.log(email, password);
+    const username = email.split('@')[0] ?? '';
+    login({
+      id: '1',
+      name: username,
+      email,
+    });
+
+    console.log('Usuario autenticado');
+
+    router.push('/');
   };
 
   const handleSignUp = () => {
