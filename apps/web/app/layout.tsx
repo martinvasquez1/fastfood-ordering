@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 
+import { AuthProvider } from './context/AuthContext';
+
 // 1. IMPORT YOUR CART PROVIDER
 import { CartProvider } from './context/CartContext'; // Adjust path if your context folder is structured differently
 
@@ -27,7 +29,9 @@ export default function RootLayout({
         
         {/* 2. WRAP CHILDREN IN THE PROVIDER */}
         <CartProvider>
-          {children}
+          <AuthProvider>
+            {children}
+          </AuthProvider>
         </CartProvider>
         
       </body>
