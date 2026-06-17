@@ -11,6 +11,7 @@ interface CartItem {
   name: string;
   price: number;
   subtitle: string;
+  quantity?: number;
 }
 
 interface OrderSummarySectionProps {
@@ -23,7 +24,7 @@ const DELIVERY_FEE = 2.50;
 export const OrderSummarySection = ({ items, onPlaceOrder }: OrderSummarySectionProps) => {
   
   // 1. Calculate Subtotal dynamically by summing item prices
-  const subtotal = items.reduce((sum, item) => sum + item.price, 0);
+  const subtotal = items.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
   
   // 2. Calculate Total
   const total = subtotal + DELIVERY_FEE;
@@ -43,9 +44,10 @@ export const OrderSummarySection = ({ items, onPlaceOrder }: OrderSummarySection
           <OrderItem 
             key={item.id}
             name={item.name}
-            price={formatCurrency(item.price)} // Formats number to "$14.50"
+            price={formatCurrency(item.price * (item.quantity || 1))}
             subtitle={item.subtitle}
             icon={<FoodIcon />}
+            quantity={item.quantity || 1}
           />
         ))}
       </div>
@@ -70,7 +72,10 @@ export const OrderSummarySection = ({ items, onPlaceOrder }: OrderSummarySection
           <span className={styles.totalValue}>{formatCurrency(total)}</span>
         </div>
       </div>
-      <OrderButton onClick={onPlaceOrder} />
+      <OrderButton 
+        onClick={onPlaceOrder}
+        label='Pagar pedido'
+      />
     </section>
   );
 };

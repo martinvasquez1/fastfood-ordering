@@ -1,0 +1,33 @@
+/* CheckoutPage.module.css */
+
+.mainContainer {
+  padding: 40px 24px;
+  background: #FAFAFA;
+  minHeight: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.desktopGrid {
+  width: 100%;
+  max-width: 1240px;
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  flex-grow: 1;
+}
+
+.emptyStateSidebar {
+  width: 502px;
+  padding: 24px;
+  text-align: center;
+  background: #FFF;
+  border: 2px solid #000;
+}

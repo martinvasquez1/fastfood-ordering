@@ -1,0 +1,169 @@
+/* OrderCheckCard.module.css */
+
+.cardWrapper {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  /* FIX: Stops throwing content elements away to extreme edges */
+  justify-content: flex-start; 
+  align-items: flex-start;
+  padding: 24px;
+  
+  width: 100%;
+  max-width: 410px;
+  min-height: 424px; 
+
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  box-shadow: 8px 8px 0px #0047FF;
+}
+/* Aligns the quantity count badge cleanly next to the item name text string */
+.productMetaGroup {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.itemCountBadge {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  color: #0035C5;
+  background: #EAF0FF;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid #0035C5;
+}
+
+.mainContentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 24px;
+  width: 100%;
+}
+
+/* Header Title Block */
+.headerRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 8px;
+  width: 100%;
+  height: 24px;
+}
+
+.titleIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 20px;
+  color: #0035C5;
+}
+
+.headingText {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: #1B1B1C;
+}
+
+/* Stacked Parameter Check Rows */
+.parametersStack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 12px;
+  width: 100%;
+}
+
+.dashedLineItem {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 0px 8px;
+  width: 100%;
+  border-bottom: 2px dashed #C4C5DA;
+}
+
+.paramLabel {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #1B1B1C;
+}
+
+.paramValue {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #0035C5;
+}
+
+/* Calculation Breakdown Block */
+.calculationStack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 12px 0px 0px;
+  gap: 4px;
+  width: 100%;
+}
+
+.subRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.subText {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #434657;
+}
+
+.accentTotalText {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: #0035C5;
+}
+
+/* Base Image Block container */
+.imageMarginContainer {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 40px 0px 0px;
+  width: 100%;
+}
+
+.gourmetFriesImage {
+  box-sizing: border-box;
+  width: 100%;
+  height: 128px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 2px solid #000000;
+  border-radius: 8px;
+}

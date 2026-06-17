@@ -1,0 +1,92 @@
+/* components/TitleSection/TitleSection.module.css */
+
+/* Parent Title Block Container */
+.titleSectionWrapper {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  gap: 24px;
+  width: 100%;
+  max-width: 848px;
+  height: auto; /* Replaced hardcoded 207.55px to accommodate multi-line wrap gracefully */
+}
+
+/* --- THE BADGE LAYER --- */
+.badgeContainer {
+  box-sizing: border-box;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  
+  width: 68px; /* Cleaned up 68.32px layout fraction */
+  aspect-ratio: 1 / 1; /* Guarantees a perfect mathematical circle */
+
+  background: #FDD400;
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px #000000;
+  border-radius: 9999px;
+  flex: none;
+}
+
+.innerIconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; /* Cleaned up 32.33px layout fraction */
+  height: 31px; /* Cleaned up 30.75px layout fraction */
+  color: #6F5C00;
+}
+
+/* --- THE HEADING 1 LAYER --- */
+.headingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 0px 0px;
+  width: 100%;
+  height: auto;
+}
+
+.heading1Text {
+  margin: 0;
+  width: 100%;
+  max-width: 715px; /* Matches 714.73px footprint boundary cleanly */
+  
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 48px;
+  line-height: 1.1; /* Perfectly locks down your 110% line-height rule */
+  text-align: center;
+  letter-spacing: -0.02em; /* Clean mathematical conversion of -0.96px scaling ratio */
+  text-transform: uppercase;
+  color: #0035C5;
+}
+
+/* --- THE SUBTITLE LAYER --- */
+.subtitleContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  width: 100%;
+  max-width: 448px;
+  height: auto;
+}
+
+.subtitleText {
+  margin: 0;
+  width: 100%;
+  max-width: 328px; /* Matches 327.47px blueprint constraint */
+  
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5; /* Matches 150% box depth line height natively */
+  text-align: center;
+  color: #434657;
+}

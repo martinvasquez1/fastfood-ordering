@@ -1,4 +1,4 @@
-import { CheckoutPage } from "./paymentScreen/CheckoutPage";
+import ShopPrototypePage from "./shopPrototype/page";
 export default function Home() {
-  return <CheckoutPage />;
+  return <ShopPrototypePage/>;
 }

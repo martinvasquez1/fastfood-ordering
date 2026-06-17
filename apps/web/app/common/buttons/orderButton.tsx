@@ -4,12 +4,13 @@ import styles from './OrderButton.module.css';
 
 interface OrderButtonProps {
   onClick?: () => void;
+  label: string;
 }
 
-const OrderButton = ({ onClick }: OrderButtonProps) => {
+const OrderButton = ({ onClick, label }: OrderButtonProps) => {
   return (
     <button className={styles.orderButton} type="button" onClick={onClick}>
-      PLACE ORDER
+      {label}
     </button>
   );
 };
