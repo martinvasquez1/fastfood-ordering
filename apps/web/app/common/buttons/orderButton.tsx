@@ -2,10 +2,15 @@
 import React from 'react';
 import styles from './OrderButton.module.css';
 
-const OrderButton = () => {
+interface OrderButtonProps {
+  onClick?: () => void;
+  label: string;
+}
+
+const OrderButton = ({ onClick, label }: OrderButtonProps) => {
   return (
-    <button className={styles.orderButton} type="button">
-      PLACE ORDER
+    <button className={styles.orderButton} type="button" onClick={onClick}>
+      {label}
     </button>
   );
 };

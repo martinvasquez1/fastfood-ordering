@@ -13,8 +13,18 @@ export class OrdersRepository {
 
   async createOrder(dto: DeepPartial<Order>): Promise<Order> {
     const order = this.ORM.create(dto);
-    const savedOrder = this.ORM.save(order);
-    return savedOrder;
+    const savedOrder = await this.ORM.save(order);
+
+    const result = await this.ORM.findOne({
+      where: { id: savedOrder.id },
+        relations: { items: { menuItem: true } },
+    });
+
+    if (!result) {
+      throw new Error(`Order ${savedOrder.id} not found after save`);
+    }
+
+    return result;
   }
 
   async findAll(
@@ -30,7 +40,7 @@ export class OrdersRepository {
 
     return this.ORM.find({
       where,
-      relations: ['items'],
+      relations: { items: { menuItem: true } },
       order: { createdAt: 'DESC' },
     });
   }
@@ -38,7 +48,7 @@ export class OrdersRepository {
   async findOneById(id: number): Promise<Order | null> {
     return this.ORM.findOne({
       where: { id },
-      relations: ['items'],
+      relations: { items: { menuItem: true } },
     });
   }
 

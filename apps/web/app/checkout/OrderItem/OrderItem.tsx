@@ -7,9 +7,10 @@ interface OrderItemProps {
   price: string;
   subtitle: string;
   icon?: React.ReactNode;
+  quantity: number; // 1. ADD QUANTITY TO THE INTERFACE
 }
 
-const OrderItem = ({ name, price, subtitle, icon }: OrderItemProps) => {
+const OrderItem = ({ name, price, subtitle, icon, quantity }: OrderItemProps) => {
   return (
     <div className={styles.itemRow}>
       {/* Left Icon Thumbnail */}
@@ -21,7 +22,15 @@ const OrderItem = ({ name, price, subtitle, icon }: OrderItemProps) => {
       <div className={styles.contentBlock}>
         {/* Top line split layout */}
         <div className={styles.headerLine}>
-          <span className={styles.itemName}>{name}</span>
+          <span className={styles.itemName}>
+            {name}
+            {/* 2. RENDER THE MULTIPLIER NEXT TO THE NAME IF IT'S GREATER THAN 0 */}
+            {quantity > 0 && (
+              <span className={styles.quantityMultiplier} style={{ marginLeft: '8px', color: '#0070F3', fontWeight: 'bold' }}>
+                x{quantity}
+              </span>
+            )}
+          </span>
           <span className={styles.itemPrice}>{price}</span>
         </div>
 

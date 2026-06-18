@@ -240,6 +240,7 @@ describe('/restaurants', () => {
           name: 'Classic Burger',
           description: 'Beef burger with lettuce and tomato',
           price: 8990,
+          image: '',
           categoryName: menuCategory1.name,
           menuCategoryId: menuCategory1.id,
         })
@@ -247,6 +248,7 @@ describe('/restaurants', () => {
           name: 'Energy drink',
           description: '500ml',
           price: 1990,
+          image: '',
           categoryName: menuCategory2.name,
           menuCategoryId: menuCategory2.id,
         })
@@ -276,6 +278,7 @@ describe('/restaurants', () => {
               {
                 id: menuItem1.id,
                 name: menuItem1.name,
+                image: menuItem1.image,
                 description: menuItem1.description,
                 price: menuItem1.price,
                 quantity: restStock1.quantity,
@@ -288,6 +291,7 @@ describe('/restaurants', () => {
               {
                 id: menuItem2.id,
                 name: menuItem2.name,
+                image: menuItem1.image,
                 description: menuItem2.description,
                 price: menuItem2.price,
                 quantity: restStock2.quantity,
@@ -309,6 +313,7 @@ describe('/restaurants', () => {
               {
                 id: menuItem2.id,
                 name: menuItem2.name,
+                image: menuItem2.image,
                 description: menuItem2.description,
                 price: menuItem2.price,
                 quantity: restStock2.quantity,
@@ -326,6 +331,7 @@ describe('/restaurants', () => {
         expect(res.body).toEqual({
           id: menuItem1.id,
           name: menuItem1.name,
+          image: menuItem1.image,
           description: menuItem1.description,
           price: menuItem1.price,
           quantity: restStock1.quantity,

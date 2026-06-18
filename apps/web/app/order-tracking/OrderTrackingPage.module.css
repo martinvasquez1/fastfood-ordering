@@ -1,0 +1,67 @@
+/* app/order-tracking/OrderTrackingPage.module.css */
+
+.pageViewport {
+  box-sizing: border-box;
+  padding: 40px 24px;
+  background: #FAFAFA;
+  min-height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Central layout framework constraint matching your 1240px viewport blueprint */
+.dashboardGrid {
+  width: 100%;
+  max-width: 1240px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+}
+
+/* System loading viewport panel */
+.centeredFeedbackScreen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FAFAFA;
+}
+
+.loadingMessage {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  color: #1B1B1C;
+  letter-spacing: -0.02em;
+}
+
+/* System error alert frame blueprint */
+.errorCardFrame {
+  box-sizing: border-box;
+  border: 2px solid #000000;
+  padding: 24px;
+  background: #FFFFFF;
+  box-shadow: 4px 4px 0px #FF0055;
+  border-radius: 8px;
+  max-width: 480px;
+  text-align: center;
+}
+
+.errorMessage {
+  color: #FF0055;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  margin: 0;
+}
+
+.cardsRowLayout {
+  width: 100%;
+  display: flex;
+  flex-direction: row;      /* Arranges your two cards side-by-side */
+  justify-content: center;  /* Centers them down the page axis together */
+  align-items: flex-start;
+  gap: 32px;                /* Symmetrical gaps between the ticket frames */
+  flex-wrap: wrap;          /* Automatically stacks into a neat line on mobile viewport widths safely */
+}

@@ -1,6 +1,7 @@
 // AddressCard.tsx
 import React from 'react';
 import styles from './AddressCard.module.css';
+import CheckCircleIcon from '../../common/svgs/CheckCircleIcon';
 
 interface AddressCardProps {
   label: string;
@@ -18,8 +19,8 @@ const AddressCard = ({ label, street, subAddress, actionIcon }: AddressCardProps
         {actionIcon ? (
           <div className={styles.actionIcon}>{actionIcon}</div>
         ) : (
-          /* Default small square indicator if no custom icon passed */
-          <div className={styles.actionIcon} aria-hidden="true" />
+          /* Default CheckCircleIcon if no custom icon passed */
+          <CheckCircleIcon size={20} color="#0035C5" />
         )}
       </div>
 

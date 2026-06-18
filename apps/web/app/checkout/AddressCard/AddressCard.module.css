@@ -38,10 +38,10 @@
 }
 
 .actionIcon {
-  width: 11.67px;
-  height: 11.67px;
-  background: #0035C5; /* Use an SVG element or modify via props later */
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Address Details Block */

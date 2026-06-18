@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './CardOption.module.css';
+import CheckCircleIcon from '../../common/svgs/CheckCircleIcon';
 
 interface CardOptionProps {
   title: string;
@@ -30,7 +31,7 @@ const CardOption = ({ title, subtitle, icon, isActive, onClick }: CardOptionProp
       {/* Right Selection Circle/Icon - Only shows when active */}
       {isActive ? (
         <div className={styles.iconRight} aria-hidden="true">
-          {/* You can drop a constant checkmark SVG here later if you want */}
+          <CheckCircleIcon size={20} color="#0035C5" />
         </div>
       ) : (
         /* Hidden placeholder box to keep spacing consistent when inactive */

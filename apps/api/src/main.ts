@@ -30,7 +30,8 @@ async function bootstrap() {
 
   await setupSwagger(app);
 
-  await app.listen(3002);
+  const port = configService.get<string>('API_PORT');
+  await app.listen(port || 3002);
 }
 
 void bootstrap();
