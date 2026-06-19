@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 
 import { AuthProvider } from '../context/AuthContext';
+import { Footer } from '../components/footer/footer';
 
 // 1. IMPORT YOUR CART PROVIDER
 import { CartProvider } from '../context/CartContext'; // Adjust path if your context folder is structured differently
@@ -33,6 +34,7 @@ export default function RootLayout({
             {children}
           </AuthProvider>
         </CartProvider>
+        <Footer />
         
       </body>
     </html>
