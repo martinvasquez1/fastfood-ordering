@@ -6,7 +6,6 @@ export default function Home() {
     <div>
     <div className="contenido">
 
-        <div id="rec"> ¡ A que se te antojaron ! </div>
         <div id="rec2"> PAPAREVOLUTION HA LLEGADO A CHILE </div>
         
         <div className="textos">
