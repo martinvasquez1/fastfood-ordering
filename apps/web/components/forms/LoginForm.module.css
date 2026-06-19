@@ -185,3 +185,166 @@
   cursor: not-allowed;
 }
 
+.secondaryButton {
+  padding: 14px 20px;
+  background: transparent;
+  color: #0051CC;
+  border: 2px solid #0051CC;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: var(--font-plus-jakarta);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  text-transform: capitalize;
+}
+
+.secondaryButton:hover:not(:disabled) {
+  background: rgba(0, 81, 204, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 81, 204, 0.12);
+}
+
+.successText {
+  text-align: center;
+  color: #4B5563;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+
+.formSubtitle {
+  margin-top: 8px;
+  color: #6B7280;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.registerWrapper {
+  display: grid;
+  gap: 24px;
+}
+
+@media (min-width: 900px) {
+  .registerWrapper {
+    grid-template-columns: 300px 1fr;
+    align-items: stretch;
+  }
+}
+
+.registerPanel {
+  padding: 32px 24px;
+  background: linear-gradient(180deg, #0F4BB8 0%, #0B2F6D 100%);
+  border-radius: 16px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
+
+.brandBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.panelTitle {
+  font-size: 32px;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.panelText {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 14px;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.registerContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.sectionLabel {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #6B7280;
+  margin: 0 0 8px;
+}
+
+.sectionCopy {
+  margin: 0;
+  font-size: 14px;
+  color: #374151;
+}
+
+.closeLink {
+  background: transparent;
+  border: none;
+  color: #1D4ED8;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--font-plus-jakarta);
+}
+
+.progressBar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.progressStep {
+  height: 8px;
+  background: #E5E7EB;
+  border-radius: 999px;
+}
+
+.activeProgress {
+  background: #FFC400;
+}
+
+.rowInputs {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 720px) {
+  .rowInputs {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.paymentPlaceholder {
+  padding: 24px;
+  border: 2px dashed #0051CC;
+  border-radius: 12px;
+  background: #F8FAFC;
+  text-align: center;
+  color: #1F2937;
+}
+
+.paymentPlaceholder small {
+  display: block;
+  margin-top: 8px;
+  color: #6B7280;
+}
+

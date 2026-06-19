@@ -6,6 +6,7 @@ import { User } from 'lucide-react';
 import styles from './header.module.css';
 import Modal from '../modal/Modal';
 import LoginForm from '../forms/LoginForm';
+import RegisterForm from '../forms/RegisterForm';
 import { useAuth } from '../../context/AuthContext';
 
 const navItems = [
@@ -20,6 +21,7 @@ export function Header() {
   const router = useRouter();
   const { login } = useAuth();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
 
   const isActive = (href: string) => {
     if (href === '/') {
@@ -41,11 +43,21 @@ export function Header() {
       email,
     });
     setIsLoginOpen(false);
+    setShowRegister(false);
   };
 
   const handleSignUp = () => {
+    setShowRegister(true);
+    setIsLoginOpen(true);
+  };
+
+  const handleBackToLogin = () => {
+    setShowRegister(false);
+  };
+
+  const handleClose = () => {
     setIsLoginOpen(false);
-    router.push('/auth/sign-up');
+    setShowRegister(false);
   };
 
   return (
@@ -77,10 +89,14 @@ export function Header() {
 
       <Modal
         isOpen={isLoginOpen}
-        onClose={() => setIsLoginOpen(false)}
-        title="Iniciar sesión"
+        onClose={handleClose}
+        title={showRegister ? 'Crear cuenta' : 'Iniciar sesión'}
       >
-        <LoginForm onSubmit={handleLogin} onSignUp={handleSignUp} />
+        {showRegister ? (
+          <RegisterForm onBack={handleBackToLogin} onComplete={handleClose} />
+        ) : (
+          <LoginForm onSubmit={handleLogin} onSignUp={handleSignUp} />
+        )}
       </Modal>
     </>
   );
