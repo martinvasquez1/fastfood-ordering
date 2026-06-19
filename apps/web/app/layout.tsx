@@ -4,6 +4,7 @@ import './globals.css';
 
 import { AuthProvider } from '../context/AuthContext';
 import { Footer } from '../components/footer/footer';
+import { Header } from '../components/header/header';
 
 // 1. IMPORT YOUR CART PROVIDER
 import { CartProvider } from '../context/CartContext'; // Adjust path if your context folder is structured differently
@@ -31,7 +32,8 @@ export default function RootLayout({
         {/* 2. WRAP CHILDREN IN THE PROVIDER */}
         <CartProvider>
           <AuthProvider>
-            {children}
+            <Header />
+              {children}
           </AuthProvider>
         </CartProvider>
         <Footer />
