@@ -1,34 +1,36 @@
+"use client";
+
 import Image from "next/image";
 
-type MenuItem = {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    image: string;
-    quantity: number;
-};
+import { useEffect, useState } from "react";
+import { getMenu, MenuCategory, MenuItem } from "../lib/menu";
 
-type MenuCategory = {
-    category: string;
-    items: MenuItem[];
-};
+export default function Home() {
+    const [menu, setMenu] = useState<MenuCategory[]>([]);
+    const [loading, setLoading] = useState(true);
 
-export async function getMenu(): Promise<MenuCategory[]> {
-    const res = await fetch(
-        "http://localhost:3002/restaurants/1/menu"
-    );
+    useEffect(() => {
+        async function loadMenu() {
+            try {
+                const data = await getMenu();
+                setMenu(data);
+            } catch (err) {
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        }
 
-    if (!res.ok) {
-        throw new Error("Failed to fetch menu");
+        loadMenu();
+    }, []);
+
+    if (loading) return <p>Loading...</p>;
+
+    if (!menu || menu.length === 0) {
+        return <p>No menu found</p>;
     }
 
-    return res.json();
-}
-
-export default async function Home() {
-    const menu = await getMenu();
-    const burgers = menu[0]
+    const burgers = menu[0];
 
     return (
         <div>
