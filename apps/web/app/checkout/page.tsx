@@ -11,7 +11,7 @@ import FoodIcon from '../../components/svgs/FoodIcon';
 import DeliverySection from './DeliverySection/DeliverySection';
 import { PaymentSection } from './PaymentSection/PaymentSection';
 import { OrderSummarySection } from './OrderSummarySection/OrderSummarySection';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../../context/CartContext';
 
 // 1. IMPORT THE CSS MODULE
 import styles from './CheckoutPage.module.css';

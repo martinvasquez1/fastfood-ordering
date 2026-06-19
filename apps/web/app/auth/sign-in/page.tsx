@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import LoginForm from '../../../components/forms/LoginForm';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../../context/AuthContext';
 
 export default function SignInPage() {
   const router = useRouter();

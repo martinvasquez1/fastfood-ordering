@@ -2,10 +2,10 @@ import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider } from '../context/AuthContext';
 
 // 1. IMPORT YOUR CART PROVIDER
-import { CartProvider } from './context/CartContext'; // Adjust path if your context folder is structured differently
+import { CartProvider } from '../context/CartContext'; // Adjust path if your context folder is structured differently
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
