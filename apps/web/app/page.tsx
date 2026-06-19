@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type MenuItem = {
     id: number;
     name: string;
@@ -92,8 +94,9 @@ export default async function Home() {
 
                 {burgers?.items!.map((item: MenuItem) => {
                     return (
-                        <div className="producto1">
+                        <div className="producto1" key={item.id}>
                             <div className="papapleto"> </div>
+                            <Image src={item.image} alt="#" width={300} height={200} />
                             <div className="tit">
                                 <p>{item.name}</p>
                                 <span className="precios">${item.price}</span>
