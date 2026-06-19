@@ -1,0 +1,183 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+
+}
+
+a {
+    text-decoration: none;
+    color: black;
+
+}
+
+header{
+
+    display: flex;
+    padding: 10px 20px;
+    height: 70px;
+    align-items: center;
+    border-bottom: black solid 2px;
+}
+
+.footer{
+
+    position: relative;
+    flex-direction: column;
+    display: flex;
+    padding: 30px;
+    height: 120px;
+    margin-top: 50px;
+    align-items: center;
+    border-top: black solid 3px;
+    padding-top: 75px;
+    padding-bottom: 75px;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+    background-color: #B3B3BF;
+}
+
+.icons{
+
+    position: relative;
+    display: flex;
+    padding: 10px;
+}
+
+.icon-elem{
+
+    list-style: none;
+
+}
+
+.icon{
+
+    color:white;
+    display: inline-block;
+    font-size: 32px;
+    margin: 0 10px;
+    transition: 0.5s;
+}
+
+.icon.icon:hover{
+    
+    transform: translateY(-10px);
+}
+
+.menuu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 10px 0;
+    flex-wrap: wrap;
+}
+
+.menu-elem{
+
+    list-style: none;
+}
+
+.menu-icon{
+    
+    color: white;
+    font-size: 20px;
+    display: inline-block;
+    text-decoration: none;
+    margin: 5px 10px;
+    opacity: 0.75;
+    transition: 0.3s;
+}
+
+.menu-icon:hover{
+
+    opacity: 1;
+}
+
+.texto{
+
+    color: white;
+    text-align: center;
+
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+
+}
+
+.logo-img{
+    height: 50px;
+    margin-right: 10px;
+}
+
+.logo-nombre{
+    color: #0047FF
+}
+
+nav {
+    
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex: 1;
+    margin: 0 auto;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background-color: #FFD700; 
+    transition: width 0.3s ease;
+}
+
+nav a {
+    position: relative;
+    font-weight: 600;
+    padding-bottom: 5px; 
+
+     transition: 
+        transform 0.25s ease,
+        color 0.25s ease;
+}
+
+nav a:hover{
+    color: #0047FF;
+     transform: translateY(-4px);
+}
+
+nav a:hover::after {
+    width: 100%; 
+}
+
+/********************************************/
+.logo,
+.cart{
+    min-width: 150px;   /* ajusta si quieres */
+    display: flex;
+    align-items: center;
+}
+
+
+.cart{
+
+    cursor: pointer;
+    display: flex;
+}
+
+.cart-icon{
+    width: 28px;
+    height: 28px;
+    fill: #0047FF;
+    transition: transform 0.2s ease;
+}
+
+.cart-icon:hover{
+    transform: scale(1.1);
+}

@@ -1,0 +1,400 @@
+#cuadro{
+
+    width: 40px;
+    height: 60px;
+    margin-top: 50px;
+    margin-left: 10px;
+    background-color: #0047FF;
+
+}
+
+.titulo{
+
+    font-size: 35px;
+    font-weight: bold;
+    color: black;
+    margin-top: 50px;
+}
+
+#cuadro, .titulo {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#cuadro2{
+
+    width: 20px;
+    height: 60px;
+    margin-left: 10px;
+    background-color: #FFD700; 
+
+}
+
+.titulo2{
+    
+    margin-right: 50px;
+    font-size: 35px;
+    font-weight: bold;
+    color: black;
+   
+}
+
+#cuadro2, .titulo2 {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#variedad{
+
+    margin-left: 10px;
+    font-weight: bold;
+    font-size: 20px;
+    color: black;;
+}
+
+.novedad {
+    
+    display: flex;
+    width: 1000px;
+    height: 400px;
+    border: 3px solid black;
+    box-shadow: #0035C5 7px 5px;
+    margin: 20px 10px;
+    overflow: hidden;
+
+}
+
+.productos2{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.prod-dos{
+
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: #705D00 7px 5px;
+}
+
+.prod2{
+
+    width: 100%;
+    height: 140px;          
+    overflow: hidden;       
+}
+
+.img-novedad {
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.des {
+
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.info {
+    padding: 15px;
+    flex: 1;
+}
+
+#brocheta{
+
+    font-weight: bold;
+    color: #0047FF;
+    font-size: 20px;
+    justify-content: center;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.precio {
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    background-color: #FFD700;
+    padding-right: 300px;
+
+
+    display: inline-block;      
+    padding: 6px 12px;          
+    border-radius: 8px;        
+    align-self: flex-end;     
+}
+
+.boton{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 25%;
+}
+
+.boton2{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 6%;
+}
+
+
+.img2{
+
+    width: 100%;
+    height: 140px;
+    display: block;
+    object-fit: cover;
+}
+
+
+.papascrema{
+
+    display: flex;
+    color: #705D00;
+    font-weight: bold;
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+.textt{
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 1px;
+}
+
+.boton-secundario2{
+
+    background-color: #705D00;;
+    color: rgb(255, 255, 255);
+    box-shadow: black 4px 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.boton-secundario2:hover{
+    background-color: #B13300;
+    color: #ffffff;
+}
+
+
+/*************************************************/
+.salsas{
+
+    display: flex;
+    align-items: center; 
+    gap: 10px;   
+}
+
+#cuadrosalsas{
+
+    width: 40px;
+    height: 60px;
+    margin-top: 50px;
+    margin-left: 10px;
+    background-color: #B13300;
+}
+
+.salsas2{
+
+    display: flex;
+    gap: 190px;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.salsa-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 160px;
+}
+
+.salsa-titulo{
+    font-size: 16px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.salsa-desc{
+    font-size: 14px;
+    color: #555;
+    margin: 3px 0;
+}
+
+.salsa-precio{
+    font-size: 15px;
+    font-weight: bold;
+    color: #0047FF;
+    margin-top: 4px;
+}
+
+.salsa-card:hover{
+    transform: translateY(-5px);
+    transition: 0.2s ease;
+}
+
+.btn-comprar{
+    margin-top: 8px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 2px solid #0047FF;
+    background-color: transparent;
+    color: #0047FF;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-comprar:hover{
+    background-color: #0047FF;
+    color: #ffffff;
+}
+
+.img3{
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;      
+    display: block;
+}
+
+.prod3{
+
+    width: 140px;
+    height: 140px;          
+    overflow: hidden; 
+    border-radius: 50%;
+}
+
+/****************************************/
+
+.bebidas{
+
+    display: flex;
+    align-items: center; 
+    gap: 10px;   
+}
+
+.bebidas2{
+
+    display: flex;
+    width: 100%;
+    gap: 40px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#cuadrobebidas{
+
+    width: 50px;
+    height: 60px;
+    margin-top: 50px;
+    margin-left: 10px;
+    background-color: #705D00;
+}
+
+.limonada{
+
+    display: flex;
+    flex: 1;
+    width: 45%;
+    height: 100%;
+    margin-top: 25px;
+    margin-left: 10px;
+    border: 3px solid #000000;
+    box-shadow: #0035C5 7px 5px;
+}
+
+.lim{
+
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-right: 20px;
+   
+}
+
+.text-limonada{
+
+    display: flex; 
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.t1{
+
+    justify-content: space-between;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    max-width: 75%;
+}
+
+.t2{
+
+    justify-content: space-between;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 22px;
+    max-width: 75%;
+    color:#0047FF;
+}
+
+.desc-bebidas{
+
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.price{
+
+    font-weight: bold;
+    color: #0035C5;
+    font-size: 18px;
+    white-space: nowrap; 
+}
+
+.btn-limon{
+
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid #0035C5;
+    font-size: 20px;
+    background-color: white;
+    color:#0035C5;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+}
+
+
+.btn-limon:hover{
+    background-color: #0047FF;
+    color: #ffffff;
+}
+
+
+
+

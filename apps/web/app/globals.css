@@ -1,3 +1,7 @@
+@import url("menu.css");
+@import url("pagPrincipal.css");
+@import url("styles.css");
+
 :root {
   /* This ensures the variable is globally recognized */
   --font-plus-jakarta: 'Plus Jakarta Sans', sans-serif;
