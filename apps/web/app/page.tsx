@@ -49,10 +49,7 @@ export default function Home() {
                         <button className="agregar2 boton-secundario"> Nuestra carta  </button>
                     </div>
                 </div>
-
-
-                <div id="div1">  </div>
-
+                <Image src="/hero.jpg" alt="Hero" width={800} height={600} id="hero-image" />
             </div>
 
             <div className="pasos">

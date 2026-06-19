@@ -5,11 +5,8 @@
 }
 
 
-#div1 {
+#hero-image {
     border-radius: 25px;
-    padding: 150px;
-    width: 600px;
-    height: 150px;
     transform: rotate(2deg);
     border: 3px solid #000000;
     box-shadow:#FFD700 5px 5px;
@@ -18,7 +15,6 @@
     position: relative;
     z-index: 1; 
 
-    background-image: url("/fastfood-ordering/Imagenes/papasmain.jfif");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
