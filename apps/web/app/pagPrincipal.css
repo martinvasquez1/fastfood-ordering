@@ -1,9 +1,7 @@
-
 .contenido {
     display: flex;
-   
+    gap: 5rem;
 }
-
 
 #hero-image {
     border-radius: 25px;
