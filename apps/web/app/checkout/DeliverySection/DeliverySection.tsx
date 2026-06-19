@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './DeliverySection.module.css';
 import AddressCard from '../AddressCard/AddressCard';
-import DeliveryScooterIcon from '../../common/svgs/DeliveryScooterIcon';
+import DeliveryScooterIcon from '../../../components/svgs/DeliveryScooterIcon';
 
 interface AddressData {
   label: string;

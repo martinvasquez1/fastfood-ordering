@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import LoginForm from '../../common/forms/LoginForm';
+import LoginForm from '../../../components/forms/LoginForm';
 import { useAuth } from '../../context/AuthContext';
 
 export default function SignInPage() {

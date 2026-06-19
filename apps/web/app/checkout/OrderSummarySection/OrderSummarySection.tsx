@@ -2,8 +2,8 @@
 import React from 'react';
 import styles from './OrderSummarySection.module.css';
 import OrderItem from '../OrderItem/OrderItem';
-import FoodIcon from '../../common/svgs/FoodIcon';
-import OrderButton from '../../common/buttons/orderButton';
+import FoodIcon from '../../../components/svgs/FoodIcon';
+import OrderButton from '../../../components/buttons/orderButton';
 
 // Structure for items passed into this summary box
 interface CartItem {

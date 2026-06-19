@@ -2,12 +2,12 @@
 import React from 'react';
 import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import OrderButton from '../common/buttons/orderButton';
+import OrderButton from '../../components/buttons/orderButton';
 import CardOption from './CardOption/CardOption';
 import AddressCard from './AddressCard/AddressCard';
-import CreditCardIcon  from '../common/svgs/CreditCardIcon';
+import CreditCardIcon  from '../../components/svgs/CreditCardIcon';
 import OrderItem from './OrderItem/OrderItem';
-import FoodIcon from '../common/svgs/FoodIcon';
+import FoodIcon from '../../components/svgs/FoodIcon';
 import DeliverySection from './DeliverySection/DeliverySection';
 import { PaymentSection } from './PaymentSection/PaymentSection';
 import { OrderSummarySection } from './OrderSummarySection/OrderSummarySection';

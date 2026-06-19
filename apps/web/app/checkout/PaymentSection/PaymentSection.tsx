@@ -4,8 +4,8 @@
 import React, { useState } from 'react';
 import styles from './PaymentSection.module.css';
 import CardOption from '../CardOption/CardOption';
-import CreditCardIcon from '../../common/svgs/CreditCardIcon';
-import CardStackIcon from '../../common/svgs/CardStackIcon';
+import CreditCardIcon from '../../../components/svgs/CreditCardIcon';
+import CardStackIcon from '../../../components/svgs/CardStackIcon';
 
 interface PaymentSectionProps {
   onMethodChange?: (method: string) => void; // Added hook for payload capture

@@ -1,7 +1,7 @@
 // components/OrderCheckCard.tsx
 import React from 'react';
 import styles from './OrderCheckCard.module.css';
-import Checkpaper from '../../common/svgs/CheckPaper';
+import Checkpaper from '../../../components/svgs/CheckPaper';
 
 interface OrderLineItem {
   id: string;

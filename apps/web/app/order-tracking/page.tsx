@@ -7,7 +7,7 @@ import { OrderCheckCard } from './OrderCheckCard/OrderCheckCard';
 import FryLevelTracker from './FryLevelTracker/FryLevelTracker';
 import { OrderDeliveryCard } from './OrderDeliveryCard/OrderDeliveryCard';
 import { TitleSection } from './TitleSection/TitleSection';
-import ConfettyConeIcon from '../common/svgs/ConfettyConeIcon';
+import ConfettyConeIcon from '../../components/svgs/ConfettyConeIcon';
 
 interface OrderTrackingPayload {
   currentStep: number;

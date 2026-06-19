@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './CardOption.module.css';
-import CheckCircleIcon from '../../common/svgs/CheckCircleIcon';
+import CheckCircleIcon from '../../../components/svgs/CheckCircleIcon';
 
 interface CardOptionProps {
   title: string;

@@ -1,7 +1,7 @@
 'use client';
 
 import { useAuth } from '../../context/AuthContext';
-import AuthGuard from '../../common/auth/AuthGuard';
+import AuthGuard from '../../../components/auth/AuthGuard';
 
 export default function AuthTestPage() {
   const { user, isAuthenticated, logout } = useAuth();

@@ -2,7 +2,7 @@
 import React from 'react';
 import styles from './OrderDeliveryCard.module.css';
 // 1. Swap this path with the exact folder layout location of your existing SVG asset
-import MapPointer from '../../common/svgs/MapPointer';
+import MapPointer from '../../../components/svgs/MapPointer';
 
 interface OrderDeliveryCardProps {
   addressLabel: string;

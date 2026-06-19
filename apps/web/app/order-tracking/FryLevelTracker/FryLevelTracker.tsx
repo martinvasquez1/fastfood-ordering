@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './FryLevelTracker.module.css';
 import FryProgressBar from './FryProgressBar/FryProgressBar';
 import FryStepLabels from './FryStepLabels/FryStepLabels';
-import OrderButton from '../../common/buttons/orderButton';
+import OrderButton from '../../../components/buttons/orderButton';
 interface FryLevelTrackerProps {
   currentStep: number; // 0, 1, 2, or 3
   title?: string;
