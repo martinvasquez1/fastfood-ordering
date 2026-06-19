@@ -9,9 +9,16 @@
 
 html, body {
   font-family: var(--font-plus-jakarta) !important;
+  padding: 0 2rem;
 }
 
 /* Form elements are stubborn, so we force them here */
 button, input, select, textarea {
   font-family: var(--font-plus-jakarta);
+}
+
+@media (max-width: 700px) {
+  body {
+    padding: 0 0.5rem;
+  }
 }
