@@ -1,4 +1,38 @@
+"use client";
+
+import Image from "next/image";
+
+import { useEffect, useState } from "react";
+import { getMenu, MenuCategory, MenuItem } from "../../lib/menu";
+
 export default function Menu() {
+    const [menu, setMenu] = useState<MenuCategory[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function loadMenu() {
+            try {
+                const data = await getMenu();
+                setMenu(data);
+            } catch (err) {
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        loadMenu();
+    }, []);
+
+    if (loading) return <p>Loading...</p>;
+
+    if (!menu || menu.length === 0) {
+        return <p>No menu found</p>;
+    }
+
+    const novedad1 = menu[0]?.items[0]
+    const novedad2 = menu[1]?.items[0]
+
     return (
         <div>
             <div id="cuadro"></div>
@@ -15,25 +49,14 @@ export default function Menu() {
             <span className="titulo2"> NOVEDADES </span>
 
             <div className="productos2">
-
                 <div className="novedad">
-                    <img
-                        src="Imagenes/papaschorizo.jpg"
-                        alt="Brochetas"
-                        className="img-novedad"
-                    />
-
+                    <Image src={novedad1?.image!} alt="#" width={300} height={200} className="img-novedad" />
                     <div className="info">
                         <div className="des">
-                            <p id="brocheta">Brochetas de papa con chorizo</p>
-                            <p className="precio">$4.990</p>
+                            <p id="brocheta">{novedad1?.name}</p>
+                            <p className="precio">${novedad1?.price}</p>
                         </div>
-
-                        <p className="des">
-                            5 brochetas con chorizo argentino, calabacitas, pimiento
-                            y papas con especias + 1 salsa a elegir
-                        </p>
-
+                        <p className="des">{novedad1?.description}</p>
                         <div className="boton">
                             <button className="agregar">AGREGAR</button>
                         </div>
@@ -43,17 +66,15 @@ export default function Menu() {
                 <div className="novedad prod-dos">
 
                     <div className="prod2">
-                        <img src="Imagenes/papascrema1.jpg" className="img2" />
+                        <Image src={novedad2?.image!} alt="#" width={300} height={200} className="img2" />
                     </div>
 
                     <div className="textt">
-                        <p className="papascrema">Papas con crema</p>
-                        <p className="precio">$5.490</p>
+                        <p className="papascrema">{novedad2?.name}</p>
+                        <p className="precio">${novedad2?.price}</p>
                     </div>
 
-                    <p className="des">
-                        Papas en rodajas con crema, sal, pimienta y especias
-                    </p>
+                    <p className="des">{novedad2?.description}</p>
 
                     <div className="boton2">
                         <button className="agregar boton-secundario2">
