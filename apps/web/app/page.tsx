@@ -95,8 +95,7 @@ export default async function Home() {
                 {burgers?.items!.map((item: MenuItem) => {
                     return (
                         <div className="producto1" key={item.id}>
-                            <div className="papapleto"> </div>
-                            <Image src={item.image} alt="#" width={300} height={200} />
+                            <Image src={item.image} alt="#" width={300} height={200} className="papapleto" />
                             <div className="tit">
                                 <p>{item.name}</p>
                                 <span className="precios">${item.price}</span>

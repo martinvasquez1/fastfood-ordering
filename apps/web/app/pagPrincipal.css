@@ -216,9 +216,8 @@
 }
 
 .papapleto{
-
-    height: 175px;
-    width: 400px;
+    aspect-ratio: 16/9;
+    width: 100%;
     background-color: antiquewhite;
 
     background-image: url("/fastfood-ordering/Imagenes/papapleto.jfif");
