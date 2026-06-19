@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import LoginForm from '../../../components/forms/LoginForm';
+import Modal from '../../../components/modal/Modal';
 import { useAuth } from '../../../context/AuthContext';
 
 export default function SignInPage() {
@@ -22,19 +23,13 @@ export default function SignInPage() {
     router.push('/auth/sign-up');
   };
 
+  const handleClose = () => {
+    router.push('/');
+  };
+
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <LoginForm
-        onSubmit={handleLogin}
-        onSignUp={handleSignUp}
-      />
-    </div>
+    <Modal isOpen={true} onClose={handleClose} title="Iniciar sesión">
+      <LoginForm onSubmit={handleLogin} onSignUp={handleSignUp} />
+    </Modal>
   );
 }

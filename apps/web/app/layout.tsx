@@ -28,16 +28,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${plusJakartaSans.variable} antialiased`} suppressHydrationWarning>
-        
-        {/* 2. WRAP CHILDREN IN THE PROVIDER */}
+        {/* Providers must wrap components that use their context (Header/Footer) */}
         <CartProvider>
           <AuthProvider>
             <Header />
-              {children}
+            {children}
+            <Footer />
           </AuthProvider>
         </CartProvider>
-        <Footer />
-        
       </body>
     </html>
   );
