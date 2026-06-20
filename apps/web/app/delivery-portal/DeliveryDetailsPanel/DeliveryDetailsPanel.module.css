@@ -1,0 +1,125 @@
+/* app/delivery-dashboard/DeliveryDetailsPanel/DeliveryDetailsPanel.module.css */
+
+.detailsPanelWrapper {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  background: #FFFFFF;
+  border: 2px solid #18181B;
+  box-shadow: 4px 4px 0px #18181B;
+  border-radius: 12px;
+  width: 100%;
+}
+
+.panelHeaderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #F4F4F5;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.panelHeadingText {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #18181B;
+}
+
+.closeBtn {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #A1A1AA;
+}
+
+.closeBtn:hover {
+  color: #18181B;
+}
+
+.metaDataStack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+
+.metaLabelText {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #A1A1AA;
+  letter-spacing: 0.05em;
+}
+
+.metaValueText {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #18181B;
+}
+
+.itemsBreakdownSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.itemsListContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.itemRowLine {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+}
+
+.qtyIndicator {
+  font-weight: 800;
+  color: #0035C5;
+  margin-right: 8px;
+}
+
+.itemName {
+  color: #434657;
+  flex-grow: 1;
+}
+
+.itemPrice {
+  font-weight: 600;
+  color: #18181B;
+}
+
+.footerSummaryBlock {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 2px dashed #E4E4E7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.totalLabel {
+  font-weight: 700;
+  font-size: 14px;
+  color: #18181B;
+}
+
+.grandTotalValue {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0035C5;
+}

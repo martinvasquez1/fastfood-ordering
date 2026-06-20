@@ -9,6 +9,7 @@
 
   width: 100%;
   max-width: 1232px;
+  min-width: 480px;
   height: auto; /* Dynamic fallback over hardcoded 113.44px to allow seamless rendering */
 
   background: #FFFFFF;
