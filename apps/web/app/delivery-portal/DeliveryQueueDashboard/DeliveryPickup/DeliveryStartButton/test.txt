@@ -1,0 +1,12 @@
+import { DeliveryStartButton } from '@/components/DeliveryStartButton/DeliveryStartButton';
+import { PlayIcon } from '@/components/icons/PlayIcon'; // Example pre-existing icon
+
+export default function OrderDispatchScreen() {
+  return (
+    <DeliveryStartButton 
+      label="Iniciar Entrega" 
+      IconComponent={PlayIcon}
+      onClick={() => console.log("Delivery cycle initialized...")}
+    />
+  );
+}

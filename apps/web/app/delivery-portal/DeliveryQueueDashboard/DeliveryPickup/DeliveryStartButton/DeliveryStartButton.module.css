@@ -1,0 +1,58 @@
+/* components/DeliveryStartButton/DeliveryStartButton.module.css */
+
+.deliveryStartButtonWrapper {
+  box-sizing: border-box;
+
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  gap: 6px; 
+
+  min-width: 82px; 
+  height: 32px;
+
+  background: #0035C5;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+  outline: none;
+}
+
+.deliveryStartButtonWrapper:hover {
+  background: #002aa1;
+}
+
+.deliveryStartButtonWrapper:active {
+  transform: scale(0.98);
+}
+
+.buttonIconSlot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;  
+  height: 8px;   
+  color: #FFFFFF;
+}
+
+.buttonIconSlot svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.deliveryStartButtonText {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-style: normal;
+  font-weight: 500; 
+  font-size: 12px;
+  line-height: 16px; 
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #FFFFFF;
+  white-space: nowrap; 
+}
