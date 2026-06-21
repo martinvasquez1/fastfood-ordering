@@ -8,6 +8,8 @@ export const buildDriverSignupRequest = ({ httpServer, fakeImage, overrides = {}
     RUT: '11.111.111-1',
     vehicleType: 'car',
     plateNumber: '123456',
+    address: 'abc',
+    phoneNumber: '123',
     ...overrides,
   };
 
@@ -20,5 +22,7 @@ export const buildDriverSignupRequest = ({ httpServer, fakeImage, overrides = {}
     .field('vehicleType', dto.vehicleType)
     .field('plateNumber', dto.plateNumber)
     .attach('identityDocument', fakeImage, { filename: 'id.jpg', contentType: 'image/jpeg' })
-    .attach('drivingLicense', fakeImage, { filename: 'license.jpg', contentType: 'image/jpeg' });
+    .attach('drivingLicense', fakeImage, { filename: 'license.jpg', contentType: 'image/jpeg' })
+    .field('address', dto.address)
+    .field('phoneNumber', dto.phoneNumber);
 };

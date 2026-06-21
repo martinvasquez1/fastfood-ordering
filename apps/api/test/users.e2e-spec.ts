@@ -15,6 +15,8 @@ const dto = {
   username: 'user',
   email: 'user@user.com',
   password: '123',
+  address: 'abc',
+  phoneNumber: '123'
 };
 
 let user: User;

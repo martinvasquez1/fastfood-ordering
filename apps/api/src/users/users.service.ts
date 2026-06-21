@@ -21,7 +21,7 @@ export class UsersService {
     if (existingName) throw new ConflictException('Username already exists');
 
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-    const user = this.usersRepository.create(username, email, hashedPassword);
+    const user = this.usersRepository.create(createUserDto, hashedPassword);
 
     return user;
   }

@@ -17,6 +17,8 @@ const user1Dto = {
   username: 'user1',
   email: 'user1@example.com',
   password: '1',
+  address: 'abc',
+  phoneNumber: '123'
 };
 
 describe('/auth', () => {
