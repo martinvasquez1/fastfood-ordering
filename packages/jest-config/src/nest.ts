@@ -11,4 +11,5 @@ export const nestConfig = {
   collectCoverageFrom: ['**/*.(t|j)s'],
   coverageDirectory: '../coverage',
   testEnvironment: 'node',
+  moduleNameMapper: { '^src/(.*)$': '<rootDir>/$1' },
 } as const satisfies Config;
