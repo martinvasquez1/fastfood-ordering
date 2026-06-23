@@ -1,0 +1,47 @@
+/* components/ActiveQueueList/ActiveQueueList.module.css */
+
+.activeQueueContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.columnTitle {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #27272A;
+  border-bottom: 2px solid #E4E4E7;
+  padding-bottom: 8px;
+}
+
+/* Keeps elements matching your 596px width specification beautifully */
+.activeGridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .activeGridContainer {
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  }
+}
+
+.emptyStateBoxHighlight {
+  box-sizing: border-box;
+  padding: 32px;
+  text-align: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  background: #FFFDF0;
+  border: 2px dashed #FDE047;
+  color: #854D0E;
+  border-radius: 12px;
+  grid-column: 1 / -1; /* Forces empty notification banner to span across full grid row width */
+}
