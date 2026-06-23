@@ -6,45 +6,27 @@ import styles from './DeliverySection.module.css';
 import AddressCard from '../AddressCard/AddressCard';
 import DeliveryScooterIcon from '../../../components/svgs/DeliveryScooterIcon';
 
-interface AddressData {
+interface AddressModel {
+  id: string;
   label: string;
   street: string;
-  subAddress: string;
+  subAddress?: string;
 }
 
 interface DeliverySectionProps {
-  onAddressLoaded: (address: AddressData) => void; // Call this to inform page.tsx
+  savedAddresses: AddressModel[];
+  selectedAddressId: string | null;
+  onSelectAddress: (address: AddressModel) => void;
 }
 
-const FALLBACK_ADDRESS: AddressData = {
-  label: "Home",
-  street: "123 Fry Street, Gourmet Valley",
-  subAddress: "Apartment 4B, Blue Building"
-};
-
-const DeliverySection = ({ onAddressLoaded }: DeliverySectionProps) => {
-  const [address, setAddress] = useState<AddressData | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    fetch('/api/address')
-      .then((res) => res.json())
-      .then((data: AddressData) => {
-        setAddress(data);
-        onAddressLoaded(data); // Push real data to payload manager
-        setLoading(false);
-      })
-      .catch(() => {
-        // Fallback configuration if API fails or is offline
-        setAddress(FALLBACK_ADDRESS);
-        onAddressLoaded(FALLBACK_ADDRESS); // Push fallback data to payload manager
-        setLoading(false);
-      });
-  }, [onAddressLoaded]);
-
+const DeliverySection = ({ 
+  savedAddresses, 
+  selectedAddressId, 
+  onSelectAddress 
+}: DeliverySectionProps) => {
   return (
     <section className={styles.deliveryContainer}>
-      {/* Header Block */}
+      {/* Header Block — Left exactly as your original design */}
       <div className={styles.headerRow}>
         <div className={styles.titleGroup}>
           <div className={styles.headerIcon}>
@@ -55,21 +37,34 @@ const DeliverySection = ({ onAddressLoaded }: DeliverySectionProps) => {
         <button className={styles.actionButton}>Change</button>
       </div>
 
-      {/* Grid wrapper holding rendered card blocks */}
+      {/* Grid wrapper holding rendered card blocks — Kept exact design layout */}
       <div className={styles.cardsGrid}>
-        {loading ? (
+        {savedAddresses.length === 0 ? (
           <div style={{ height: 116, display: 'flex', alignItems: 'center' }}>
-            <span>Loading address configurations...</span>
+            <span>No hay direcciones guardadas...</span>
           </div>
         ) : (
-          <AddressCard
-            label={address!.label}
-            street={address!.street}
-            subAddress={address!.subAddress}
-          />
+          savedAddresses.map((addr) => {
+            const isSelected = selectedAddressId === addr.id;
+            
+            return (
+              <div 
+                key={addr.id}
+                onClick={() => onSelectAddress(addr)}
+                /* Adds a clean selection class toggle while completely keeping your structure intact */
+                className={`${styles.cardSelectionWrapper} ${isSelected ? styles.activeSelectedCard : ''}`}
+              >
+                <AddressCard
+                  label={addr.label}
+                  street={addr.street}
+                  subAddress={addr.subAddress || ''}
+                />
+              </div>
+            );
+          })
         )}
 
-        {/* Secondary Dashed Edit Card specified in design specs */}
+        {/* Secondary Dashed Edit Card specified in design specs — Kept untouched */}
         <button className={styles.editPlaceholderCard}>
           <div className={styles.placeholderIcon} aria-hidden="true" />
           <span className={styles.placeholderText}>Editar direccion</span>
