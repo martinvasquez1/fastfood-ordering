@@ -12,12 +12,8 @@ import { User } from 'src/users/entities/user.entity';
 
 import { DataSource } from 'typeorm';
 import cleanDatabase from './util/clean-database';
-
-const dto = {
-    username: 'user',
-    email: 'user@user.com',
-    password: '123',
-};
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { createUserDto } from './factories/user.factory';
 
 let user: User;
 let userToken: string;
@@ -28,7 +24,7 @@ describe('/payments', () => {
     let dataSource: DataSource;
 
     async function populateDatabase() {
-        const { body } = await request(app.getHttpServer()).post('/auth/sign-up').send(dto);
+        const { body } = await request(app.getHttpServer()).post('/auth/sign-up').send(createUserDto());
         userToken = body.accessToken;
 
         const { body: getBody } = await request(app.getHttpServer())

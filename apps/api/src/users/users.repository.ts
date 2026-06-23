@@ -8,8 +8,8 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UsersRepository {
   constructor(@InjectRepository(User) private ORM: Repository<User>) {}
 
-  async create(username?: string, email?: string, password?: string): Promise<User> {
-    const user = this.ORM.create({ username, email, password });
+  async create(data: Partial<User>, password?: string): Promise<User> {
+    const user = this.ORM.create({ ...data, password });
     const savedUser = this.ORM.save(user);
     return savedUser;
   }
