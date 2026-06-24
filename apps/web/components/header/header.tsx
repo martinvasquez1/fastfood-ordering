@@ -20,7 +20,7 @@ const navItems = [
 export function Header() {
   const pathname = usePathname();
   const router = useRouter();
-  const { login } = useAuth();
+  const { user, isAuthenticated, login, logout } = useAuth();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isDriverLoginOpen, setIsDriverLoginOpen] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
@@ -119,14 +119,30 @@ export function Header() {
           ))}
         </nav>
 
-        <button
-          type="button"
-          className={styles.loginButton}
-          onClick={() => setIsLoginOpen(true)}
-        >
-          <User size={18} />
-          <span>Iniciar sesión</span>
-        </button>
+        {isAuthenticated && user ? (
+          <div className={styles.userInfo}>
+            <span className={styles.welcomeText}>Hola, {user.name}</span>
+            <button
+              type="button"
+              className={styles.logoutButton}
+              onClick={() => {
+                logout();
+                router.push('/');
+              }}
+            >
+              Cerrar sesión
+            </button>
+          </div>
+        ) : (
+          <button
+            type="button"
+            className={styles.loginButton}
+            onClick={() => setIsLoginOpen(true)}
+          >
+            <User size={18} />
+            <span>Iniciar sesión</span>
+          </button>
+        )}
       </header>
 
       <Modal
