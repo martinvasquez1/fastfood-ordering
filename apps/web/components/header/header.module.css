@@ -94,6 +94,45 @@
   transform: translateY(0);
 }
 
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.welcomeText {
+  font-weight: 700;
+  color: #1b1b1c;
+  white-space: nowrap;
+}
+
+.logoutButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.9rem;
+  background: transparent;
+  border: 2px solid #0047ff;
+  color: #0047ff;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logoutButton:hover {
+  background: #0047ff;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.logoutButton:active {
+  transform: translateY(0);
+}
+
 @media (max-width: 900px) {
   .header {
     flex-wrap: wrap;

@@ -8,9 +8,11 @@ interface LoginFormProps {
   onSignUp?: () => void;
   isLoading?: boolean;
   error?: string;
+  showSignUp?: boolean;
+  submitLabel?: string;
 }
 
-const LoginForm = ({ onSubmit, onSignUp, isLoading = false, error }: LoginFormProps) => {
+const LoginForm = ({ onSubmit, onSignUp, isLoading = false, error, showSignUp = true, submitLabel = 'Iniciar sesión' }: LoginFormProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -102,14 +104,16 @@ const LoginForm = ({ onSubmit, onSignUp, isLoading = false, error }: LoginFormPr
       </button>
 
       {/* Sign Up Button */}
-      <button 
-        type="button"
-        className={styles.signUpButton}
-        onClick={onSignUp}
-        disabled={isLoading}
-      >
-        👤 Hazte Cliente
-      </button>
+      {showSignUp && onSignUp && (
+        <button 
+          type="button"
+          className={styles.signUpButton}
+          onClick={onSignUp}
+          disabled={isLoading}
+        >
+          👤 Hazte Cliente
+        </button>
+      )}
     </form>
   );
 };

@@ -5,21 +5,39 @@ import { useRouter } from 'next/navigation';
 import LoginForm from '../../../components/forms/LoginForm';
 import RegisterForm from '../../../components/forms/RegisterForm';
 import Modal from '../../../components/modal/Modal';
+import { signIn } from '../../../lib/api';
 import { useAuth } from '../../../context/AuthContext';
 
 export default function SignInPage() {
   const router = useRouter();
   const { login } = useAuth();
   const [showRegister, setShowRegister] = useState(false);
-  const handleLogin = (email: string, password: string) => {
-    const username = email.split('@')[0] ?? '';
-    login({
-      id: '1',
-      name: username,
-      email,
-    });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-    router.push('/');
+  const handleLogin = async (email: string, password: string) => {
+    setError(null);
+    setIsLoading(true);
+
+    try {
+      const { accessToken, userId } = await signIn(email, password);
+      const username = email.split('@')[0] ?? '';
+
+      login({
+        id: userId,
+        name: username,
+        email,
+        token: accessToken,
+      });
+
+      router.push('/');
+    } catch (loginError) {
+      setError(
+        loginError instanceof Error ? loginError.message : 'No se pudo iniciar sesión.',
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSignUp = () => {
@@ -43,7 +61,12 @@ export default function SignInPage() {
       {showRegister ? (
         <RegisterForm onBack={handleBackToLogin} onComplete={handleClose} />
       ) : (
-        <LoginForm onSubmit={handleLogin} onSignUp={handleSignUp} />
+        <LoginForm
+          onSubmit={handleLogin}
+          onSignUp={handleSignUp}
+          isLoading={isLoading}
+          error={error ?? undefined}
+        />
       )}
     </Modal>
   );
