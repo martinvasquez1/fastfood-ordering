@@ -1,6 +1,8 @@
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import styles from './LoginForm.module.css';
+import { useAuth } from '../../context/AuthContext';
+import { signUp } from '../../lib/api';
 
 interface RegisterFormProps {
   onBack?: () => void;
@@ -9,6 +11,7 @@ interface RegisterFormProps {
 
 const RegisterForm = ({ onBack, onComplete }: RegisterFormProps) => {
   const router = useRouter();
+  const { login } = useAuth();
   const [step, setStep] = useState(1);
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -16,6 +19,8 @@ const RegisterForm = ({ onBack, onComplete }: RegisterFormProps) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [address, setAddress] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleComplete = () => {
     if (onComplete) {
@@ -208,12 +213,57 @@ const RegisterForm = ({ onBack, onComplete }: RegisterFormProps) => {
             ¡Ya estás listo! Empieza a explorar el menú y haz tu primer pedido.
           </p>
 
+          {error && <div className={styles.errorMessage}>{error}</div>}
+
           <button
             type="button"
             className={styles.submitButton}
-            onClick={handleComplete}
+            onClick={async () => {
+              if (isSubmitting) return;
+              setError(null);
+
+              if (!fullName || !email || !phone || !password || !confirmPassword || !address) {
+                setError('Por favor completa todos los campos antes de continuar.');
+                return;
+              }
+
+              if (password !== confirmPassword) {
+                setError('Las contraseñas no coinciden.');
+                return;
+              }
+
+              setIsSubmitting(true);
+
+              try {
+                const { accessToken, userId } = await signUp({
+                  username: fullName,
+                  email,
+                  phoneNumber: phone,
+                  password,
+                  address,
+                });
+
+                login({
+                  id: userId,
+                  name: fullName,
+                  email,
+                  token: accessToken,
+                });
+
+                handleComplete();
+              } catch (submitError) {
+                setError(
+                  submitError instanceof Error
+                    ? submitError.message
+                    : 'No se pudo completar el registro.',
+                );
+              } finally {
+                setIsSubmitting(false);
+              }
+            }}
+            disabled={isSubmitting}
           >
-            Ir al menú
+            {isSubmitting ? 'Registrando...' : 'Ir al menú'}
           </button>
         </div>
       )}

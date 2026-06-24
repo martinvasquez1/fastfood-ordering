@@ -9,9 +9,10 @@ import React, {
 } from 'react';
 
 interface User {
-  id: string;
+  id: number;
   name: string;
   email: string;
+  token: string;
 }
 
 interface AuthContextType {
@@ -32,23 +33,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const savedUser = localStorage.getItem('user');
 
     if (savedUser) {
-        setUser(JSON.parse(savedUser));
+      setUser(JSON.parse(savedUser));
     }
     setIsLoading(false);
   }, []);
 
   const login = (userData: User) => {
-    localStorage.setItem(
-      'user',
-      JSON.stringify(userData)
-    );
-
+    localStorage.setItem('user', JSON.stringify(userData));
     setUser(userData);
   };
 
   const logout = () => {
     localStorage.removeItem('user');
-
     setUser(null);
   };
 
