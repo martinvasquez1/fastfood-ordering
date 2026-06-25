@@ -2,16 +2,17 @@ import request from 'supertest';
 
 export const buildDriverSignupRequest = ({ httpServer, fakeImage, overrides = {} }) => {
   const dto = {
-    username: 'driver',
-    email: 'driver@driver.com',
-    password: '1',
-    RUT: '11.111.111-1',
+    username: 'John Coltrane',
+    email: 'john@gmail.com',
+    password: 'Coltrane!1965',
+    RUT: '17.353.123-6',
     vehicleType: 'car',
-    plateNumber: '123456',
-    address: 'abc',
-    phoneNumber: '123',
+    plateNumber: '159245',
+    address: '1000 Main St, Springfield, ST 12345',
+    phoneNumber: '925315345',
     ...overrides,
   };
+
 
   return request(httpServer)
     .post('/auth/sign-up-driver')
